@@ -1,0 +1,29 @@
+@charset "UTF-8";
+body{
+ font-family: 'Gothic A1', sans-serif;
+}
+
+div{
+    border: 1px solid;
+}
+
+.bann_box{
+   place-self: center;
+   padding: 7px;
+   color: black;
+}
+
+.bannerSub{
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+}
+
+.lgBox{
+   color: white;
+   border-radius: 7px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}

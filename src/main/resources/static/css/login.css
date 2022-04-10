@@ -1,0 +1,31 @@
+@charset "UTF-8";
+#loginbox{
+    margin: 0 auto;
+    height: 46em;
+}
+
+#idbox{
+	padding: 30px;
+}
+
+.chooseBox{
+   	color: #808080cf;
+    flex-direction: column;
+    text-align: center;
+    margin: 10px 50px 10px 50px;
+    height: 180px;
+    border: 1px solid #565656;
+    border-radius: 10px;
+   	cursor: pointer;
+}
+
+.selectedBox{
+    border-radius: 10px;
+    border: 2px solid #007eff96;
+    color: #007eff;
+    flex-direction: column;
+    text-align: center;
+    margin: 10px 50px 10px 50px;
+    height: 180px;
+    cursor: pointer;	
+}
