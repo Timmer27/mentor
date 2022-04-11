@@ -45,6 +45,8 @@
             </div>      
         </div>
         <div class = "d-flex col-lg-5 lgBox" style="place-content: end;">
+	        
+	        <c:if test="${id==null}">
             <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
 	            <a href = "/loginRegister/login"><p class="bannerSub" style="color: white;">
 	                로그인
@@ -55,6 +57,21 @@
                 	회원가입
 	            </p></a>
             </div>
+            </c:if>
+            
+            <c:if test="${id!=null}">
+            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
+	            <a href = "#"><p class="bannerSub" style="color: white;">
+	                마이페이지
+	            </p></a>
+            </div>
+            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
+	            <a href = "/loginRegister/logout" onclick="return kakaoLogout();"><p class="bannerSub" style="color: white;">
+                	로그아웃
+	            </p></a>
+            </div>
+            </c:if>
+            
         </div>
     </div>
     

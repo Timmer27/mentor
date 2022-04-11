@@ -17,6 +17,7 @@
     border: 1px solid #565656;
     border-radius: 10px;
    	cursor: pointer;
+    transition-duration: 0.5s;
 }
 
 .selectedBox{
@@ -27,5 +28,33 @@
     text-align: center;
     margin: 10px 50px 10px 50px;
     height: 180px;
-    cursor: pointer;	
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
+
+#idbox{
+    visibility: hidden;
+    flex-direction: column;
+    place-content: center;
+    max-height: 0;
+    transition-duration: 0.8s;
+/*     max-height: 600px; */
+}
+#idboxLogin{
+	justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+
+#idbox > div > div:nth-child(1),
+#idbox > div > div:nth-child(2),
+#idbox > div > div:nth-child(3),
+#idbox > div > div:nth-child(4),
+#idbox > div > div:nth-child(5),
+#idbox > div > div:nth-child(6),
+#idbox > div > div:nth-child(7){
+	    align-items: center;
+	
 }

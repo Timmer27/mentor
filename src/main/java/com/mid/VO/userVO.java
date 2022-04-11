@@ -10,7 +10,14 @@ public class userVO {
 	private String profile_image;
 	private String email;
 	private String gender;
+	private String userType;
 	
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 	public String getId() {
 		return id;
 	}
