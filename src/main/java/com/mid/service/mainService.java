@@ -10,6 +10,10 @@ public class mainService {
 
 	@Autowired
 	mainMapper mainMapper;
+
+	public int[] userCount() {
+		return mainMapper.userCount();
+	}
 		
 
 

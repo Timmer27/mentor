@@ -25,6 +25,10 @@
 		INSERT into ${userType}user VALUES (Null, #{id}, #{password}, #{nickname}, #{profile_image}, #{email}, #{gender})
 	</insert> 
 	
+	<insert id="kakaoRegister" parameterType="com.mid.VO.userVO">
+		INSERT into ${userType}user VALUES (Null, #{id}, #{password}, #{nickname}, #{profile_image}, #{email}, #{gender})
+	</insert> 
+	
 	
 	
 </mapper>

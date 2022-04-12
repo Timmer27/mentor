@@ -3,10 +3,6 @@ body{
  font-family: 'Gothic A1', sans-serif;
 }
 
-div{
-    border: 1px solid;
-}
-
 .bann_box{
    place-self: center;
    padding: 7px;

@@ -17,5 +17,4 @@ public class SpringwebApplication {
     public ServerEndpointExporter serverEndpointExporter() {
         return new ServerEndpointExporter();
     }
-
 }

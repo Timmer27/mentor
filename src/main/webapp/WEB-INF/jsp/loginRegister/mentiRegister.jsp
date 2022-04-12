@@ -9,7 +9,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/register.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,48 +77,55 @@
     </div>
     
     <!-- 메인 시작 -->
-	<form id='login' class="container mt-4 mb-4">
-		<main id = 'loginbox' class='d-flex col-7'>
-
-			<div class='d-flex col-5' style="flex-direction: column; place-content: center; transiti">
-				<label class='d-flex chooseBox' for="mentor">
-					<img alt="" src="/image/mentor.png" class="m-auto mt-4" style="width: 75px;">
-					<span style="height: 28px;">멘토로 로그인하기</span>
-					<input type="radio" id="mentor" name="answer" value='mentor' style="margin: auto;">
-				</label>
-				<label class='d-flex chooseBox' for="menti" style="pointer">
-					<img alt="" src="/image/student.png" class="m-auto mt-4" style="width: 75px;">
-					<span style="height: 28px;">멘티로 로그인하기</span>
-					<input type="radio" id="menti" name="answer" value="menti" style="margin: auto;">
-				</label>
-			</div>
+	<form id='login' class="container mt-4 mb-4"><!-- onsubmit="return webRegister();" -->
+		<input type="hidden" name="l" value="loginForm">
+		<main id = 'loginbox' class='d-flex col-7' style="flex-direction: column;">
 						
-			<div id='idboxLogin' class="col-7 d-flex">
+			<div id='idbox' class="col-10 d-flex container" style="flex-direction: column; place-content: center;">
 				
-				<h3 class="mb-4 text-center ">로그인</h3>
-				<div class="input-group mb-3">
-					<input id='id' value="admin" name = 'id' type="text" class="form-control" placeholder="아이디를 입력해주세요" aria-label="Recipient's username" aria-describedby="button-addon2" required="required">
-				</div>
-				<div class="input-group mb-3">
-					<input id='password' value="1234" name="password" type="password" class="form-control" placeholder="비밀번호를 입력해주세요" aria-label="Recipient's username" aria-describedby="button-addon2" required="required">
-				</div>
-				
-				<div class = 'buttonBox'>
-					<div class = "d-flex col-7" style="margin: auto; justify-content: space-evenly;">
-						<a class="btn btn btn-dark" href="javascript:weblogin()" style="height: 45px; width: 88px">
-						<span style="vertical-align: -webkit-baseline-middle;">로그인</span>
-						</a>
-					    <a id="custom-login-btn" href="javascript:loginWithKakao()">
-						  	<img
-						    src="/image/kakao_login_large.png"
-						    width="90px"
-						    alt="카카오 로그인 버튼"/>
-						</a>				
+				<div class="col-12">
+					<div class="input-group mb-3">
+						<label for="nickname" class="col-3">닉네임</label><input id='nickname' value="test" name = 'nickname' type="text" class="form-control" placeholder="닉네임을 입력해주세요" aria-label="Recipient's nickname" aria-describedby="button-addon2" required="required">
+						<button id = 'dupButton' class="btn btn-outline-dark" type="button" onclick='return checkNickname();' >중복확인</button>
 					</div>
-					<div class="text-center" style="font-size: 13px;">
-						<div>아이디가 없으신가요?</div>
-						<div id='registerp'><a id='reghref' href="/loginRegister/register" style="color: #0d6efd !important;">회원가입 하러가기</a></div>
+					<div class="input-group mb-3">
+						<label for="id" class="col-3">아이디</label><input id='id' value="admin" name = 'id' type="text" class="form-control" placeholder="아이디를 입력해주세요" aria-label="Recipient's username" aria-describedby="button-addon2" required="required">
+						<button id = 'dupButton' class="btn btn-outline-dark" type="button" onclick='return checkId();' >중복확인</button>
 					</div>
+					<div class="input-group mb-3">
+						<label for="password" class="col-3">비밀번호</label><input id='password' value="1234" name = 'password' type="password" class="form-control" placeholder="비밀번호를 입력해주세요" aria-label="Recipient's password" aria-describedby="button-addon2" required="required">
+					</div>
+					<div class="input-group mb-3">
+						<label for="password" class="col-3">비밀번호 재입력</label><input id='password2' value="1234" name = 'password2' type="password" class="form-control" placeholder="동일한 비밀번호를 입력해주세요" aria-label="Recipient's password" aria-describedby="button-addon2" required="required">
+					</div>
+					<div class="input-group mb-3">
+						<label for="email" class="col-3">이메일</label><input id='email' value="whdghtpgml@gmail.com" name="email" type="email" class="form-control" placeholder="이메일을 입력해주세요" aria-label="Recipient's email" aria-describedby="button-addon2" required="required">
+					</div>
+					
+					<div class = 'buttonBox'>
+						<div class = "d-flex col-7 mb-2" style="margin: auto;">
+							<a class="btn btn btn-dark" id='registerA' href="javascript:webRegister()" style="height: 45px; width: 100%">
+							<span style="vertical-align: -webkit-baseline-middle;">회원가입</span>
+							</a>			
+						</div>
+						<div class = "d-flex col-7 mb-2" style="margin: auto; border-radius: 5px; justify-content: space-around; background-color: #fee500;">
+						    <a id="custom-login-btn" href="javascript:registerWithKakao()" style="width: 100%; text-align: center;">
+							  	<img
+							    src="/image/kakao_login_large.png"
+							    width="90px"
+							    alt="카카오 회원가입 버튼"/>
+								</a>	
+						</div>
+						<div class=text-center style="font-size: 13px; color: #808080c9;">
+							카카오톡으로 3초만에 로그인!
+						</div>
+						<div class="text-center" style="font-size: 13px;">
+							<div class="mt-2 mb-2">이미 회원이신가요?</div>
+							<a id='reghref' href="/loginRegister/login" style="color: #0d6efd !important;">로그인 하러 가기</a>
+						</div>
+					</div>
+					
+					
 				</div>
 			</div>
 			

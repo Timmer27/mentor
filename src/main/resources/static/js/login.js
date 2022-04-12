@@ -33,7 +33,6 @@ function loginWithKakao() {
 	}
 
 	var userType = $('input[name=answer]:checked').val();
-	console.log(userType);
 	window.Kakao.Auth.login({
 		success: function() {
 			window.Kakao.API.request({ // 사용자 정보 가져오기 
@@ -47,8 +46,6 @@ function loginWithKakao() {
 					formData.append("email", res.kakao_account.email)
 					formData.append("gender", res.kakao_account.gender)
 					formData.append("userType", userType)
-					
-					console.log(formData);
 
 					$.ajax({
 						data: formData,
@@ -80,6 +77,7 @@ function loginWithKakao() {
 		}
 	});
 }
+
 //웹 로그인
 function weblogin(){
 	
@@ -116,7 +114,7 @@ function weblogin(){
 }
 
 
-//회원가입 가입 종류에 따른 display 변경
+/*//회원가입 가입 종류에 따른 display 변경
 document.querySelector('#mentor').addEventListener('click', function(){
 	document.getElementById('idbox').style.visibility = "visible";
 	document.getElementById('idbox').style.maxHeight = "600px";
@@ -136,146 +134,7 @@ document.querySelector('#menti').addEventListener('click', function(){
 	document.getElementsByClassName('chooseBox')[1].style.height = "150px";
 
 	document.getElementById('typeBox').style.height = "25%";
-})
-
-
-var nickDup = false;
-var idDup = false;
-
-//중복확인 후 값 변경 시 false
-document.querySelector('#nickname').addEventListener('change', function(){
-	nickDup = false;
-})
-document.querySelector('#id').addEventListener('change', function(){
-	idDup = false;
-})
-
-//아이디 중복확인
-function checkId(){
-
-	//아이디에 특수문자 포함 시 alert
-	var specialChar = /[`~!@#$%^&*|\'\";:\/?]/;
-
-	var idValue = $('#id').val();
-	if(specialChar.test(idValue)){
-		alert('아이디에는 특수문자를 포함하실 수 없습니다')
-		return;
-	}
-
-	var formData = new FormData();
-
-	formData.append("userType", $('input[name=answer]:checked').val());
-	formData.append("id", $('#id').val());
-	
-	$.ajax({
-		data: formData,
-		dataType: 'json',
-		caches: false,
-		processData: false,
-		contentType: false, 		
-		method: 'post',
-		url: '/loginRegister/dupId',
-		success:function(res){
-			if(res.result){
-				alert('사용 가능한 아이디입니다');
-				idDup = true;
-			}
-			else{
-				alert('사용 불가능한 아이디입니다')
-			}
-		}
-	});
-}
-
-//닉네임 중복확인
-function checkNickname(){
-	var formData = new FormData();
-	
-	formData.append("userType", $('input[name=answer]:checked').val());
-	formData.append("nickname", $('#nickname').val());
-	
-	$.ajax({
-		data: formData,
-		dataType: 'json',
-		caches: false,
-		processData: false,
-		contentType: false, 
-		method: 'post',
-		url: '/loginRegister/dupNickname',
-		success:function(res){
-			if(res.result){
-				alert('사용 가능한 닉네임입니다');
-				nickDup = true;
-			}
-			else{
-				alert('사용 불가능한 닉네임입니다')
-			}
-		}
-	});
-}
-
-//웹 회원가입
-function webRegister(){
-
-	//중복체크 안되있을 시 alert
-	if(!(idDup)){
-		alert('아이디 중복확인을 먼저 해주세요')
-		return;
-	}
-	if(!(nickDup)){
-		alert('닉네임 중복확인을 먼저 해주세요')
-		return;
-	}
-
-	//비번에 특수문자 포함 시 alert
-	var specialChar = /[`~!@#$%^&*|\'\";:\/?]/;
-
-	if(specialChar.test($('#password').val())){
-		alert('아이디에는 특수문자를 포함하실 수 없습니다')
-	}
-
-	// 비밀번호가 동일하지 않을 시 return
-	var p1 = $('#password').val();
-	var p2 = $('#password2').val();
-
-	if(p1!=p2){
-		alert('비밀번호가 동일하지 않습니다')
-		return;
-	}
-
-	var formData = new FormData();
-	
-	formData.append("userType", $('input[name=answer]:checked').val());
-	formData.append("nickname", $('#nickname').val());
-	formData.append("id", $('#id').val());
-	formData.append("password", $('#password').val());
-	formData.append("profile_image", $('#profile_image').val());
-	formData.append("email", $('#email').val());
-
-	$.ajax({
-		data: formData,
-		dataType: 'json',
-		caches: false,
-		processData: false,
-		contentType: false,
-		method:'post',
-		url:'/loginRegister/webRegister',
-		success:function(res){
-			if(res.result){
-				alert('회원가입 성공!');
-				location.href="/loginRegister/login";
-			}
-			else{
-				alert('회원가입 실패')
-				location.href="/main";
-			}
-		}
-	});
-}
-
-
-
-
+})*/
 
 
 

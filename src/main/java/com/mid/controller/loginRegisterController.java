@@ -1,9 +1,14 @@
 package com.mid.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mid.VO.userVO;
 import com.mid.service.loginService;
@@ -21,7 +27,10 @@ import com.mid.service.loginService;
 @Controller
 @RequestMapping("/loginRegister")
 @SessionAttributes("id")
-public class loginController {
+public class loginRegisterController {
+	
+	@Autowired
+	ResourceLoader resourceLoader;
 	
 	@Autowired
 	loginService service;
@@ -58,10 +67,31 @@ public class loginController {
 		return false;
 	}
 	
-//	회원가입 페이지 이동
+//	기본 회원가입 페이지 이동
 	@GetMapping("/register")
-	public String register() {
-		return "/loginRegister/register";
+	public String register(@SessionAttribute(name = "id", required = false) String id) {
+		if(id!=null){
+			return "redirect:/main";
+		}
+		return "/loginRegister/registerChoose";
+	}
+	
+//	멘토 회원가입 페이지 이동
+	@GetMapping("/mentorRegister")
+	public String mentorRegister(@SessionAttribute(name = "id", required = false) String id) {
+		if(id!=null){
+			return "redirect:/main";
+		}
+		return "/loginRegister/mentorRegister";
+	}
+	
+//	멘티 회원가입 페이지 이동
+	@GetMapping("/mentiRegister")
+	public String mentiRegister(@SessionAttribute(name = "id", required = false) String id) {
+		if(id!=null){
+			return "redirect:/main";
+		}
+		return "/loginRegister/mentiRegister";
 	}
 	
 //	아이디 중복확인
@@ -86,12 +116,48 @@ public class loginController {
 	@PostMapping("/webRegister")
 	@ResponseBody
 	public  Map<String, Boolean> webRegister(userVO vo) {
+		
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		map.put("result", service.webRegister(vo));
-		return map;
 		
+		return map;
 	}
 	
+//	카카오톡 회원가입
+	@PostMapping("/kakaoRegister")
+	@ResponseBody
+	public  Map<String, Boolean> kakaoRegister(userVO vo, Model m) {
+		if(service.kakaoRegister(vo)) {
+			m.addAttribute("id");
+		}
+		
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		map.put("result", service.kakaoRegister(vo));
+		
+		return map;	
+	}
+	
+	@PostMapping("/uploadProfile")
+	@ResponseBody
+	public Map<String, Boolean> uploadProfile(@RequestParam(name = "picture")MultipartFile mfile, HttpServletResponse response) {
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		System.err.println(mfile.getOriginalFilename());
+		String uploadPath = "/C:\\Eclipse\\mentor\\src\\main\\resources\\static\\upload";
+		
+		File file = new File(uploadPath, mfile.getOriginalFilename());
+		
+		try {
+			mfile.transferTo(file);
+			map.put("result", true);
+			return map;
+			
+		} catch (IllegalStateException | IOException e) {
+			System.err.println(e.getMessage());
+			map.put("result", false);
+			return map;
+		}
+	
+	}	
 	
 	
 //	로그아웃

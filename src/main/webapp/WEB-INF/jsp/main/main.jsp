@@ -18,34 +18,34 @@
 </head>
 <body>
 <!-- top -->
-    <div class = "d-flex container" style=''>
-        <div class='col-lg-1'>
-            <a href="/main"><img src="/image/logo.png" alt="" style='width: 75px; margin-left: 15px;'></a>
+    <div class = "d-flex" style='border-bottom: 1px solid #6d6d6d8a;'>
+        <div class='col-lg-1' style="padding-left: 12px;">
+           <a href="/main"><img src="/image/logo.png" alt="" style='width: 75px; margin-left: 15px;'></a>
         </div>
-        <div class = "d-flex col-lg-6" style="color: #000000ab;">
-            <div class = "col-lg-2 bann_box mx-1">
+        <div class = "d-flex col-lg-7" style="color: #000000ab;">
+            <div class = "col-lg-1 bann_box mx-1">
 	            <a href="#"><p class="bannerSub">
 	                멘토해주기
 	            </p></a>
             </div>      
-            <div class = "col-lg-2 bann_box mx-1">
+            <div class = "col-lg-1 bann_box mx-1">
 	            <a href="#"><p class="bannerSub">
 	                멘티받기
 	            </p></a>
             </div>      
-            <div class = "col-lg-2 bann_box mx-1">
+            <div class = "col-lg-1 bann_box mx-1">
 	            <a href="#"><p class="bannerSub">
 	                멘톨후기
 	            </p></a>
             </div>      
-            <div class = "col-lg-2 bann_box mx-1">
+            <div class = "col-lg-1 bann_box mx-1">
 	            <a href="#"><p class="bannerSub">
 	                사용방법
 	            </p></a>
             </div>      
         </div>
-        <div class = "d-flex col-lg-5 lgBox" style="place-content: end;">
-	        
+        <div class="d-flex col-lg-4 lgBox" style="place-content: end; padding-right: 30px;">
+        
 	        <c:if test="${id==null}">
             <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
 	            <a href = "/loginRegister/login"><p class="bannerSub" style="color: white;">
@@ -60,13 +60,13 @@
             </c:if>
             
             <c:if test="${id!=null}">
-            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
+            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #4598ace3;">
 	            <a href = "#"><p class="bannerSub" style="color: white;">
 	                마이페이지
 	            </p></a>
             </div>
             <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
-	            <a href = "/loginRegister/logout" onclick="return kakaoLogout();"><p class="bannerSub" style="color: white;">
+	            <a href = "/loginRegister/logout"><p class="bannerSub" style="color: white;">
                 	로그아웃
 	            </p></a>
             </div>
@@ -145,18 +145,35 @@
     </div>
 
     <!-- 중단 활통 status -->
-    <div class='container d-flex mb-4' style="height: 120px;">
-        <div class='col-lg-3'>
-            로고?
+    <div class='container d-flex mb-2' style="height: 120px; flex-direction: column;">
+
+        <div class="d-flex col-10" style="align-self: center;">
+	        <div class='col-lg-3'>
+	            로고?
+	        </div>
+	        <c:forEach var="count" items="${userCount}">
+		        <div class='col-lg-3'>
+					${count}	        
+		        </div>
+	        </c:forEach>
+	        <div class='col-lg-3'>
+	            STH
+	        </div>
         </div>
-        <div class='col-lg-3'>
-            감사한 멘토분들
-        </div>
-        <div class='col-lg-3'>
-            미래의 멘톨님들
-        </div>
-        <div class='col-lg-3'>
-            오늘의 멘톨 숫자
+        	
+		<div class="d-flex col-12" style="align-self: center;">
+	        <div class='col-lg-3'>
+	            로고?
+	        </div>
+	        <div class='col-lg-3'>
+	            감사한 멘토분들
+	        </div>
+	        <div class='col-lg-3'>
+	            미래의 멘톨님들
+	        </div>
+	        <div class='col-lg-3'>
+	            오늘의 멘톨 숫자 - 고민해결
+	        </div>
         </div>
     </div>
 

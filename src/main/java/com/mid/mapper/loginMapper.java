@@ -21,4 +21,6 @@ public interface loginMapper {
 
 	int webRegister(userVO vo);
 
+	int kakaoRegister(userVO vo);
+
 }

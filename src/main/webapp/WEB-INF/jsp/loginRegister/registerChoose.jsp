@@ -9,7 +9,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/register.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,49 +77,22 @@
     </div>
     
     <!-- 메인 시작 -->
-	<form id='login' class="container mt-4 mb-4">
-		<main id = 'loginbox' class='d-flex col-7'>
-
-			<div class='d-flex col-5' style="flex-direction: column; place-content: center; transiti">
-				<label class='d-flex chooseBox' for="mentor">
-					<img alt="" src="/image/mentor.png" class="m-auto mt-4" style="width: 75px;">
-					<span style="height: 28px;">멘토로 로그인하기</span>
-					<input type="radio" id="mentor" name="answer" value='mentor' style="margin: auto;">
-				</label>
-				<label class='d-flex chooseBox' for="menti" style="pointer">
-					<img alt="" src="/image/student.png" class="m-auto mt-4" style="width: 75px;">
-					<span style="height: 28px;">멘티로 로그인하기</span>
-					<input type="radio" id="menti" name="answer" value="menti" style="margin: auto;">
-				</label>
-			</div>
-						
-			<div id='idboxLogin' class="col-7 d-flex">
-				
-				<h3 class="mb-4 text-center ">로그인</h3>
-				<div class="input-group mb-3">
-					<input id='id' value="admin" name = 'id' type="text" class="form-control" placeholder="아이디를 입력해주세요" aria-label="Recipient's username" aria-describedby="button-addon2" required="required">
-				</div>
-				<div class="input-group mb-3">
-					<input id='password' value="1234" name="password" type="password" class="form-control" placeholder="비밀번호를 입력해주세요" aria-label="Recipient's username" aria-describedby="button-addon2" required="required">
-				</div>
-				
-				<div class = 'buttonBox'>
-					<div class = "d-flex col-7" style="margin: auto; justify-content: space-evenly;">
-						<a class="btn btn btn-dark" href="javascript:weblogin()" style="height: 45px; width: 88px">
-						<span style="vertical-align: -webkit-baseline-middle;">로그인</span>
-						</a>
-					    <a id="custom-login-btn" href="javascript:loginWithKakao()">
-						  	<img
-						    src="/image/kakao_login_large.png"
-						    width="90px"
-						    alt="카카오 로그인 버튼"/>
-						</a>				
+	<form id='login' class="container mt-4 mb-4"><!-- onsubmit="return webRegister();" -->
+		<main id = 'loginbox' class='d-flex col-7 m-auto' style="flex-direction: column;">
+			<div class=text-center style="font-size: 22px;">어떤 분으로 오셨나요?</div>
+			<div class='d-flex col-12' id='typeBox'>
+				<a class='col-4' href="/loginRegister/mentorRegister" style="height: 230px; margin: auto;">
+					<div class="text-center userType shadow" style="">
+						<img alt="" src="/image/mentor.png" class="m-auto mt-4" style="width: 90px;">
+						<p style="height: 28px; margin: 50px 0px 50px 0px;">멘토로 회원가입하기</p>
 					</div>
-					<div class="text-center" style="font-size: 13px;">
-						<div>아이디가 없으신가요?</div>
-						<div id='registerp'><a id='reghref' href="/loginRegister/register" style="color: #0d6efd !important;">회원가입 하러가기</a></div>
+				</a>
+				<a class='col-4' href="/loginRegister/mentiRegister" style="height: 230px; margin: auto;">
+					<div class="text-center userType shadow" style="">
+						<img alt="" src="/image/student.png" class="m-auto mt-4" style="width: 90px;">
+						<p style="height: 28px; margin: 50px 0px 50px 0px;">멘티로 회원가입하기</p>
 					</div>
-				</div>
+				</a>
 			</div>
 			
 		</main>
@@ -143,10 +116,7 @@
         </footer>
     </div>
     
-    <!-- 카카오톡 로그인 API 연동 -->
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    
-    <script src="/js/login.js?<%=System.currentTimeMillis()%>"></script>
+    <script src="/js/register.js?<%=System.currentTimeMillis()%>"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

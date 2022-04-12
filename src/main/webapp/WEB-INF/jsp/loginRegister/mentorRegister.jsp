@@ -9,7 +9,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/register.css?<%=System.currentTimeMillis()%>">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,33 +19,33 @@
 </head>
 <body>
 <!-- top -->
-    <div class = "d-flex container" style=''>
-        <div class='col-lg-1'>
+    <div class = "d-flex" style='border-bottom: 1px solid #6d6d6d8a;'>
+        <div class='col-lg-1' style="padding-left: 12px;">
            <a href="/main"><img src="/image/logo.png" alt="" style='width: 75px; margin-left: 15px;'></a>
         </div>
-        <div class = "d-flex col-lg-6" style="color: #000000ab;">
-            <div class = "col-lg-2 bann_box mx-1">
+        <div class = "d-flex col-lg-7" style="color: #000000ab;">
+            <div class = "col-lg-1 bann_box mx-1">
 	            <a href="#"><p class="bannerSub">
 	                멘토해주기
 	            </p></a>
             </div>      
-            <div class = "col-lg-2 bann_box mx-1">
+            <div class = "col-lg-1 bann_box mx-1">
 	            <a href="#"><p class="bannerSub">
 	                멘티받기
 	            </p></a>
             </div>      
-            <div class = "col-lg-2 bann_box mx-1">
+            <div class = "col-lg-1 bann_box mx-1">
 	            <a href="#"><p class="bannerSub">
 	                멘톨후기
 	            </p></a>
             </div>      
-            <div class = "col-lg-2 bann_box mx-1">
+            <div class = "col-lg-1 bann_box mx-1">
 	            <a href="#"><p class="bannerSub">
 	                사용방법
 	            </p></a>
             </div>      
         </div>
-        <div class="d-flex col-lg-5 lgBox" style="place-content: end;">
+        <div class="d-flex col-lg-4 lgBox" style="place-content: end; padding-right: 30px;">
         
 	        <c:if test="${id==null}">
             <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
@@ -61,7 +61,7 @@
             </c:if>
             
             <c:if test="${id!=null}">
-            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
+            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #4598ace3;">
 	            <a href = "#"><p class="bannerSub" style="color: white;">
 	                마이페이지
 	            </p></a>
@@ -77,36 +77,49 @@
     </div>
     
     <!-- 메인 시작 -->
-	<form id='login' class="container mt-4 mb-4">
+	<form id='login' class="container mt-4 mb-4" ><!-- 	onsubmit="return webRegister();" -->
 		<input type="hidden" name="l" value="loginForm">
-		<main id = 'loginbox' class='d-flex col-7' style="flex-direction: column;">
+	
+		
+		<main id = 'loginbox' class='d-flex col-7' style="flex-direction: column; height: 52em">
 
-			<div class='d-flex col-10 m-auto' id='typeBox' style="place-content: center; height: 60%; transition-duration: 0.5s;">
-				<label class='d-flex chooseBox col-4' for="mentor" style="height: 230px; margin: auto;">
-					<img alt="" src="/image/mentor.png" class="m-auto mt-4" style="width: 75px;">
-					<span style="height: 28px;">멘토로 회원가입하기</span>
-					<input type="radio" id="mentor" name="answer" value='mentor' style="margin: auto;">
-				</label>
-				<label class='d-flex chooseBox col-4' for="menti" style="height: 230px; margin: auto;">
-					<img alt="" src="/image/student.png" class="m-auto mt-4" style="width: 75px;">
-					<span style="height: 28px;">멘티로 회원가입하기</span>
-					<input type="radio" id="menti" name="answer" value="menti" style="margin: auto;">
-				</label>
+			<div class = "d-flex col-7 mb-2" style="margin: auto; border-radius: 5px; justify-content: space-around; background-color: #fee500; width: 30%;">
+			    <a id="custom-login-btn" href="javascript:registerWithKakaoMentor()" style="width: 100%; text-align: center;">
+				  	<img
+				    src="/image/kakao_login_large.png"
+				    width="90px"
+				    alt="카카오 회원가입 버튼"/>
+					</a>	
 			</div>
+									
+			<div class=text-center style="font-size: 13px; color: #808080c9; margin-bottom: 10px">
+				카카오톡으로 3초만에 로그인!
+			</div>	
 						
-			<div id='idbox' class="col-10 d-flex container" style="flex-direction: column; place-content: center;">
+			<div id='idbox' class="col-9 d-flex container" style="">
 				
 				<div class="col-12">
+					<h2 class="text-center">환영합니다!</h3>
 					<div class="input-group mb-3">
 						<label for="nickname" class="col-3">닉네임</label><input id='nickname' value="test" name = 'nickname' type="text" class="form-control" placeholder="닉네임을 입력해주세요" aria-label="Recipient's nickname" aria-describedby="button-addon2" required="required">
-						<button id = 'dupButton' class="btn btn-outline-dark" type="button" onclick='return checkNickname();' >중복확인</button>
-					</div>
-					<div class="input-group mb-3">
-						<label for="profile_image" class="col-3">대표사진</label><input id='profile_image' name = 'profile_image' type="file" class="form-control" aria-label="Recipient's profile" aria-describedby="button-addon2">
+						<button id = 'dupButton' class="btn btn-outline-dark" type="button" onclick='return checkNicknameMentor();' >중복확인</button>
+					</div>	
+					<div class='d-flex' style="height: 200px; justify-content: space-between; margin-bottom: 10px;">
+						<label for="profile_picture" class='col-7 m-auto'>프로필 사진</label>						
+						<input type="file" name="profile_picture" id="file" style="display: block;">
+						<div class="d-flex flex-column col-3" style="align-items: center; justify-content: space-around;">
+							<c:if test="${profile_picture==null}">
+								<img id="img" class="roundborder" src="/image/user.png">
+							</c:if>
+							<c:if test="${profile_picture!=null}">
+								<img class="roundborder">
+							</c:if>
+							<button id="picButton" type="submit">업로드</button>
+						</div>
 					</div>
 					<div class="input-group mb-3">
 						<label for="id" class="col-3">아이디</label><input id='id' value="admin" name = 'id' type="text" class="form-control" placeholder="아이디를 입력해주세요" aria-label="Recipient's username" aria-describedby="button-addon2" required="required">
-						<button id = 'dupButton' class="btn btn-outline-dark" type="button" onclick='return checkId();' >중복확인</button>
+						<button id = 'dupButton2' class="btn btn-outline-dark" type="button" onclick='return checkIdmentor();' >중복확인</button>
 					</div>
 					<div class="input-group mb-3">
 						<label for="password" class="col-3">비밀번호</label><input id='password' value="1234" name = 'password' type="password" class="form-control" placeholder="비밀번호를 입력해주세요" aria-label="Recipient's password" aria-describedby="button-addon2" required="required">
@@ -115,7 +128,7 @@
 						<label for="password" class="col-3">비밀번호 재입력</label><input id='password2' value="1234" name = 'password2' type="password" class="form-control" placeholder="동일한 비밀번호를 입력해주세요" aria-label="Recipient's password" aria-describedby="button-addon2" required="required">
 					</div>
 					<div class="input-group mb-3">
-						<label for="password" class="col-3">이메일</label><input id='email' value="whdghtpgml@gmail.com" name="email" type="email" class="form-control" placeholder="이메일을 입력해주세요" aria-label="Recipient's email" aria-describedby="button-addon2" required="required">
+						<label for="email" class="col-3">이메일</label><input id='email' value="whdghtpgml@gmail.com" name="email" type="email" class="form-control" placeholder="이메일을 입력해주세요" aria-label="Recipient's email" aria-describedby="button-addon2" required="required">
 					</div>
 					
 					<div class = 'buttonBox'>
@@ -124,20 +137,11 @@
 							<span style="vertical-align: -webkit-baseline-middle;">회원가입</span>
 							</a>			
 						</div>
-						<div class = "d-flex col-7 mb-2" style="margin: auto; border-radius: 5px; justify-content: space-around; background-color: #fee500;">
-						    <a id="custom-login-btn" href="javascript:registerWithKakao()">
-							  	<img
-							    src="/image/kakao_login_large.png"
-							    width="90px"
-							    alt="카카오 로그인 버튼"/>
-								</a>	
-						</div>
+					</div>
 						<div class="text-center" style="font-size: 13px;">
 							<div class="mt-2 mb-2">이미 회원이신가요?</div>
 							<a id='reghref' href="/loginRegister/login" style="color: #0d6efd !important;">로그인 하러 가기</a>
-						</div>
-					</div>
-					
+						</div>					
 					
 				</div>
 			</div>
@@ -166,7 +170,7 @@
     <!-- 카카오톡 로그인 API 연동 -->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     
-    <script src="/js/login.js?<%=System.currentTimeMillis()%>"></script>
+    <script src="/js/register.js?<%=System.currentTimeMillis()%>"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

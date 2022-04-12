@@ -1,0 +1,65 @@
+@charset "UTF-8";
+#loginbox{
+    margin: 0 auto;
+    height: 45em;
+    place-content: center;
+	    
+}
+
+#picButton{
+	width: fit-content;
+    color: #004ba8;
+    background-color: white;
+    border: 1px solid;
+    border-radius: 4px;
+}
+
+#typeBox{
+	place-content: center;
+	height: 48%;
+}
+
+.userType{
+    color: gray;
+    height: 100%;
+    border: 1px solid gray;
+    border-radius: 7px;
+}
+.userType:hover{
+color: #1a8bff;
+    height: 100%;
+    border: 2px solid #1a8bff;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+#idbox{
+	padding: 30px;
+	flex-direction: column;
+	place-content: center;
+	border: 1px solid;
+	border-radius: 5px;
+}
+
+.roundborder{
+	    width: 150px;
+    border-radius: 50%;
+    height: 150px;
+    border: 1px solid;
+}
+
+#idboxLogin{
+	justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* #idbox > div > div:nth-child(1),
+#idbox > div > div:nth-child(2),
+#idbox > div > div:nth-child(3),
+#idbox > div > div:nth-child(4),
+#idbox > div > div:nth-child(5),
+#idbox > div > div:nth-child(6),
+#idbox > div > div:nth-child(7){
+	    align-items: center;
+} */

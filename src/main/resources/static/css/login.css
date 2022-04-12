@@ -46,6 +46,14 @@
     height: 100%;
 }
 
+#kakaoButton{
+	align-self: center;
+	margin: auto;
+	border-radius: 5px;
+	width: 27%;
+	justify-content: space-around;
+	background-color: #fee500;
+}
 
 
 #idbox > div > div:nth-child(1),
@@ -56,5 +64,8 @@
 #idbox > div > div:nth-child(6),
 #idbox > div > div:nth-child(7){
 	    align-items: center;
-	
+}
+.col-3:after{
+   content:"*";
+   color:red;
 }
