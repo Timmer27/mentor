@@ -37,7 +37,6 @@ color: #1a8bff;
 	padding: 30px;
 	flex-direction: column;
 	place-content: center;
-	border: 1px solid;
 	border-radius: 5px;
 }
 
@@ -45,21 +44,36 @@ color: #1a8bff;
 	    width: 150px;
     border-radius: 50%;
     height: 150px;
-    border: 1px solid;
+    border: 1px solid gray;
 }
 
 #idboxLogin{
-	justify-content: center;
+	justify-content: end;
     flex-direction: column;
     height: 100%;
 }
+#idbox > div > div:nth-child(2) > label:after{
+	content : "*";
+	color:red;
+}
+#idbox > div > div:nth-child(4) > label:after{
+	content : "*";
+	color:red;
+}
+#idbox > div > div:nth-child(5) > label:after{
+	content : "*";
+	color:red;
+}
+#idbox > div > div:nth-child(6) > label:after{
+	content : "*";
+	color:red;
+}
+#idbox > div > div:nth-child(7) > label:after{
+	content : "*";
+	color:red;
+}
 
-/* #idbox > div > div:nth-child(1),
-#idbox > div > div:nth-child(2),
-#idbox > div > div:nth-child(3),
-#idbox > div > div:nth-child(4),
-#idbox > div > div:nth-child(5),
-#idbox > div > div:nth-child(6),
-#idbox > div > div:nth-child(7){
-	    align-items: center;
-} */
+.socialLogin{
+	text-align: center;
+	margin: 25px 0px 10px 0px;
+}

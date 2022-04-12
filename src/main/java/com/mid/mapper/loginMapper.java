@@ -23,4 +23,8 @@ public interface loginMapper {
 
 	int kakaoRegister(userVO vo);
 
+	int GoogleRegister(userVO vo);
+
+	int Googlelogin(userVO vo);
+
 }

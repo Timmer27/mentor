@@ -1,7 +1,12 @@
 @charset "UTF-8";
 #loginbox{
     margin: 0 auto;
-    height: 46em;
+	height: 33em;
+}
+
+#login{
+	padding-top: 100px;
+    height: 45rem;
 }
 
 #idbox{
@@ -44,6 +49,7 @@
 	justify-content: center;
     flex-direction: column;
     height: 100%;
+    align-items: center;
 }
 
 #kakaoButton{
@@ -53,6 +59,10 @@
 	width: 27%;
 	justify-content: space-around;
 	background-color: #fee500;
+}
+
+.input-group{
+	    width: 70%;
 }
 
 
@@ -68,4 +78,13 @@
 .col-3:after{
    content:"*";
    color:red;
+}
+
+.socialLogin{
+	place-content: center;
+	margin: 46px 0px 10px 0px;
+	border-top: 1px solid #8080804d;
+}
+.socialLoginButton{
+	margin-top: 10px;
 }

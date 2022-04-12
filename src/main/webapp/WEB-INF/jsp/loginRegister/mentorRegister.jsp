@@ -6,6 +6,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 구글 metaData -->
+<meta name ="google-signin-client_id" content="5064153677-5uat22rd1jbqlbb9fcrvv3dvjnlqi8c5.apps.googleusercontent.com">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/main.css">
@@ -76,38 +78,62 @@
         </div>
     </div>
     
+    <div>
+    
     <!-- 메인 시작 -->
 	<form id='login' class="container mt-4 mb-4" ><!-- 	onsubmit="return webRegister();" -->
 		<input type="hidden" name="l" value="loginForm">
 	
 		
-		<main id = 'loginbox' class='d-flex col-7' style="flex-direction: column; height: 52em">
+		<main id = 'loginbox' class='d-flex col-7' style="flex-direction: column; height: 55em">
+			<div>
 
-			<div class = "d-flex col-7 mb-2" style="margin: auto; border-radius: 5px; justify-content: space-around; background-color: #fee500; width: 30%;">
-			    <a id="custom-login-btn" href="javascript:registerWithKakaoMentor()" style="width: 100%; text-align: center;">
+			</div>
+			<div class = "d-flex col-7 mb-2 socialLogin " style="margin: auto; border-radius: 5px; justify-content: inherit; width: 30%;">
+			    <!-- 카카오톡 -->
+			    <a id="custom-login-btn"  class="socialLogin" href="javascript:registerWithKakaoMentor()">
 				  	<img
-				    src="/image/kakao_login_large.png"
-				    width="90px"
+				    src="/image/kakao_login.png"
+				    style="margin-right: 6px;"
+				    width="60px"
 				    alt="카카오 회원가입 버튼"/>
-					</a>	
+					</a>
+			    <!-- 네이버 -->
+				<a id="naverIdLogin_loginButton" class="socialLogin" href="javascript:void(0)">
+    	    	  <img
+					width="60px"
+				    style="margin-right: 6px;"
+					alt="네이버 회원가입 버튼"
+    	    	  	src="/image/naver_login.png" />
+				</a>					
+				
+			    <!-- 구글 -->
+				  <a id="GgCustomLogin" class="socialLogin" href="javascript:init()" style="background-color: #ebe8e882;">
+    	    	  <img
+					width="60px"
+					style="padding-top: 4px; border-radius: 5px;"
+					alt="구글 회원가입 버튼" 
+    	    	  	src="/image/googleLogo.png" />
+				</a>	
 			</div>
 									
 			<div class=text-center style="font-size: 13px; color: #808080c9; margin-bottom: 10px">
-				카카오톡으로 3초만에 로그인!
+				소셜로그인으로 3초만에 회원가입!
+<!-- 			<button id="btn_logout">로그아웃</button> -->
 			</div>	
 						
-			<div id='idbox' class="col-9 d-flex container" style="">
+			<div id='idbox' class="col-9 d-flex container shadow" style="">
 				
 				<div class="col-12">
-					<h2 class="text-center">환영합니다!</h3>
+					<h4 class="text-center" style="margin-bottom: 30px;">환영합니다!</h4>
 					<div class="input-group mb-3">
 						<label for="nickname" class="col-3">닉네임</label><input id='nickname' value="test" name = 'nickname' type="text" class="form-control" placeholder="닉네임을 입력해주세요" aria-label="Recipient's nickname" aria-describedby="button-addon2" required="required">
 						<button id = 'dupButton' class="btn btn-outline-dark" type="button" onclick='return checkNicknameMentor();' >중복확인</button>
 					</div>	
 					<div class='d-flex' style="height: 200px; justify-content: space-between; margin-bottom: 10px;">
 						<label for="profile_picture" class='col-7 m-auto'>프로필 사진</label>						
-						<input type="file" name="profile_picture" id="file" style="display: block;">
-						<div class="d-flex flex-column col-3" style="align-items: center; justify-content: space-around;">
+						<input type="file" name="profile_picture" id="file" style="display: hidden;">
+						<div class="d-flex flex-column col-5" style="align-items: center; justify-content: space-around;">
 							<c:if test="${profile_picture==null}">
 								<img id="img" class="roundborder" src="/image/user.png">
 							</c:if>
@@ -125,10 +151,15 @@
 						<label for="password" class="col-3">비밀번호</label><input id='password' value="1234" name = 'password' type="password" class="form-control" placeholder="비밀번호를 입력해주세요" aria-label="Recipient's password" aria-describedby="button-addon2" required="required">
 					</div>
 					<div class="input-group mb-3">
-						<label for="password" class="col-3">비밀번호 재입력</label><input id='password2' value="1234" name = 'password2' type="password" class="form-control" placeholder="동일한 비밀번호를 입력해주세요" aria-label="Recipient's password" aria-describedby="button-addon2" required="required">
+						<label for="password" class="col-3">비밀번호 확인</label><input id='password2' value="1234" name = 'password2' type="password" class="form-control" placeholder="동일한 비밀번호를 입력해주세요" aria-label="Recipient's password" aria-describedby="button-addon2" required="required">
 					</div>
 					<div class="input-group mb-3">
 						<label for="email" class="col-3">이메일</label><input id='email' value="whdghtpgml@gmail.com" name="email" type="email" class="form-control" placeholder="이메일을 입력해주세요" aria-label="Recipient's email" aria-describedby="button-addon2" required="required">
+					</div>
+					<div class="input-group mb-3 col-12">
+						<div class="col-12 text-center">
+							<input id='agreement' name="agreement" type="checkbox" style="margin: 6px 6px 20px 6px;"><span>개인정보 처리방침 및 이용약관에 동의합니다</span>
+						</div>
 					</div>
 					
 					<div class = 'buttonBox'>
@@ -148,7 +179,8 @@
 			
 		</main>
 	</form>
-    
+	</div>
+
     <!-- footer -->
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -169,6 +201,10 @@
     
     <!-- 카카오톡 로그인 API 연동 -->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- 네이버 로그인 API연동  -->
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+    <!-- 구글 로그인 API 연동 -->
+    <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
     
     <script src="/js/register.js?<%=System.currentTimeMillis()%>"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

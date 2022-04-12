@@ -23,26 +23,55 @@
            <a href="/main"><img src="/image/logo.png" alt="" style='width: 75px; margin-left: 15px;'></a>
         </div>
         <div class = "d-flex col-lg-7" style="color: #000000ab;">
-            <div class = "col-lg-1 bann_box mx-1">
-	            <a href="#"><p class="bannerSub">
-	                멘토해주기
-	            </p></a>
-            </div>      
-            <div class = "col-lg-1 bann_box mx-1">
-	            <a href="#"><p class="bannerSub">
-	                멘티받기
-	            </p></a>
-            </div>      
-            <div class = "col-lg-1 bann_box mx-1">
-	            <a href="#"><p class="bannerSub">
-	                멘톨후기
-	            </p></a>
-            </div>      
-            <div class = "col-lg-1 bann_box mx-1">
-	            <a href="#"><p class="bannerSub">
-	                사용방법
-	            </p></a>
-            </div>      
+            <c:set var="userType" value="${userType}"/>
+	            <c:if test="${userType==null}">
+		            <div class = "col-lg-1 bann_box mx-1">
+			            <a href="#"><p class="bannerSub">
+			                멘톨후기
+			            </p></a>
+		            </div>      
+		            <div class = "col-lg-1 bann_box mx-1">
+			            <a href="#"><p class="bannerSub">
+			                사용방법
+			            </p></a>
+		            </div>  
+	            </c:if>            
+	            <c:if test="${userType eq 'mentor'}">
+		            <div class = "col-lg-1 bann_box mx-1">
+			            <a href="#"><p class="bannerSub">
+			                멘토하기
+			            </p></a>
+		            </div>      
+		            <div class = "col-lg-1 bann_box mx-1">
+			            <a href="#"><p class="bannerSub">
+			                멘톨후기
+			            </p></a>
+		            </div>      
+		            <div class = "col-lg-1 bann_box mx-1">
+			            <a href="#"><p class="bannerSub">
+			                사용방법
+			            </p></a>
+		            </div>  
+	            </c:if>
+	            <c:if test="${usreType eq 'menti'}">
+		            <div class = "col-lg-1 bann_box mx-1">
+			            <a href="#"><p class="bannerSub">
+			                질문하기
+			            </p></a>
+		            </div>      
+		            <div class = "col-lg-1 bann_box mx-1">
+			            <a href="#"><p class="bannerSub">
+			                멘톨후기
+			            </p></a>
+		            </div>      
+		            <div class = "col-lg-1 bann_box mx-1">
+			            <a href="#"><p class="bannerSub">
+			                사용방법
+			            </p></a>
+		            </div>  
+	            
+	            </c:if>
+                
         </div>
         <div class="d-flex col-lg-4 lgBox" style="place-content: end; padding-right: 30px;">
         
@@ -67,7 +96,7 @@
             </div>
             <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
 	            <a href = "/loginRegister/logout"><p class="bannerSub" style="color: white;">
-                	로그아웃
+                	로그아웃 ${userType}
 	            </p></a>
             </div>
             </c:if>
@@ -117,7 +146,8 @@
 		  </button>
 		</div>
 		<!-- 랭킹 배너 -->
-        <div class = "col-lg-4" style="margin: 15px; flex-direction: column;">
+        <div class = "col-lg-4 d-flex flex-column" style="margin: 15px; flex-direction: column; align-items: center;">
+        	<div>오늘의 멘톨왕</div>
         	<div class="mx-4">
 	            <p class="mt-2 mb-2">
 	            	<img src="/image/mentorLogo.png" alt="" style='width: 60px;'><span>홍길동</span><span>10회</span>
@@ -177,9 +207,67 @@
         </div>
     </div>
 
-    <!-- 후기 -->
+    <!-- 후기 및 고민방 -->
+    <hr>
     <div class='container' style="height: 55rem;">
+    	<p class="text-center" style="font-size: 17px;">오늘의 고민</p>
+        
+        <div class='col-lg-12 d-flex' style="height: 18em; justify-content: center;">
+            
+            <a class="col-lg-3 col-md-3 col-sm-3 mt-4 mb-3 mx-3 questionBox" href="#">
+            	<div class="questionCard">
+            		<h5 class="card-title">2022.04.12</h5>
+            		
+            		<div class="profileImage col-12 d-flex flex-column">
+            			<div class="questionTitle">질문 제목</div>
+            			<div class="questionContent">내용 : 운동을 어떻게 해야할 지 고민입니다... 사레레할까요 벤치들까요?</div>
+	            		<div class="col-6 profileInfo">
+	            			<span>100 point</span>
+	            			<img alt="profile pic" src="/image/logo.jpg" class="questionProfileLogo">
+	            		</div>
+            		</div>
+            	</div>
+            </a>
+            
+        
+<!--         <div class='col-lg-12 d-flex' style="height: 25em; justify-content: center;">
+            <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
+            	<img class="card-img-top" src="/image/test.jpg" alt="">
+            	<div class="card-body">
+            		<h5 class="card-title">Card title</h5>
+            		<p class="card-text">
+            			This is a wider card with supporting text below
+            		</p>
+            	</div>
+            </div>
+            <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
+            	<img class="card-img-top" src="/image/test.jpg" alt="">
+            	<div class="card-body">
+            		<h5 class="card-title">Card title</h5>
+            		<p class="card-text">
+            			This is a wider card with supporting text below
+            		</p>
+            	</div>
+            </div>
+            <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
+            	<img class="card-img-top" src="/image/test.jpg" alt="">
+            	<div class="card-body">
+            		<h5 class="card-title">Card title</h5>
+            		<p class="card-text">
+            			This is a wider card with supporting text below
+            		</p>
+            	</div>
+            </div>
+        </div> -->
+        
+    </div>
+<!--     후기 및 고민방
+    <hr>
+    <div class='container' style="height: 55rem;">
+    	<p class="text-center" style="font-size: 25px;">오늘의 고민방</p>
+        
         <div class='col-lg-12 d-flex' style="height: 25em; justify-content: center;">
+            
             <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
             	<img class="card-img-top" src="/image/test.jpg" alt="">
             	<div class="card-body">
@@ -237,8 +325,9 @@
             		</p>
             	</div>
             </div>
+            
         </div>
-    </div>
+    </div> -->
 
     <!-- footer -->
     <div class="container">

@@ -29,6 +29,14 @@
 		INSERT into ${userType}user VALUES (Null, #{id}, #{password}, #{nickname}, #{profile_image}, #{email}, #{gender})
 	</insert> 
 	
+	<insert id="GoogleRegister" parameterType="com.mid.VO.userVO">
+		INSERT into ${userType}user (num, id, nickname, profile_image, email) VALUES (Null, #{id}, #{nickname}, #{profile_image}, #{email})
+	</insert>
+	
+	<select id="Googlelogin" resultType="Integer" parameterType="com.mid.VO.userVO">
+		SELECT count(*) FROM ${userType}user WHERE id = #{id}
+	</select>
+	
 	
 	
 </mapper>

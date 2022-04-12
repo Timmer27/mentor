@@ -59,15 +59,8 @@ function checkIdmentor(){
 	checkId('mentor');
 }
 
-//프로필 사진 선택기능
-$(function () {
-	$('#picButton').click(function (e) {
-		e.preventDefault();
-/*		$('#file').click();*/
-	});
-});
 
-//프로필 사진 업로드 기능
+/*//프로필 사진 업로드 기능
 $(document).ready(function(){
 	$('#picButton').on('click', function(e){
 		var formData = new FormData();
@@ -93,7 +86,16 @@ $(document).ready(function(){
 						
 		});	
 	});
-})
+})*/
+
+//프로필 사진 선택기능
+$(function () {
+	$('#picButton').click(function (e) {
+		//기본기능을 막고 file을 클릭함
+		e.preventDefault();
+		$('#file').click();
+	});
+});
 
 //이미지 미리보기
 var sel_file;
@@ -123,7 +125,7 @@ function handleImgFileSelect(e) {
     });
 }
 
-//웹 회원가입
+//멘토웹 회원가입
 function webRegister(){
 
 	//중복체크 안되있을 시 alert
@@ -152,13 +154,20 @@ function webRegister(){
 		return;
 	}
 	
+	// 약관동의 안했을 시
+	if(!($('input[name=agreement]').checked)){
+		alert('약관 동의를 해주세요');
+		return;
+	}
+	
+	var inputFile = $('input[name=profile_picture]')[0].files[0];
 	var formData = new FormData();
 	
-	formData.append("userType", $('input[name=answer]:checked').val());
+	formData.append("userType", "mentor");
 	formData.append("nickname", $('#nickname').val());
 	formData.append("id", $('#id').val());
 	formData.append("password", $('#password').val());
-	formData.append("profile_image", $('#profile_image').val());
+	formData.append("profilePicture", inputFile);
 	formData.append("email", $('#email').val());
 
 	$.ajax({
@@ -183,7 +192,7 @@ function webRegister(){
 	});
 }
 
-//카카오톡 회원가입 메서드
+//멘토 카카오톡 회원가입
 function registerWithKakaoMentor(){
 	
 	window.Kakao.Auth.login({
@@ -232,8 +241,131 @@ function registerWithKakaoMentor(){
 	});
 }
 
+//네이버 회원가입
+var naverLogin = new naver.LoginWithNaverId(
+		{
+			clientId: "cJdKbAEMtxTJgNUavIyj", //내 애플리케이션 정보에 cliendId를 입력해줍니다.
+			callbackUrl: "http://localhost:90/main", // Callback URL 을 입력해줍니다.
+/*			isPopup: false,
+			callbackHandle: true*/
+		}
+	);	
+	
+naverLogin.init(); //초기화
+naverLogin.getLoginStatus(function (status) {
+	if (status) {	
+		var email = naverLogin.user.getEmail(); // 필수로 설정할것을 받아와 아래처럼 조건문을 줍니다.
+		var nickName = naverLogin.user.getNickName(); // 필수로 설정할것을 받아와 아래처럼 조건문을 줍니다.
+				
+		var formData = new FormData();
+		formData.append("email", naverLogin.user.email);
+		
+		$.ajax({
+		data: formData,
+		url:'/loginRegister/NaverRegister',
+		method:'post',
+		caches: false,
+		processData: false,
+		contentType: false, 
+		success:function(res){
+			console(res);
+			}
+		});
+        if(email == undefined || email == null) {
+			alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
+			naverLogin.reprompt();
+			return;
+		}
 
+		
 
+		console.log(naverLogin.user);
+	} else {
+		setLoginStatus();
+	}
+});
+
+//네이버 로그아웃
+ function setLoginStatus(){
+
+	var logout=document.getElementById('btn_logout');
+	logout.addEventListener('click',(e)=>{
+		e.preventDefault();
+		naverLogin.logout();
+		location.replace("http://localhost:90/main");
+	})
+}
+
+//구글 로그인 - init을 실행시켜서 onSignin 메서드를 동작시키고 프로필 정보를 받아옴
+function init() {
+	gapi.load('auth2', function() {
+		gapi.auth2.init();
+		options = new gapi.auth2.SigninOptionsBuilder();
+		options.setPrompt('select_account');
+        // 추가는 Oauth 승인 권한 추가 후 띄어쓰기 기준으로 추가
+		options.setScope('email profile openid https://www.googleapis.com/auth/user.birthday.read');
+        // 인스턴스의 함수 호출 - element에 로그인 기능 추가
+        // GgCustomLogin은 li태그안에 있는 ID, 위에 설정한 options와 아래 성공,실패시 실행하는 함수들
+		gapi.auth2.getAuthInstance().attachClickHandler('GgCustomLogin', options, onSignIn, onSignInFailure);
+	})
+}
+
+//mentor 구글 로그인
+function onSignIn(googleUser) {
+	var access_token = googleUser.getAuthResponse().access_token
+	$.ajax({
+    	// people api를 이용하여 프로필 및 생년월일에 대한 선택동의후 가져온다.
+		url: 'https://people.googleapis.com/v1/people/me'
+        // key에 자신의 API 키를 넣습니다.
+		, data: {personFields:'birthdays', key:'AIzaSyAAjQ4Hu6mgu0Xo9L_KHluxlmoC39k-weI', 'access_token': access_token}
+		, method:'GET'
+	})
+	.done(function(e){
+        //프로필을 가져온다.
+		var profile = googleUser.getBasicProfile();
+		
+		//ajax로 서버와 로그인 연동
+		var formData = new FormData();
+		formData.append("id", profile.FW);
+		formData.append("profile_image", profile.eN);
+		formData.append("nickname", profile.tf);
+		formData.append("email", profile.tv);
+		formData.append("userType", "mentor");
+		
+/*		console.log(profile.FW) //아이디
+		console.log(profile.tf) //풀네임
+		console.log(profile.tv) //이메일
+		console.log(profile.eN) //프로필 사진 */
+		
+		$.ajax({
+		data: formData,
+		dataType:'json',
+		url:'/loginRegister/GoogleRegister',
+		method:'post',
+		caches: false,
+		processData: false,
+		contentType: false, 
+		success:function(res){
+			if(res.result){
+				alert('회원가입 성공!')
+				location.href='/loginRegister/login'
+			}
+		},
+		error:function(request){
+			alert('회원가입 성공!')
+			location.href="/loginRegister/login";
+		}
+		});
+	})
+	.fail(function(e){
+		alert('구글 로그인 실패');
+		console.log(e);
+	})
+}
+
+function onSignInFailure(t){		
+	console.log(t);
+}
 
 
 

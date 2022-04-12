@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,7 @@ import com.mid.service.loginService;
 
 @Controller
 @RequestMapping("/loginRegister")
-@SessionAttributes("id")
+@SessionAttributes({"id", "userType"})
 public class loginRegisterController {
 	
 	@Autowired
@@ -51,17 +52,43 @@ public class loginRegisterController {
 	public boolean kakaoLogin(@RequestParam String userType, userVO vo, Model m) {
 		if(service.kakaoLogin(userType, vo)) {
 			m.addAttribute("id", vo.getId());
+			m.addAttribute("userType", vo.getUserType());
+			System.err.println("test " + vo.getUserType());
 			return true;
 		}
 		return false;
 	}
 	
+//	네이버 로그인 - 수정 예정
+//	@PostMapping("/Naverlogin")
+//	@ResponseBody
+//	public boolean Naverlogin(@RequestParam String userType, userVO vo, Model m) {
+//		if(service.kakaoLogin(userType, vo)) {
+//			m.addAttribute("id", vo.getId());
+//				m.addAttribute("userType", vo.getUserType());
+				//return true;
+//		}
+//		return false;
+//	}
+	
+//	구글 로그인
+	@PostMapping("/Googlelogin")
+	@ResponseBody
+	public boolean Googlelogin(userVO vo, Model m) {
+		if(service.Googlelogin(vo)) {
+			m.addAttribute("id", vo.getId());
+			m.addAttribute("userType", vo.getUserType());
+			return true;
+		}
+		return false;
+	}
 //	웹 로그인 - DB
 	@PostMapping("/webLogin")
 	@ResponseBody
 	public boolean webLogin(@RequestParam String userType, String password, String id, Model m) {
 		if(service.webLogin((userType+"user"), id, password)) {
 			m.addAttribute("id", id);
+			m.addAttribute("userType", userType);
 			return true;
 		}
 		return false;
@@ -115,9 +142,19 @@ public class loginRegisterController {
 //	웹 회원가입
 	@PostMapping("/webRegister")
 	@ResponseBody
-	public  Map<String, Boolean> webRegister(userVO vo) {
+	public  Map<String, Boolean> webRegister(userVO vo, @RequestParam(name="profilePicture")MultipartFile mfile) {
+		
+		String saveFileName = mfile.getOriginalFilename() + System.nanoTime();
+		
+		try {
+			String uploadPath = "/C:\\Eclipse\\mentor\\src\\main\\resources\\static\\upload";
+			File file = new File(uploadPath, saveFileName);
+			mfile.transferTo(file);
+		} catch (Exception e) {
+		}
 		
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		vo.setProfile_image(saveFileName);
 		map.put("result", service.webRegister(vo));
 		
 		return map;
@@ -137,6 +174,39 @@ public class loginRegisterController {
 		return map;	
 	}
 	
+//	네이버 회원가입
+	@PostMapping("/NaverRegister")
+	@ResponseBody
+	public  Map<String, Boolean> NaverRegister(@RequestParam String email, userVO vo, Model m) {
+//		if(service.kakaoRegister(vo)) {
+//			m.addAttribute("id");
+//		}
+		
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		map.put("result", service.kakaoRegister(vo));
+		
+		return map;	
+	}
+	
+//	구글 회원가입
+	@PostMapping("/GoogleRegister")
+	@ResponseBody
+	public Map<String, Boolean> GoogleRegister(userVO vo, Model m) {
+		if(service.GoogleRegister(vo)) {
+			m.addAttribute("id");
+		}
+		
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		map.put("result", service.GoogleRegister(vo));
+		
+		return map;	
+	}
+	
+	
+	
+	
+	
+	//사진업로드, 잠시 보류
 	@PostMapping("/uploadProfile")
 	@ResponseBody
 	public Map<String, Boolean> uploadProfile(@RequestParam(name = "picture")MultipartFile mfile, HttpServletResponse response) {
@@ -152,7 +222,6 @@ public class loginRegisterController {
 			return map;
 			
 		} catch (IllegalStateException | IOException e) {
-			System.err.println(e.getMessage());
 			map.put("result", false);
 			return map;
 		}

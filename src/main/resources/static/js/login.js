@@ -113,6 +113,87 @@ function weblogin(){
 	});
 }
 
+//구글 로그인 - init을 실행시켜서 onSignin 메서드를 동작시키고 프로필 정보를 받아옴
+function init() {
+
+	gapi.load('auth2', function() {		
+		gapi.auth2.init();
+		options = new gapi.auth2.SigninOptionsBuilder();
+		options.setPrompt('select_account');
+        // 추가는 Oauth 승인 권한 추가 후 띄어쓰기 기준으로 추가
+		options.setScope('email profile openid https://www.googleapis.com/auth/user.birthday.read');
+        // 인스턴스의 함수 호출 - element에 로그인 기능 추가
+        // GgCustomLogin은 li태그안에 있는 ID, 위에 설정한 options와 아래 성공,실패시 실행하는 함수들
+		gapi.auth2.getAuthInstance().attachClickHandler('GgCustomLogin', options, onSignIn, onSignInFailure);
+	})
+}
+
+//구글 로그인
+function onSignIn(googleUser) {
+	
+	//체크된 값이 없어서 null일 시 알람 반환
+	if($('input[name=answer]:checked').val() == null){
+		alert('멘토, 멘티 로그인 형식을 선택해주세요')
+		return;
+	}
+	
+	var userType = $('input[name=answer]:checked').val();
+	var access_token = googleUser.getAuthResponse().access_token
+	$.ajax({
+    	// people api를 이용하여 프로필 및 생년월일에 대한 선택동의후 가져온다.
+		url: 'https://people.googleapis.com/v1/people/me'
+        // key에 자신의 API 키를 넣습니다.
+		, data: {personFields:'birthdays', key:'AIzaSyAAjQ4Hu6mgu0Xo9L_KHluxlmoC39k-weI', 'access_token': access_token}
+		, method:'GET'
+	})
+	.done(function(e){
+        //프로필을 가져온다.
+		var profile = googleUser.getBasicProfile();
+		
+		//ajax로 서버와 로그인 연동
+		var formData = new FormData();
+		formData.append("id", profile.FW);
+		formData.append("profile_image", profile.eN);
+		formData.append("nickname", profile.tf);
+		formData.append("email", profile.tv);
+		formData.append("userType", userType)
+		
+/*		console.log(profile.FW) //아이디
+		console.log(profile.tf) //풀네임
+		console.log(profile.tv) //이메일
+		console.log(profile.eN) //프로필 사진 */
+		
+		$.ajax({
+			data: formData,
+			dataType:'text',
+			url:'/loginRegister/Googlelogin',
+			method:'post',
+			caches: false,
+			processData: false,
+			contentType: false, 
+			success:function(res){
+				if(res){
+					location.href="/main"
+				}
+				else{
+					alert('회원가입을 먼저 해주세요');
+					location.href="/loginRegister/register"
+				}
+			},
+			error:function(request, error){
+				console.log(request.responseText + "  " + error);
+			}
+		});
+	})
+	.fail(function(e){
+		alert('구글 로그인 실패');
+		console.log(e);
+	})
+}
+
+function onSignInFailure(t){		
+	console.log(t);
+}
 
 /*//회원가입 가입 종류에 따른 display 변경
 document.querySelector('#mentor').addEventListener('click', function(){

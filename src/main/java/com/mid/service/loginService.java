@@ -47,4 +47,12 @@ public class loginService {
 		}
 		return loginMapper.kakaoRegister(vo) > 0 ? true : false;
 	}
+	public boolean GoogleRegister(userVO vo) {
+		return loginMapper.GoogleRegister(vo) > 0 ? true : false;
+	}
+	public boolean Googlelogin(userVO vo) {
+		System.err.println(vo.getId());
+		System.err.println(loginMapper.Googlelogin(vo));
+		return loginMapper.Googlelogin(vo) > 0 ? true : false;
+	}
 }
