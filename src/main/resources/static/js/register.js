@@ -155,8 +155,13 @@ function webRegister(){
 	}
 	
 	// 약관동의 안했을 시
-	if(!($('input[name=agreement]').checked)){
+	if($('#agreement').is(":checked")==false){
 		alert('약관 동의를 해주세요');
+		return;
+	}
+	//프로필 사진 업데이트 안되있을 시 return
+	if($('input[name=profile_picture]')[0].files[0] == null){
+		alert('프로필 사진을 업로드 해주세요');
 		return;
 	}
 	
@@ -169,6 +174,8 @@ function webRegister(){
 	formData.append("password", $('#password').val());
 	formData.append("profilePicture", inputFile);
 	formData.append("email", $('#email').val());
+	formData.append("country", $('#myInput').val());	
+	formData.append("city", $('#cities').val());
 
 	$.ajax({
 		data: formData,

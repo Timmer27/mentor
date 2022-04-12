@@ -14,7 +14,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<title>멘톨</title>
+<!-- mapBox -->
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+
+<title>멘톨 - 해외멘토링</title>
 </head>
 <body>
 <!-- top -->
@@ -96,7 +99,7 @@
             </div>
             <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
 	            <a href = "/loginRegister/logout"><p class="bannerSub" style="color: white;">
-                	로그아웃 ${userType}
+                	로그아웃
 	            </p></a>
             </div>
             </c:if>
@@ -147,7 +150,7 @@
 		</div>
 		<!-- 랭킹 배너 -->
         <div class = "col-lg-4 d-flex flex-column" style="margin: 15px; flex-direction: column; align-items: center;">
-        	<div>오늘의 멘톨왕</div>
+        	<div>오늘의 멘톨왕 - 포인트로 ?</div>
         	<div class="mx-4">
 	            <p class="mt-2 mb-2">
 	            	<img src="/image/mentorLogo.png" alt="" style='width: 60px;'><span>홍길동</span><span>10회</span>
@@ -206,15 +209,72 @@
 	        </div>
         </div>
     </div>
+    <hr>
+    <div class='container col-9 d-flex mb-2 mt-2' style="height: 120px; flex-direction: column;">
+
+        <div class="d-flex col-10" style="align-self: center; height: 100%">
+	        <div class='col-lg-3 text-center'>
+	        	<a href='#'>
+		        	<img alt="멘토링" src="/image/mortarboard.png"
+	        		width="80px"
+		        	>
+		        	<p class="text-center" style="margin-top: 15px;">멘토링</p>
+	        	</a>
+	        </div>
+	        <div class='col-lg-3 text-center'>
+	        	        	<a href='#'>
+	        	<img alt="룸메이트" src="/image/house.png"
+ 					width="80px"
+		        	>
+		        	<p class="text-center" style="margin-top: 15px;">룸메이트</p>
+					            </a>
+	        </div>
+	        <div class='col-lg-3 text-center'>
+	   			<a href='#'>
+	        		<img alt="유학정보" src="/image/student2.png" 
+	        		width="80px"
+		        	>
+		        	<p class="text-center" style="margin-top: 15px;">유학정보</p>
+				</a>	
+	        </div>
+	        <div class='col-lg-3 text-center'>
+				<a href='#'>
+	        	<img alt="자유게시판" src="/image/board.png"
+					width="80px"
+		        	>
+		        	<p class="text-center" style="margin-top: 15px;">자유게시판</p>
+	            </a>
+	        </div>
+        </div>
+            
+    </div>    
 
     <!-- 후기 및 고민방 -->
     <hr>
-    <div class='container' style="height: 55rem;">
-    	<p class="text-center" style="font-size: 17px;">오늘의 고민</p>
+    	
+   	<p class="questionHedder col-9">가입자 수</p>
+    <div class='container d-flex' style="height: 30rem; justify-content: center;">
+        <div id="map" class='col-10' style="margin-top: 14px"></div>
         
-        <div class='col-lg-12 d-flex' style="height: 18em; justify-content: center;">
+   	</div>
+
+   	<p class="questionHedder col-9">오늘의 고민</p>
+    <div class='d-flex col-10 mt-4' style="height: 25rem; justify-content: space-evenly; margin: auto">
             
-            <a class="col-lg-3 col-md-3 col-sm-3 mt-4 mb-3 mx-3 questionBox" href="#">
+            <a class="col-4 questionBox" href="#">
+            	<div class="questionCard">
+            		<div class="card-title">미국, California | 거주문제</div>
+            		<div class="profileImage col-12 d-flex flex-column">
+            			<div class="questionTitle">운동 진로</div>
+            			<div class="questionContent">내용 : 운동을 어떻게 해야할 지 고민입니다... 사레레할까요 벤치들까요?</div>
+	            		<div class="col-6 profileInfo">
+	            			<span style="padding-right: 11px;">100 point</span>
+	            			<img alt="profile pic" src="/image/logo.jpg" class="questionProfileLogo">
+	            		</div>
+            		</div>
+            	</div>
+            </a>
+            <a class="col-4 questionBox" href="#">
             	<div class="questionCard">
             		<h5 class="card-title">2022.04.12</h5>
             		
@@ -228,7 +288,8 @@
             		</div>
             	</div>
             </a>
-            
+    	
+    </div>            
         
 <!--         <div class='col-lg-12 d-flex' style="height: 25em; justify-content: center;">
             <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
@@ -260,7 +321,7 @@
             </div>
         </div> -->
         
-    </div>
+
 <!--     후기 및 고민방
     <hr>
     <div class='container' style="height: 55rem;">
@@ -346,7 +407,11 @@
             </ul>
         </footer>
     </div>
+
+<!-- mapBox -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>   
     
+<script src="/js/main.js?<%=System.currentTimeMillis()%>>"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

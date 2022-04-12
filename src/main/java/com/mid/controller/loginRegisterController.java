@@ -141,6 +141,7 @@ public class loginRegisterController {
 	
 //	웹 회원가입
 	@PostMapping("/webRegister")
+	@Transactional
 	@ResponseBody
 	public  Map<String, Boolean> webRegister(userVO vo, @RequestParam(name="profilePicture")MultipartFile mfile) {
 		

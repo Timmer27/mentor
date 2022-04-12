@@ -12,6 +12,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/register.css?<%=System.currentTimeMillis()%>">
+<link rel="stylesheet" href="/css/autocomplete.css?<%=System.currentTimeMillis()%>">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,7 +86,7 @@
 		<input type="hidden" name="l" value="loginForm">
 	
 		
-		<main id = 'loginbox' class='d-flex col-7' style="flex-direction: column; height: 55em">
+		<main id = 'loginbox' class='d-flex col-7' style="flex-direction: column; height: 65em">
 			<div>
 
 			</div>
@@ -132,7 +133,7 @@
 					</div>	
 					<div class='d-flex' style="height: 200px; justify-content: space-between; margin-bottom: 10px;">
 						<label for="profile_picture" class='col-7 m-auto'>프로필 사진</label>						
-						<input type="file" name="profile_picture" id="file" style="display: hidden;">
+						<input type="file" name="profile_picture" id="file" style="visibility: hidden;">
 						<div class="d-flex flex-column col-5" style="align-items: center; justify-content: space-around;">
 							<c:if test="${profile_picture==null}">
 								<img id="img" class="roundborder" src="/image/user.png">
@@ -156,6 +157,12 @@
 					<div class="input-group mb-3">
 						<label for="email" class="col-3">이메일</label><input id='email' value="whdghtpgml@gmail.com" name="email" type="email" class="form-control" placeholder="이메일을 입력해주세요" aria-label="Recipient's email" aria-describedby="button-addon2" required="required">
 					</div>
+					<div class="autocomplete input-group mb-3 d-flex">
+						<label for="country" class="col-3">나라</label><input id="myInput" type="text" name="country" placeholder="나라 영문 입력" class="form-control">
+					</div>					
+					<div class="autocomplete input-group mb-3 d-flex">
+						<label for="city" class="col-3">거주 도시</label><input id="cities" type="text" name="city" placeholder="도시 영문 입력" class="form-control">
+					</div>					
 					<div class="input-group mb-3 col-12">
 						<div class="col-12 text-center">
 							<input id='agreement' name="agreement" type="checkbox" style="margin: 6px 6px 20px 6px;"><span>개인정보 처리방침 및 이용약관에 동의합니다</span>
@@ -199,6 +206,8 @@
         </footer>
     </div>
     
+    <!-- 자동완성 별도 js -->
+    <script src="/js/autocomplete.js"></script>
     <!-- 카카오톡 로그인 API 연동 -->
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <!-- 네이버 로그인 API연동  -->
