@@ -1,9 +1,8 @@
 @charset "UTF-8";
 
 .mainBanner{
-   	height: 100px;
+   	height: 40px;
    	flex-direction: column;
-	background-color: #829ea557
 }
 
 .mainSub{
@@ -14,8 +13,13 @@
 }
 
 .categoriText{
-	margin-top: 15px;
-	color: #434343b5;
+	font-size: 17px;
+    margin-top: 15px;
+    color: #000000;
+}
+
+.categoriText:hover{
+    color: #037ec1;
 }
 
 .questionBox{
@@ -48,4 +52,32 @@
     border-bottom: 1px solid #c1c1c170;
     padding: 4px 5px 5px 20px;
     align-items: center;
+}
+.contentselect:hover{
+    box-shadow: 0px 0px 4px -0.8px #72a8ff;
+}
+
+.noBoard{
+    font-size: 22px;
+    text-align-last: center;
+    height: 100%;
+    color: #25252569;
+    align-self: center;
+    margin: auto;
+    padding-top: 25%;
+}
+
+.noBoardBox{
+	box-shadow: 0px 0px 7px 6px white inset;
+    background-color: #a1a1a10a;
+    width: 75%;	
+    height: 30rem;
+    justify-content: center;
+}
+
+.noBoardimg{
+    text-align: end;
+    padding-bottom: 60px;
+    padding-right: 82px;
+    opacity: 0.1;
 }

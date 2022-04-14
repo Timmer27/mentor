@@ -2,18 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mid.mapper.mentiMapper">
 	
-	<insert id="newpost" parameterType="com.mid.VO.userboardVO">
-		INSERT INTO mentiBoard (num, mentiNum, country, city, boardTitle, boardContent, boardDate) VALUES(Null, #{userNum}, #{country}, #{city}, #{boardTitle}, #{boardContent}, #{boardDate})
+	<insert id="newpost" parameterType="com.mid.VO.userboardVO" useGeneratedKeys="true" keyProperty="num">
+		INSERT INTO mentiBoard (num, mentiNum, country, city, boardTitle, boardContent, boardDate, boardPoint) VALUES(Null, #{userNum}, #{country}, #{city}, #{boardTitle}, #{boardContent}, #{boardDate}, #{boardPoint})
 	</insert>
 	
 	<select id="getuserNum" resultType="String" parameterType="String">
 		SELECT num FROM mentiuser WHERE id = #{id}
 	</select>
 	
+	<select id="getuserboardNum" resultType="String" parameterType="String">
+		SELECT num FROM mentiBoard WHERE mentiNum = #{num}
+	</select>
+
 	<insert id="saveFiles" parameterType="String">
 		INSERT INTO mentiBoardattach VALUES (Null, #{num}, #{saveName})
 	</insert>
 	
+	<select id="getBoard" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT mb.num, mentiNum, mb.country, mb.city, boardTitle, boardContent, boardDate, boardLike, boardPoint, IFNULL(profile_image, 0) profile_image FROM mentiBoard mb LEFT OUTER JOIN mentiuser mu ON mb.mentiNum = mu.num WHERE mb.country = #{countryDBname} ORDER BY num DESC LIMIT 4;
+	</select>
+	
+	<insert id="spendPoint" parameterType="map">
+		INSERT into ${userType}point (num, mentiNum, mentiboardnum, currentPoint, spendDate, spendAmount) VALUES (Null, #{mentiNum}, #{mentiboardnum}, #{currentPoint}, #{spendDate}, #{spendAmount})
+	</insert>
 	
 	
 	

@@ -1,3 +1,18 @@
+//보유 포인트 검사
+document.querySelector('#pointInput').addEventListener('change', function(){
+	var pointN = $("input[name=boardPoint]").val();
+	var cPoint = $("#cPoint").text();
+	
+	if(parseInt(pointN) > parseInt(cPoint)){
+		alert('보유하신 포인트가 부족합니다');
+		$("button[type=submit]").attr("disabled", true);
+	}
+	
+	else{
+		$("button[type=submit]").attr("disabled", false);
+	}
+})
+
 //textarea 자동 크기 조절
 document.querySelector('#contentInfo').addEventListener('keyup', function(){
 	let textarea = document.querySelector('#contentInfo');

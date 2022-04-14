@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.python.modules.struct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
@@ -22,12 +23,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mid.VO.userPointVO;
 import com.mid.VO.userVO;
 import com.mid.service.loginService;
 
 @Controller
 @RequestMapping("/loginRegister")
-@SessionAttributes({"id", "userType", "profile_image"})
+@SessionAttributes({"id", "userType", "profile_image", "currentPoint"})
 public class loginRegisterController {
 	
 	@Autowired
@@ -53,6 +55,7 @@ public class loginRegisterController {
 		if(service.kakaoLogin(userType, vo)) {
 			m.addAttribute("id", vo.getId());
 			m.addAttribute("userType", vo.getUserType());
+			m.addAttribute("currentPoint", service.getpointN(userType, vo));
 			
 			if(vo.getProfile_image().contains("http")) {
 				m.addAttribute("profile_image", vo.getProfile_image());
@@ -80,10 +83,14 @@ public class loginRegisterController {
 //	구글 로그인
 	@PostMapping("/Googlelogin")
 	@ResponseBody
-	public boolean Googlelogin(userVO vo, Model m) {
+	public Map<String, Boolean> Googlelogin(userVO vo, Model m) {
+		Map<String, Boolean> map = new HashMap<>();
 		if(service.Googlelogin(vo)) {
+			
 			m.addAttribute("id", vo.getId());
 			m.addAttribute("userType", vo.getUserType());
+			m.addAttribute("currentPoint", service.getpointN(vo.getUserType(), vo));
+
 			
 			if(vo.getProfile_image().contains("http")) {
 				m.addAttribute("profile_image", vo.getProfile_image());
@@ -91,21 +98,25 @@ public class loginRegisterController {
 			else {
 				m.addAttribute("profile_image", ("/image/upload/"+vo.getProfile_image()));
 			}
-			return true;
+			
+			map.put("result", true);
+			
+			return map;
 		}
-		return false;
+		map.put("result", false);
+		return map;
 	}
 //	웹 로그인 - DB
 	@PostMapping("/webLogin")
 	@ResponseBody
 	public boolean webLogin(@RequestParam String userType, String password, String id, Model m) {
+		userVO vo = new userVO();
+		vo.setId(id);
 		if(service.webLogin((userType+"user"), id, password)) {
 			m.addAttribute("id", id);
 			m.addAttribute("userType", userType);
-			
-			System.err.println("test" + userType);
+			m.addAttribute("currentPoint", service.getpointN(userType, vo));
 
-			
 			String profile_image = service.getProfileImg(userType, id);
 			
 			if(profile_image.contains("http")) {

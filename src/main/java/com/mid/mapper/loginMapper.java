@@ -29,4 +29,6 @@ public interface loginMapper {
 
 	String getProfileImg(String userType, String id);
 
+	int getpointN(Map<String, String> map);
+
 }

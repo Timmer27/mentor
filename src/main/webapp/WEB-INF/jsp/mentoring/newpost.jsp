@@ -23,7 +23,7 @@
 <!-- top -->
 <!-- top -->
     <div class = "d-flex" style='border-bottom: 1px solid #6d6d6d8a;'>
-        <div class='col-lg-1' style="padding-left: 12px;">
+        <div class='col-lg-1' style="padding-left: 12px; margin: auto;">
 			<a href="/main"><img src="/image/logo.png" alt="" style='width: 75px; margin-left: 15px;'></a>
         </div>
         <div class = "d-flex col-lg-7" style="color: #000000ab;">
@@ -82,6 +82,7 @@
 	        </form>
 		
 	        <c:if test="${id==null}">
+	        
 	        <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
 				<a href = "/loginRegister/login"><p class="bannerSub" style="color: white;">
 				로그인
@@ -98,21 +99,20 @@
 			<c:if test="${id!=null}">
 	            <div class="dropdown text-end">
 	            	<c:if test="${profile_image eq '/image/upload/0'}">
-						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pt-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
 			            	<img src="/image/user.png" alt="프로필" width="50" height="50" class="rounded-circle">
 						</a>
-	        			<div style="height: fit-content; color: black; font-size: 10px; padding-top: 7px;">보유 포인트 <span>100점</span></div>						
 					</c:if>
 	            	<c:if test="${profile_image != '/image/upload/0'}">
-						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pt-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
 			            	<img src="${profile_image}" alt="프로필" width="50" height="50" class="rounded-circle">
 						</a>
-	        			<div style="height: fit-content; color: black; font-size: 10px; padding-top: 7px;">보유 포인트 <span>100점</span></div>						
 					</c:if>
-				<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="min-width: 6rem;">
+				<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="min-width: 6rem; font-size: 0.9rem;">
 					<li><a class="dropdown-item" href="#">마이페이지</a></li>
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
+					<li><div id="pointshow" class="dropdown-item">보유 포인트 : <span id="cPoint" style="color: red;">${currentPoint}</span> </div></li>
 				</ul>
 		  		</c:if>
 	        </div>
@@ -149,7 +149,7 @@
     	
     	<hr style="color: #a7a6a6;">
     	<div class="savePost">
-			<label for="point" class="pointN">포인트</label><input id="pointInput" type="number" name="point" placeholder="얼마나 넣을까요? [optional]">
+			<label for="boardPoint" class="pointN">포인트</label><input id="pointInput" type="number" name="boardPoint" step="1" value="0" required="required" min="0"	>
     	</div>
     	<div class="savePost">
 		    <input type='file' id='btnAtt' name="files" multiple='multiple'>
@@ -158,7 +158,7 @@
 		    	data-placeholder='파일을 첨부 하려면 파일 선택 버튼을 클릭하거나 파일을 드래그앤드롭 하세요'></div>
 			</div>
 			<div class="text-center">
-    			<button class="btn btn-dark" type="submit" style="width: 100px;">저장</button>
+    			<button class="btn btn-dark" id="postSave" type="submit" style="width: 100px;">저장</button>
 	    	</div>
     	</div>
     

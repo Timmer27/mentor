@@ -41,6 +41,9 @@
 		SELECT IFNULL(profile_image, 0) FROM ${userType}user WHERE id = #{id}
 	</select>
 	
+	<select id="getpointN" resultType="Integer" parameterType="map">
+		SELECT IFNULL(currentPoint, 0) FROM ${userType}user mu LEFT OUTER JOIN ${userType}point mp on mu.num = mp.${userType}Num WHERE id =#{id};
+	</select>
 	
 	
 </mapper>

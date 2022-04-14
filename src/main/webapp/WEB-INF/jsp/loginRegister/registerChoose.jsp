@@ -72,8 +72,10 @@
 			</c:if>
         </div>
         <div class="d-flex col-lg-4 lgBox" style="place-content: end; padding-right: 30px; align-items: center;">
-	        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" style="width: 60%;">
-				<input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+	        <!-- search button -->
+	        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+				<input type="search" class="form-control" placeholder="Search..." style="display: inline; width: 70%; margin-right: 6px" aria-label="Search">
+		        <button class="btn btn-outline-dark" type="submit">검색</button>
 	        </form>
 		
 	        <c:if test="${id==null}">
@@ -88,25 +90,27 @@
 				회원가입
 				</a>
 	        </div>
-	        
 			</c:if>
 
+	        <!-- profile & login button -->
 			<c:if test="${id!=null}">
 	            <div class="dropdown text-end">
 	            	<c:if test="${profile_image eq '/image/upload/0'}">
-						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pt-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
 			            	<img src="/image/user.png" alt="프로필" width="50" height="50" class="rounded-circle">
 						</a>
+	        			<div style="height: fit-content; color: black; font-size: 10px; padding-top: 7px;">보유 포인트 <span style="color: red;">100점</span></div>						
 					</c:if>
 	            	<c:if test="${profile_image != '/image/upload/0'}">
-						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pt-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
 			            	<img src="${profile_image}" alt="프로필" width="50" height="50" class="rounded-circle">
 						</a>
 					</c:if>
-				<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="min-width: 6rem;">
+				<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="min-width: 6rem; font-size: 0.9rem;">
 					<li><a class="dropdown-item" href="#">마이페이지</a></li>
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
+					<li><div id="pointshow" class="dropdown-item">보유 포인트 : <span style="color: red;">${currentPoint}</span> </div></li>
 				</ul>
 		  		</c:if>
 	        </div>

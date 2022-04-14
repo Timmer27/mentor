@@ -88,3 +88,15 @@ p > a:hover{
     margin: auto;
     font-size: 20px;
 }
+
+#pointshow{
+	color: #808080cc;
+    font-size: 13px;
+    padding-top: 9px;
+}
+
+#pointshow:hover{
+	background-color: white;
+}
+
+

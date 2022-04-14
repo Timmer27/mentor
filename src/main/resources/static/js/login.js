@@ -131,6 +131,7 @@ function init() {
 //구글 로그인
 function onSignIn(googleUser) {
 	
+	
 	//체크된 값이 없어서 null일 시 알람 반환
 	if($('input[name=answer]:checked').val() == null){
 		alert('멘토, 멘티 로그인 형식을 선택해주세요')
@@ -139,6 +140,7 @@ function onSignIn(googleUser) {
 	
 	var userType = $('input[name=answer]:checked').val();
 	var access_token = googleUser.getAuthResponse().access_token
+
 	$.ajax({
     	// people api를 이용하여 프로필 및 생년월일에 대한 선택동의후 가져온다.
 		url: 'https://people.googleapis.com/v1/people/me'
@@ -165,14 +167,14 @@ function onSignIn(googleUser) {
 		
 		$.ajax({
 			data: formData,
-			dataType:'text',
+			dataType:'json',
 			url:'/loginRegister/Googlelogin',
 			method:'post',
 			caches: false,
 			processData: false,
 			contentType: false, 
 			success:function(res){
-				if(res){
+				if(res.result){
 					location.href="/main"
 				}
 				else{

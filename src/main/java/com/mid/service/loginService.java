@@ -51,9 +51,17 @@ public class loginService {
 		return loginMapper.GoogleRegister(vo) > 0 ? true : false;
 	}
 	public boolean Googlelogin(userVO vo) {
-		return loginMapper.Googlelogin(vo) > 0 ? true : false;
+		return loginMapper.Googlelogin(vo) == 0 ? false : true ;
 	}
 	public String getProfileImg(String userType, String id) {
 		return loginMapper.getProfileImg(userType, id);
+	}
+	public int getpointN(String userType, userVO vo) {
+		Map<String, String> map =  new HashMap<String, String>();
+		map.put("id", vo.getId());
+		map.put("userType", userType);
+		System.err.println("test");
+
+		return loginMapper.getpointN(map);
 	}
 }

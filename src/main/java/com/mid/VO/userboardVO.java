@@ -12,7 +12,15 @@ public class userboardVO extends userVO{
 	private String boardContent;
 	private String boardDate;
 	private String boardLike;
+	private String boardPoint;
 	
+	
+	public String getBoardPoint() {
+		return boardPoint;
+	}
+	public void setBoardPoint(String boardPoint) {
+		this.boardPoint = boardPoint;
+	}
 	public String getUserNum() {
 		return userNum;
 	}
