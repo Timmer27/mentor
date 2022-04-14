@@ -36,19 +36,27 @@
 }
 
 .countries{
-	height: 30rem;
+	height: 100%;
     width: 100%;
     justify-content: center;
 }
 
+.semiBox{
+	border-radius: 6px;
+    border: 1px solid #80808054;
+    padding: 16px;
+    align-self: center;
+}
+
 .seeAll{
-	text-align: end;
-	place-self: center;
-	color: #016eff;
+    text-align: end;
+    place-self: center;
+    color: #016eff;
+	padding: 12px 30px 7px 0px;
 }
 
 .content{
-	height: 5rem;
+	height: 10rem;
     border-bottom: 1px solid #c1c1c170;
     padding: 4px 5px 5px 20px;
     align-items: center;
@@ -80,4 +88,39 @@
     padding-bottom: 60px;
     padding-right: 82px;
     opacity: 0.1;
+}
+
+.replyBox{
+	font-size: 14px;
+    margin-top: 100px;
+    position: absolute;
+}
+
+.textTitle{
+	color: #7a7a7aba;
+    height: fit-content;
+}
+
+.textmain{
+    height: 7rem;
+    align-items: center;
+}
+
+.heartImogi{
+    margin: 3px 3px 8px 5px;
+}
+
+.chatImogi{
+    margin-bottom: 1px;
+}
+
+
+.replyImogi{
+	font-size: 23px;
+	margin: 0px 1px 0px 3px;
+}
+
+.replyText{
+    font-size: 13px;
+    padding-right: 13px;
 }

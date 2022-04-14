@@ -60,7 +60,6 @@ public class loginService {
 		Map<String, String> map =  new HashMap<String, String>();
 		map.put("id", vo.getId());
 		map.put("userType", userType);
-		System.err.println("test");
 
 		return loginMapper.getpointN(map);
 	}

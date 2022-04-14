@@ -26,6 +26,9 @@
 		INSERT into ${userType}point (num, mentiNum, mentiboardnum, currentPoint, spendDate, spendAmount) VALUES (Null, #{mentiNum}, #{mentiboardnum}, #{currentPoint}, #{spendDate}, #{spendAmount})
 	</insert>
 	
+	<select id="mentiboard" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT * FROM mentiBoard WHERE num = #{num}
+	</select>
 	
 	
 	

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mid.VO.userPointVO;
@@ -23,6 +24,7 @@ import com.mid.service.mentimentorService;
 
 @Controller // 브라우저로 바로안감
 @RequestMapping("/menti")
+@SessionAttributes("currentPoint")
 public class MentiMentorController {
 	
 	@Autowired
@@ -46,7 +48,7 @@ public class MentiMentorController {
 //	글작성 후 포스팅 - menti
 	@Transactional
 	@PostMapping("/newpost")
-	public String newpostwrite(@SessionAttribute String userType, @SessionAttribute String id, @SessionAttribute String currentPoint, userboardVO vo, @RequestParam(name = "files", required = false)MultipartFile[] files){
+	public String newpostwrite(@SessionAttribute String userType, @SessionAttribute String id, @SessionAttribute String currentPoint, userboardVO vo, @RequestParam(name = "files", required = false)MultipartFile[] files, Model m){
 		
 //		작성한 유저번호 구하기
 		String usernum = mapper.getuserNum(id);
@@ -56,6 +58,8 @@ public class MentiMentorController {
 
 //		받은 게시판 정보 저장
 		service.newpost(vo, usernum, boardNum, currentPoint, userType);
+		int updatedPoint = Integer.valueOf(currentPoint) - Integer.valueOf(vo.getBoardPoint());
+		m.addAttribute("currentPoint", updatedPoint);
 
 //		받은 파일 저장
 		String uploadPath = "C:/Eclipse/mentor/src/main/resources/static/upload";
@@ -72,4 +76,13 @@ public class MentiMentorController {
 		}
 		return "redirect:/main/mentoring";
 	}
+	
+	@GetMapping("mentiboard")
+	public String mentiboard(@RequestParam String num, Model m) {
+		
+		m.addAttribute("list", service.mentiboard(num));
+		
+		return "/mentoring/questionBoard";
+	}
+	
 }

@@ -5,15 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.python.icu.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.mid.VO.userPointVO;
 import com.mid.VO.userboardVO;
 import com.mid.mapper.mentiMapper;
 
 @Service
+@SessionAttributes("")
 public class mentimentorService {
 	
 	@Autowired
@@ -36,6 +40,7 @@ public class mentimentorService {
 		map.put("spendAmount", vo.getBoardPoint());
 		mapper.spendPoint(map);
 		
+		
 //		포스팅 저장
 		vo.setUserNum(usernum);
 		vo.setBoardDate(today);
@@ -49,5 +54,9 @@ public class mentimentorService {
 
 	public List<userboardVO> getBoard(String countryDBname) {
 		return mapper.getBoard(countryDBname);
+	}
+
+	public userboardVO mentiboard(String num) {
+		return mapper.mentiboard(num);
 	}
 }

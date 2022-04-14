@@ -102,7 +102,6 @@
 						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pt-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
 			            	<img src="/image/user.png" alt="프로필" width="50" height="50" class="rounded-circle">
 						</a>
-	        			<div style="height: fit-content; color: black; font-size: 10px; padding-top: 7px;">보유 포인트 <span style="color: red;">100점</span></div>						
 					</c:if>
 	            	<c:if test="${profile_image != '/image/upload/0'}">
 						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pt-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -179,459 +178,592 @@
     
     <!-- States -->	
 	<div class="contentBox">
-	<p class="questionHedder col-9">미국</p>
-	<c:if test="${usaBoard[0].boardTitle==null}">	
-		<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
-			<div class="noBoard">
-				아직 보여드릴 게시글이 없어요 :(
+		<p class="questionHedder col-9" style="border-bottom: 1px solid #41414157;">미국</p>
+		<c:if test="${usaBoard[0].boardTitle==null}">	
+			<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
+				<div class="noBoard">
+					아직 보여드릴 게시글이 없어요 :(
+				</div>
+				<div class="noBoardimg">
+					<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
+				</div>
 			</div>
-			<div class="noBoardimg">
-				<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
-			</div>
-		</div>
-	</c:if>
-	
-	<c:if test="${usaBoard[0].boardTitle!=null}">
-	<div class='col-9 d-flex flex-column countries'>
-		<a class="col-9 seeAll"  href="#">전체보기</a>
-		<div class="d-flex flex-column col-9" style="padding: 16px; align-self: center;">
-			<c:forEach items="${usaBoard}" var="list">
-				
-				<a class="d-flex col-12 mb-2 content contentselect" href="#">
-					<div class="col-2">${list.boardDate}</div>
-					<div class="col-7">
-						${list.boardTitle}
-					</div>
-					<!-- 포인트 테스트 -->
-					<c:if test="${list.boardPoint=='0'}">
-						<div class="col-2">
-							<span>🧡</span><span style="padding-left: 10px;">point</span>
-						</div>
-					</c:if>
-					<c:if test="${list.boardPoint!='0'}">
-						<div class="col-2">
-							<span>${list.boardPoint} point</span>
-						</div>
-					</c:if>
+		</c:if>
+		
+		<c:if test="${usaBoard[0].boardTitle!=null}">
+		<div class='col-9 d-flex flex-column countries'>
+			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<div class="d-flex flex-column col-9 semiBox">
+				<c:forEach items="${usaBoard}" var="list">
 					
-					<!-- 프로필 테스트 -->
-	            	<c:if test="${fn:contains(list.profile_image, 'http')}">
-						<div class="col-1">
-							<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+					<a class="d-flex col-12 mb-2 content contentselect flex-column" href="/menti/mentiboard?num=${list.num}">
+						
+						<div class="col-12 d-flex textTitle">
+							<div>${list.country}</div>
+							<span style="padding: 0px 10px 0px 10px;">|</span>
+							<div>${list.city}</div>
 						</div>
-					</c:if>
- 	            	<c:if test="${list.profile_image!=null}">
-		            	<c:if test="${list.profile_image!='0'}">
-		            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+						<div class="col-12 d-flex textmain">
+						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
+							<div class="col-7">
+								${list.boardTitle}
+							</div>
+						<!-- 포인트 테스트 -->
+						<c:if test="${list.boardPoint=='0'}">
+							<div class="col-2">
+								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							</div>
+						</c:if>
+						<c:if test="${list.boardPoint!='0'}">
+							<div class="col-2">
+								<span>${list.boardPoint} point</span>
+							</div>
+						</c:if>
+						
+						<!-- 프로필 테스트 -->
+		            	<c:if test="${fn:contains(list.profile_image, 'http')}">
+							<div class="col-1">
+								<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+							</div>
+						</c:if>
+	 	            	<c:if test="${list.profile_image!=null}">
+			            	<c:if test="${list.profile_image!='0'}">
+			            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+									<div class="col-1">
+										<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									</div>
+								</c:if>
+							</c:if>
+			            	<c:if test="${list.profile_image=='0'}">
 								<div class="col-1">
-									<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
 								</div>
 							</c:if>
 						</c:if>
-		            	<c:if test="${list.profile_image=='0'}">
-							<div class="col-1">
-								<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
-							</div>
-						</c:if>
-					</c:if>
+						
+						<div class="replyBox">
+							<span>
+							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
+							</span> <span class="replyText">3</span> 
+							<span class="replyImogi">
+							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
+							</span> <span class="replyText">5</span>
+						</div>
+						</div>
 					
-				</a>
-	
-			</c:forEach>
-			
+					</a>
+		
+				</c:forEach>
+				
+			</div>
 		</div>
+	</c:if>
 	</div>
-	</c:if>
 	<!-- CA -->
-	<p class="questionHedder col-9">캐나다</p>
-	<c:if test="${caBoard[0].boardTitle==null}">	
-		<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
-			<div class="noBoard">
-				아직 보여드릴 게시글이 없어요 :(
+	<div class="contentBox">
+		<p class="questionHedder col-9" style="border-bottom: 1px solid #41414157;">캐나다</p>
+		<c:if test="${caBoard[0].boardTitle==null}">	
+			<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
+				<div class="noBoard">
+					아직 보여드릴 게시글이 없어요 :(
+				</div>
+				<div class="noBoardimg">
+					<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
+				</div>
 			</div>
-			<div class="noBoardimg">
-				<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
-			</div>
-		</div>
-	</c:if>
-	
-	<c:if test="${caBoard[0].boardTitle!=null}">
-	<div class='container d-flex flex-column' style="height: 30rem; justify-content: center;">
-		<a class="col-9 seeAll"  href="#">전체보기</a>
-		<div class="d-flex flex-column col-9" style="padding: 16px; align-self: center;">
+		</c:if>
+		
+		<c:if test="${caBoard[0].boardTitle!=null}">
+		<div class='col-9 d-flex flex-column countries'>
+			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<div class="d-flex flex-column col-9 semiBox">
 			<c:forEach items="${caBoard}" var="list">
 			
-				<a class="d-flex col-12 mb-2 content contentselect" href="#">
-					<div class="col-2">${list.boardDate}</div>
-					<div class="col-7">
-						${list.boardTitle}
-					</div>
-					<!-- 포인트 테스트 -->
-					<c:if test="${list.boardPoint=='0'}">
-						<div class="col-2">
-							<span>🧡</span><span style="padding-left: 10px;">point</span>
+				<a class="d-flex col-12 mb-2 content contentselect flex-column" href="/menti/mentiboard?num=${list.num}">
+						
+						<div class="col-12 d-flex textTitle">
+							<div>${list.country}</div>
+							<span style="padding: 0px 10px 0px 10px;">|</span>
+							<div>${list.city}</div>
 						</div>
-					</c:if>
-					<c:if test="${list.boardPoint!='0'}">
-						<div class="col-2">
-							<span>${list.boardPoint} point</span>
-						</div>
-					</c:if>
-					
-					<!-- 프로필 테스트 -->
-	            	<c:if test="${fn:contains(list.profile_image, 'http')}">
-						<div class="col-1">
-							<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
-						</div>
-					</c:if>
- 	            	<c:if test="${list.profile_image!=null}">
-		            	<c:if test="${list.profile_image!='0'}">
-		            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+						<div class="col-12 d-flex textmain">
+						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
+							<div class="col-7">
+								${list.boardTitle}
+							</div>
+						<!-- 포인트 테스트 -->
+						<c:if test="${list.boardPoint=='0'}">
+							<div class="col-2">
+								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							</div>
+						</c:if>
+						<c:if test="${list.boardPoint!='0'}">
+							<div class="col-2">
+								<span>${list.boardPoint} point</span>
+							</div>
+						</c:if>
+						
+						<!-- 프로필 테스트 -->
+		            	<c:if test="${fn:contains(list.profile_image, 'http')}">
+							<div class="col-1">
+								<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+							</div>
+						</c:if>
+	 	            	<c:if test="${list.profile_image!=null}">
+			            	<c:if test="${list.profile_image!='0'}">
+			            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+									<div class="col-1">
+										<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									</div>
+								</c:if>
+							</c:if>
+			            	<c:if test="${list.profile_image=='0'}">
 								<div class="col-1">
-									<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
 								</div>
 							</c:if>
 						</c:if>
-		            	<c:if test="${list.profile_image=='0'}">
-							<div class="col-1">
-								<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
-							</div>
-						</c:if>
-					</c:if>
+						
+						<div class="replyBox">
+							<span>
+							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
+							</span> <span class="replyText">3</span> 
+							<span class="replyImogi">
+							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
+							</span> <span class="replyText">5</span>
+						</div>
+						</div>
 					
-				</a>
-	
-			</c:forEach>
-			
-		</div>	
-	</div>
+					</a>
+		
+				</c:forEach>
+				
+			</div>
+		</div>
 	</c:if>
+	</div>
 	
 	<!-- EU  -->
-	<p class="questionHedder col-9">유럽</p>
-	<c:if test="${eurBoard[0].boardTitle==null}">	
-		<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
-			<div class="noBoard">
-				아직 보여드릴 게시글이 없어요 :(
+	<div class="contentBox">
+		<p class="questionHedder col-9" style="border-bottom: 1px solid #41414157;">유럽</p>
+		<c:if test="${eurBoard[0].boardTitle==null}">	
+			<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
+				<div class="noBoard">
+					아직 보여드릴 게시글이 없어요 :(
+				</div>
+				<div class="noBoardimg">
+					<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
+				</div>
 			</div>
-			<div class="noBoardimg">
-				<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
-			</div>
-		</div>
-	</c:if>
-	
-	<c:if test="${eurBoard[0].boardTitle!=null}">
-	<div class='container d-flex flex-column' style="height: 30rem; justify-content: center;">
-		<a class="col-9 seeAll"  href="#">전체보기</a>
-		<div class="d-flex flex-column col-9" style="padding: 16px; align-self: center;">
+		</c:if>
+		
+		<c:if test="${eurBoard[0].boardTitle!=null}">
+		<div class='col-9 d-flex flex-column countries'>
+			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<div class="d-flex flex-column col-9 semiBox">
 			<c:forEach items="${eurBoard}" var="list">
 				
-				<a class="d-flex col-12 mb-2 content contentselect" href="#">
-					<div class="col-2">${list.boardDate}</div>
-					<div class="col-7">
-						${list.boardTitle}
-					</div>
-					<!-- 포인트 테스트 -->
-					<c:if test="${list.boardPoint=='0'}">
-						<div class="col-2">
-							<span>🧡</span><span style="padding-left: 10px;">point</span>
+				<a class="d-flex col-12 mb-2 content contentselect flex-column" href="/menti/mentiboard?num=${list.num}">
+						
+						<div class="col-12 d-flex textTitle">
+							<div>${list.country}</div>
+							<span style="padding: 0px 10px 0px 10px;">|</span>
+							<div>${list.city}</div>
 						</div>
-					</c:if>
-					<c:if test="${list.boardPoint!='0'}">
-						<div class="col-2">
-							<span>${list.boardPoint} point</span>
-						</div>
-					</c:if>
-					
-					<!-- 프로필 테스트 -->
-	            	<c:if test="${fn:contains(list.profile_image, 'http')}">
-						<div class="col-1">
-							<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
-						</div>
-					</c:if>
- 	            	<c:if test="${list.profile_image!=null}">
-		            	<c:if test="${list.profile_image!='0'}">
-		            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+						<div class="col-12 d-flex textmain">
+						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
+							<div class="col-7">
+								${list.boardTitle}
+							</div>
+						<!-- 포인트 테스트 -->
+						<c:if test="${list.boardPoint=='0'}">
+							<div class="col-2">
+								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							</div>
+						</c:if>
+						<c:if test="${list.boardPoint!='0'}">
+							<div class="col-2">
+								<span>${list.boardPoint} point</span>
+							</div>
+						</c:if>
+						
+						<!-- 프로필 테스트 -->
+		            	<c:if test="${fn:contains(list.profile_image, 'http')}">
+							<div class="col-1">
+								<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+							</div>
+						</c:if>
+	 	            	<c:if test="${list.profile_image!=null}">
+			            	<c:if test="${list.profile_image!='0'}">
+			            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+									<div class="col-1">
+										<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									</div>
+								</c:if>
+							</c:if>
+			            	<c:if test="${list.profile_image=='0'}">
 								<div class="col-1">
-									<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
 								</div>
 							</c:if>
 						</c:if>
-		            	<c:if test="${list.profile_image=='0'}">
-							<div class="col-1">
-								<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
-							</div>
-						</c:if>
-					</c:if>
+						
+						<div class="replyBox">
+							<span>
+							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
+							</span> <span class="replyText">3</span> 
+							<span class="replyImogi">
+							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
+							</span> <span class="replyText">5</span>
+						</div>
+						</div>
 					
-				</a>
-	
-			</c:forEach>
-			
-		</div>	
-	</div>
-	
-	</c:if>
-	<!-- JP -->	
-	<p class="questionHedder col-9">일본</p>
-	<c:if test="${jpBoard[0].boardTitle==null}">	
-		<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
-			<div class="noBoard">
-				아직 보여드릴 게시글이 없어요 :(
-			</div>
-			<div class="noBoardimg">
-				<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
+					</a>
+		
+				</c:forEach>
+				
 			</div>
 		</div>
 	</c:if>
+	</div>
 	
-	<c:if test="${jpBoard[0].boardTitle!=null}">
-	<div class='container d-flex flex-column' style="height: 30rem; justify-content: center;">
-		<a class="col-9 seeAll"  href="#">전체보기</a>
-		<div class="d-flex flex-column col-9" style="padding: 16px; align-self: center;">
+	
+	<!-- JP -->	
+	<div class="contentBox">
+		<p class="questionHedder col-9" style="border-bottom: 1px solid #41414157;">일본</p>
+		<c:if test="${jpBoard[0].boardTitle==null}">	
+			<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
+				<div class="noBoard">
+					아직 보여드릴 게시글이 없어요 :(
+				</div>
+				<div class="noBoardimg">
+					<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${jpBoard[0].boardTitle!=null}">
+		<div class='col-9 d-flex flex-column countries'>
+			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<div class="d-flex flex-column col-9 semiBox">
 			<c:forEach items="${jpBoard}" var="list">
 			
-				<a class="d-flex col-12 mb-2 content contentselect" href="#">
-					<div class="col-2">${list.boardDate}</div>
-					<div class="col-7">
-						${list.boardTitle}
-					</div>
-					<!-- 포인트 테스트 -->
-					<c:if test="${list.boardPoint=='0'}">
-						<div class="col-2">
-							<span>🧡</span><span style="padding-left: 10px;">point</span>
+				<a class="d-flex col-12 mb-2 content contentselect flex-column" href="/menti/mentiboard?num=${list.num}">
+						
+						<div class="col-12 d-flex textTitle">
+							<div>${list.country}</div>
+							<span style="padding: 0px 10px 0px 10px;">|</span>
+							<div>${list.city}</div>
 						</div>
-					</c:if>
-					<c:if test="${list.boardPoint!='0'}">
-						<div class="col-2">
-							<span>${list.boardPoint} point</span>
-						</div>
-					</c:if>
-					
-					<!-- 프로필 테스트 -->
-	            	<c:if test="${fn:contains(list.profile_image, 'http')}">
-						<div class="col-1">
-							<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
-						</div>
-					</c:if>
- 	            	<c:if test="${list.profile_image!=null}">
-		            	<c:if test="${list.profile_image!='0'}">
-		            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+						<div class="col-12 d-flex textmain">
+						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
+							<div class="col-7">
+								${list.boardTitle}
+							</div>
+						<!-- 포인트 테스트 -->
+						<c:if test="${list.boardPoint=='0'}">
+							<div class="col-2">
+								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							</div>
+						</c:if>
+						<c:if test="${list.boardPoint!='0'}">
+							<div class="col-2">
+								<span>${list.boardPoint} point</span>
+							</div>
+						</c:if>
+						
+						<!-- 프로필 테스트 -->
+		            	<c:if test="${fn:contains(list.profile_image, 'http')}">
+							<div class="col-1">
+								<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+							</div>
+						</c:if>
+	 	            	<c:if test="${list.profile_image!=null}">
+			            	<c:if test="${list.profile_image!='0'}">
+			            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+									<div class="col-1">
+										<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									</div>
+								</c:if>
+							</c:if>
+			            	<c:if test="${list.profile_image=='0'}">
 								<div class="col-1">
-									<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
 								</div>
 							</c:if>
 						</c:if>
-		            	<c:if test="${list.profile_image=='0'}">
-							<div class="col-1">
-								<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
-							</div>
-						</c:if>
-					</c:if>
+						
+						<div class="replyBox">
+							<span>
+							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
+							</span> <span class="replyText">3</span> 
+							<span class="replyImogi">
+							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
+							</span> <span class="replyText">5</span>
+						</div>
+						</div>
 					
-				</a>
-	
-			</c:forEach>
-			
-		</div>	
-	</div>
-	</c:if>
-	<!-- CN -->
-	<p class="questionHedder col-9">중국</p>
-	<c:if test="${cnBoard[0].boardTitle==null}">	
-		<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
-			<div class="noBoard">
-				아직 보여드릴 게시글이 없어요 :(
-			</div>
-			<div class="noBoardimg">
-				<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
+					</a>
+		
+				</c:forEach>
+				
 			</div>
 		</div>
 	</c:if>
+	</div>
 	
-	<c:if test="${cnBoard[0].boardTitle!=null}">
-	<div class='container d-flex flex-column' style="height: 30rem; justify-content: center;">
-		<a class="col-9 seeAll"  href="#">전체보기</a>
-		<div class="d-flex flex-column col-9" style="padding: 16px; align-self: center;">
+	<!-- CN -->
+	<div class="contentBox">
+		<p class="questionHedder col-9" style="border-bottom: 1px solid #41414157;">중국</p>
+		<c:if test="${cnBoard[0].boardTitle==null}">	
+			<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
+				<div class="noBoard">
+					아직 보여드릴 게시글이 없어요 :(
+				</div>
+				<div class="noBoardimg">
+					<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${cnBoard[0].boardTitle!=null}">
+		<div class='col-9 d-flex flex-column countries'>
+			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<div class="d-flex flex-column col-9 semiBox">
 			<c:forEach items="${cnBoard}" var="list">
 				
-				<a class="d-flex col-12 mb-2 content contentselect" href="#">
-					<div class="col-2">${list.boardDate}</div>
-					<div class="col-7">
-						${list.boardTitle}
-					</div>
-					<!-- 포인트 테스트 -->
-					<c:if test="${list.boardPoint=='0'}">
-						<div class="col-2">
-							<span>🧡</span><span style="padding-left: 10px;">point</span>
+				<a class="d-flex col-12 mb-2 content contentselect flex-column" href="/menti/mentiboard?num=${list.num}">
+						
+						<div class="col-12 d-flex textTitle">
+							<div>${list.country}</div>
+							<span style="padding: 0px 10px 0px 10px;">|</span>
+							<div>${list.city}</div>
 						</div>
-					</c:if>
-					<c:if test="${list.boardPoint!='0'}">
-						<div class="col-2">
-							<span>${list.boardPoint} point</span>
-						</div>
-					</c:if>
-					
-					<!-- 프로필 테스트 -->
-	            	<c:if test="${fn:contains(list.profile_image, 'http')}">
-						<div class="col-1">
-							<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
-						</div>
-					</c:if>
- 	            	<c:if test="${list.profile_image!=null}">
-		            	<c:if test="${list.profile_image!='0'}">
-		            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+						<div class="col-12 d-flex textmain">
+						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
+							<div class="col-7">
+								${list.boardTitle}
+							</div>
+						<!-- 포인트 테스트 -->
+						<c:if test="${list.boardPoint=='0'}">
+							<div class="col-2">
+								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							</div>
+						</c:if>
+						<c:if test="${list.boardPoint!='0'}">
+							<div class="col-2">
+								<span>${list.boardPoint} point</span>
+							</div>
+						</c:if>
+						
+						<!-- 프로필 테스트 -->
+		            	<c:if test="${fn:contains(list.profile_image, 'http')}">
+							<div class="col-1">
+								<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+							</div>
+						</c:if>
+	 	            	<c:if test="${list.profile_image!=null}">
+			            	<c:if test="${list.profile_image!='0'}">
+			            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+									<div class="col-1">
+										<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									</div>
+								</c:if>
+							</c:if>
+			            	<c:if test="${list.profile_image=='0'}">
 								<div class="col-1">
-									<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
 								</div>
 							</c:if>
 						</c:if>
-		            	<c:if test="${list.profile_image=='0'}">
-							<div class="col-1">
-								<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
-							</div>
-						</c:if>
-					</c:if>
+						
+						<div class="replyBox">
+							<span>
+							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
+							</span> <span class="replyText">3</span> 
+							<span class="replyImogi">
+							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
+							</span> <span class="replyText">5</span>
+						</div>
+						</div>
 					
-				</a>
-	
-			</c:forEach>
-			
-		</div>	
-	</div>
-	</c:if>
-	<!-- AP -->	
-	<p class="questionHedder col-9">동남아</p>
-	<c:if test="${apBoard[0].boardTitle==null}">	
-		<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
-			<div class="noBoard">
-				아직 보여드릴 게시글이 없어요 :(
-			</div>
-			<div class="noBoardimg">
-				<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
+					</a>
+		
+				</c:forEach>
+				
 			</div>
 		</div>
 	</c:if>
+	</div>
 	
-	<c:if test="${apBoard[0].boardTitle!=null}">
-	<div class='container d-flex flex-column' style="height: 30rem; justify-content: center;">
-		<a class="col-9 seeAll"  href="#">전체보기</a>
-		<div class="d-flex flex-column col-9" style="padding: 16px; align-self: center;">
+	<!-- AP -->	
+	<div class="contentBox">
+		<p class="questionHedder col-9" style="border-bottom: 1px solid #41414157;">동남아</p>
+		<c:if test="${apBoard[0].boardTitle==null}">	
+			<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
+				<div class="noBoard">
+					아직 보여드릴 게시글이 없어요 :(
+				</div>
+				<div class="noBoardimg">
+					<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${apBoard[0].boardTitle!=null}">
+		<div class='col-9 d-flex flex-column countries'>
+			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<div class="d-flex flex-column col-9 semiBox">
 			<c:forEach items="${apBoard}" var="list">
 				
-				<a class="d-flex col-12 mb-2 content contentselect" href="#">
-					<div class="col-2">${list.boardDate}</div>
-					<div class="col-7">
-						${list.boardTitle}
-					</div>
-					<!-- 포인트 테스트 -->
-					<c:if test="${list.boardPoint=='0'}">
-						<div class="col-2">
-							<span>🧡</span><span style="padding-left: 10px;">point</span>
+				<a class="d-flex col-12 mb-2 content contentselect flex-column" href="/menti/mentiboard?num=${list.num}">
+						
+						<div class="col-12 d-flex textTitle">
+							<div>${list.country}</div>
+							<span style="padding: 0px 10px 0px 10px;">|</span>
+							<div>${list.city}</div>
 						</div>
-					</c:if>
-					<c:if test="${list.boardPoint!='0'}">
-						<div class="col-2">
-							<span>${list.boardPoint} point</span>
-						</div>
-					</c:if>
-					
-					<!-- 프로필 테스트 -->
-	            	<c:if test="${fn:contains(list.profile_image, 'http')}">
-						<div class="col-1">
-							<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
-						</div>
-					</c:if>
- 	            	<c:if test="${list.profile_image!=null}">
-		            	<c:if test="${list.profile_image!='0'}">
-		            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+						<div class="col-12 d-flex textmain">
+						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
+							<div class="col-7">
+								${list.boardTitle}
+							</div>
+						<!-- 포인트 테스트 -->
+						<c:if test="${list.boardPoint=='0'}">
+							<div class="col-2">
+								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							</div>
+						</c:if>
+						<c:if test="${list.boardPoint!='0'}">
+							<div class="col-2">
+								<span>${list.boardPoint} point</span>
+							</div>
+						</c:if>
+						
+						<!-- 프로필 테스트 -->
+		            	<c:if test="${fn:contains(list.profile_image, 'http')}">
+							<div class="col-1">
+								<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+							</div>
+						</c:if>
+	 	            	<c:if test="${list.profile_image!=null}">
+			            	<c:if test="${list.profile_image!='0'}">
+			            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+									<div class="col-1">
+										<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									</div>
+								</c:if>
+							</c:if>
+			            	<c:if test="${list.profile_image=='0'}">
 								<div class="col-1">
-									<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
 								</div>
 							</c:if>
 						</c:if>
-		            	<c:if test="${list.profile_image=='0'}">
-							<div class="col-1">
-								<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
-							</div>
-						</c:if>
-					</c:if>
+						
+						<div class="replyBox">
+							<span>
+							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
+							</span> <span class="replyText">3</span> 
+							<span class="replyImogi">
+							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
+							</span> <span class="replyText">5</span>
+						</div>
+						</div>
 					
-				</a>
-	
-			</c:forEach>
-			
-		</div>	
-	</div>
-	
-	</c:if>
-	
-	<!-- Middle East -->
-	<p class="questionHedder col-9">중동</p>
-	<c:if test="${meBoard[0].boardTitle==null}">	
-		<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
-			<div class="noBoard">
-				아직 보여드릴 게시글이 없어요 :(
-			</div>
-			<div class="noBoardimg">
-				<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
+					</a>
+		
+				</c:forEach>
+				
 			</div>
 		</div>
 	</c:if>
+	</div>
 	
-	<c:if test="${meBoard[0].boardTitle!=null}">
-	<div class='container d-flex flex-column' style="height: 30rem; justify-content: center;">
-		<a class="col-9 seeAll"  href="#">전체보기</a>
-		<div class="d-flex flex-column col-9" style="padding: 16px; align-self: center;">
+	<!-- Middle East -->
+	<div class="contentBox">
+		<p class="questionHedder col-9" style="border-bottom: 1px solid #41414157;">중동</p>
+		<c:if test="${meBoard[0].boardTitle==null}">	
+			<div class='m-auto d-flex flex-column noBoardBox' style="height: 30rem; justify-content: center;">
+				<div class="noBoard">
+					아직 보여드릴 게시글이 없어요 :(
+				</div>
+				<div class="noBoardimg">
+					<img alt="Sorry..." src="/image/shocked.png" width="130px" height="130px">
+				</div>
+			</div>
+		</c:if>
+		
+		<c:if test="${meBoard[0].boardTitle!=null}">
+		<div class='col-9 d-flex flex-column countries'>
+			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<div class="d-flex flex-column col-9 semiBox">
 			<c:forEach items="${meBoard}" var="list">
 				
-				<a class="d-flex col-12 mb-2 content contentselect" href="#">
-					<div class="col-2">${list.boardDate}</div>
-					<div class="col-7">
-						${list.boardTitle}
-					</div>
-					
-					<!-- 포인트 테스트 -->
-					<c:if test="${list.boardPoint=='0'}">
-						<div class="col-2">
-							<span>🧡</span><span style="padding-left: 10px;">point</span>
+				<a class="d-flex col-12 mb-2 content contentselect flex-column" href="/menti/mentiboard?num=${list.num}">
+						
+						<div class="col-12 d-flex textTitle">
+							<div>${list.country}</div>
+							<span style="padding: 0px 10px 0px 10px;">|</span>
+							<div>${list.city}</div>
 						</div>
-					</c:if>
-					<c:if test="${list.boardPoint!='0'}">
-						<div class="col-2">
-							<span>${list.boardPoint} point</span>
-						</div>
-					</c:if>
-					
-					<!-- 프로필 테스트 -->
-	            	<c:if test="${fn:contains(list.profile_image, 'http')}">
-						<div class="col-1">
-							<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
-						</div>
-					</c:if>
- 	            	<c:if test="${list.profile_image!=null}">
-		            	<c:if test="${list.profile_image!='0'}">
-		            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+						<div class="col-12 d-flex textmain">
+						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
+							<div class="col-7">
+								${list.boardTitle}
+							</div>
+						<!-- 포인트 테스트 -->
+						<c:if test="${list.boardPoint=='0'}">
+							<div class="col-2">
+								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							</div>
+						</c:if>
+						<c:if test="${list.boardPoint!='0'}">
+							<div class="col-2">
+								<span>${list.boardPoint} point</span>
+							</div>
+						</c:if>
+						
+						<!-- 프로필 테스트 -->
+		            	<c:if test="${fn:contains(list.profile_image, 'http')}">
+							<div class="col-1">
+								<img src="${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+							</div>
+						</c:if>
+	 	            	<c:if test="${list.profile_image!=null}">
+			            	<c:if test="${list.profile_image!='0'}">
+			            		<c:if test="${not fn:contains(list.profile_image, 'http')}">
+									<div class="col-1">
+										<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									</div>
+								</c:if>
+							</c:if>
+			            	<c:if test="${list.profile_image=='0'}">
 								<div class="col-1">
-									<img src="/upload/${list.profile_image}" alt="프로필 " width="50" height="50" class="rounded-circle">
+									<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
 								</div>
 							</c:if>
 						</c:if>
-		            	<c:if test="${list.profile_image=='0'}">
-							<div class="col-1">
-								<img src="/image/user.png" alt="프로필 " width="50" height="50" class="rounded-circle">
-							</div>
-						</c:if>
-					</c:if>
+						
+						<div class="replyBox">
+							<span>
+							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
+							</span> <span class="replyText">3</span> 
+							<span class="replyImogi">
+							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
+							</span> <span class="replyText">5</span>
+						</div>
+						</div>
 					
-				</a>
-	
-			</c:forEach>
-			
-		</div>	
+					</a>
+		
+				</c:forEach>
+				
+			</div>
+		</div>
+	</c:if>
 	</div>
 	
-	</c:if>
     <!-- footer -->
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">

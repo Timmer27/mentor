@@ -22,4 +22,6 @@ public interface mentiMapper {
 
 	void spendPoint(Map<String, Object> map);
 
+	userboardVO mentiboard(String num);
+
 }
