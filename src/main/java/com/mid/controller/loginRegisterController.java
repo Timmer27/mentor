@@ -27,7 +27,7 @@ import com.mid.service.loginService;
 
 @Controller
 @RequestMapping("/loginRegister")
-@SessionAttributes({"id", "userType"})
+@SessionAttributes({"id", "userType", "profile_image"})
 public class loginRegisterController {
 	
 	@Autowired
@@ -40,7 +40,7 @@ public class loginRegisterController {
 	@GetMapping("/login")
 	public String login(@SessionAttribute(value = "id", required = false)String id) {
 		if(id!=null) {
-			return "redirect:/main";
+			return "/loginrequired";
 		}
 		return "/loginRegister/login";
 	}
@@ -53,7 +53,13 @@ public class loginRegisterController {
 		if(service.kakaoLogin(userType, vo)) {
 			m.addAttribute("id", vo.getId());
 			m.addAttribute("userType", vo.getUserType());
-			System.err.println("test " + vo.getUserType());
+			
+			if(vo.getProfile_image().contains("http")) {
+				m.addAttribute("profile_image", vo.getProfile_image());
+			}
+			else {
+				m.addAttribute("profile_image", ("/image/upload/"+vo.getProfile_image()));
+			}
 			return true;
 		}
 		return false;
@@ -66,7 +72,7 @@ public class loginRegisterController {
 //		if(service.kakaoLogin(userType, vo)) {
 //			m.addAttribute("id", vo.getId());
 //				m.addAttribute("userType", vo.getUserType());
-				//return true;
+//				return true;
 //		}
 //		return false;
 //	}
@@ -78,6 +84,13 @@ public class loginRegisterController {
 		if(service.Googlelogin(vo)) {
 			m.addAttribute("id", vo.getId());
 			m.addAttribute("userType", vo.getUserType());
+			
+			if(vo.getProfile_image().contains("http")) {
+				m.addAttribute("profile_image", vo.getProfile_image());
+			}
+			else {
+				m.addAttribute("profile_image", ("/image/upload/"+vo.getProfile_image()));
+			}
 			return true;
 		}
 		return false;
@@ -89,6 +102,18 @@ public class loginRegisterController {
 		if(service.webLogin((userType+"user"), id, password)) {
 			m.addAttribute("id", id);
 			m.addAttribute("userType", userType);
+			
+			System.err.println("test" + userType);
+
+			
+			String profile_image = service.getProfileImg(userType, id);
+			
+			if(profile_image.contains("http")) {
+				m.addAttribute("profile_image", profile_image);
+			}
+			else {
+				m.addAttribute("profile_image", ("/image/upload/"+profile_image));
+			}
 			return true;
 		}
 		return false;
@@ -145,7 +170,7 @@ public class loginRegisterController {
 	@ResponseBody
 	public  Map<String, Boolean> webRegister(userVO vo, @RequestParam(name="profilePicture")MultipartFile mfile) {
 		
-		String saveFileName = mfile.getOriginalFilename() + System.nanoTime();
+		String saveFileName = mfile.getOriginalFilename() + "|" + System.nanoTime();
 		
 		try {
 			String uploadPath = "/C:\\Eclipse\\mentor\\src\\main\\resources\\static\\upload";
@@ -175,19 +200,22 @@ public class loginRegisterController {
 		return map;	
 	}
 	
-//	네이버 회원가입
-	@PostMapping("/NaverRegister")
-	@ResponseBody
-	public  Map<String, Boolean> NaverRegister(@RequestParam String email, userVO vo, Model m) {
-//		if(service.kakaoRegister(vo)) {
-//			m.addAttribute("id");
-//		}
-		
-		Map<String, Boolean> map = new HashMap<String, Boolean>();
-		map.put("result", service.kakaoRegister(vo));
-		
-		return map;	
-	}
+////	네이버 회원가입
+//	@PostMapping("/NaverRegister")
+//	@ResponseBody
+//	public  Map<String, Boolean> NaverRegister(userVO vo, Model m) {
+////		if(service.kakaoRegister(vo)) {
+////			m.addAttribute("id");
+////		}
+//		System.err.println(vo.getEmail());
+//		System.err.println(vo.getNickname());
+//		System.err.println(vo.getId());
+//		
+//		Map<String, Boolean> map = new HashMap<String, Boolean>();
+////		map.put("result", service.kakaoRegister(vo));
+//		
+//		return map;	
+//	}
 	
 //	구글 회원가입
 	@PostMapping("/GoogleRegister")

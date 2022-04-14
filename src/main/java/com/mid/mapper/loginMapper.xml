@@ -37,6 +37,10 @@
 		SELECT count(*) FROM ${userType}user WHERE id = #{id}
 	</select>
 	
+	<select id="getProfileImg" resultType="String" parameterType="String">
+		SELECT IFNULL(profile_image, 0) FROM ${userType}user WHERE id = #{id}
+	</select>
+	
 	
 	
 </mapper>

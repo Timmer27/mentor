@@ -27,4 +27,6 @@ public interface loginMapper {
 
 	int Googlelogin(userVO vo);
 
+	String getProfileImg(String userType, String id);
+
 }

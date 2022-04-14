@@ -36,7 +36,7 @@ public class updownController {
 			@RequestParam("files") MultipartFile[] mfiles,
 			HttpServletRequest request) {
 //		받은 파일은 여러개니까 배열로 오고 작성자 author텍스느느 String 으로 받ㄷ아온다.
-//		request 형식을 받아와야하니까 servletrequest도 선언한다.
+//		request 형식을 받아와야하니까 servletrequest도 선언한다	.
 		
 		ServletContext context = request.getServletContext();
 		String savePath = context.getRealPath("/WEB-INF/upload");
@@ -46,7 +46,7 @@ public class updownController {
 		
 		try {
 			for(int i = 0; i<mfiles.length; i++) {
-				mfiles[i].transferTo(new File(savePath + "/" + mfiles[i].getOriginalFilename()));
+				mfiles[i].transferTo(new File(savePath + "|" + mfiles[i].getOriginalFilename()));
 //				여러 파일을 배열로 돌려서 transferTo, 즉 해당 경로로 transfer시킴
 //				해당 파일을 new File을 통해 구한 절대경로와 파일의 Original Name을 받아와서 저장한다. 
 //				original name은 getOriginalFileName으로 구할 수 있다.

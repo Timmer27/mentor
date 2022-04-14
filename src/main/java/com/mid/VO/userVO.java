@@ -4,6 +4,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class userVO {
+	
+	private String num;
 	private String id;
 	private String password;
 	private String nickname;
@@ -14,6 +16,14 @@ public class userVO {
 	private String gender;
 	private String userType;
 
+	
+	public String getNum() {
+		return num;
+	}
+	public void setNum(String num) {
+		this.num = num;
+	}
+	
 	public String getCity() {
 		return city;
 	}

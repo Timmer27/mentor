@@ -23,87 +23,94 @@
 <!-- top -->
     <div class = "d-flex" style='border-bottom: 1px solid #6d6d6d8a;'>
         <div class='col-lg-1' style="padding-left: 12px;">
-           <a href="/main"><img src="/image/logo.png" alt="" style='width: 75px; margin-left: 15px;'></a>
+			<a href="/main"><img src="/image/logo.png" alt="" style='width: 75px; margin-left: 15px;'></a>
         </div>
         <div class = "d-flex col-lg-7" style="color: #000000ab;">
-            <c:set var="userType" value="${userType}"/>
-	            <c:if test="${userType==null}">
-		            <div class = "col-lg-1 bann_box mx-1">
-			            <a href="#"><p class="bannerSub">
-			                멘톨후기
-			            </p></a>
-		            </div>      
-		            <div class = "col-lg-1 bann_box mx-1">
-			            <a href="#"><p class="bannerSub">
-			                사용방법
-			            </p></a>
-		            </div>  
-	            </c:if>            
-	            <c:if test="${userType eq 'mentor'}">
-		            <div class = "col-lg-1 bann_box mx-1">
-			            <a href="#"><p class="bannerSub">
-			                멘토하기
-			            </p></a>
-		            </div>      
-		            <div class = "col-lg-1 bann_box mx-1">
-			            <a href="#"><p class="bannerSub">
-			                멘톨후기
-			            </p></a>
-		            </div>      
-		            <div class = "col-lg-1 bann_box mx-1">
-			            <a href="#"><p class="bannerSub">
-			                사용방법
-			            </p></a>
-		            </div>  
-	            </c:if>
-	            <c:if test="${usreType eq 'menti'}">
-		            <div class = "col-lg-1 bann_box mx-1">
-			            <a href="#"><p class="bannerSub">
-			                질문하기
-			            </p></a>
-		            </div>      
-		            <div class = "col-lg-1 bann_box mx-1">
-			            <a href="#"><p class="bannerSub">
-			                멘톨후기
-			            </p></a>
-		            </div>      
-		            <div class = "col-lg-1 bann_box mx-1">
-			            <a href="#"><p class="bannerSub">
-			                사용방법
-			            </p></a>
-		            </div>  
-	            
-	            </c:if>
-                
+			<c:if test="${userType==null}">
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						멘톨후기
+					</p></a>
+				</div>      
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						사용방법
+					</p></a>
+				</div>  
+			</c:if>            
+			<c:if test="${userType == 'mentor'}">
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						멘토하기
+					</p></a>
+				</div>      
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						멘톨후기
+					</p></a>
+				</div>      
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						사용방법
+					</p></a>
+				</div>  
+			</c:if>
+			<c:if test="${userType == 'menti'}">
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						질문하기
+					</p></a>
+				</div>      
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						멘톨후기
+					</p></a>
+				</div>      
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						사용방법
+					</p></a>
+				</div>  
+			</c:if>
         </div>
-        <div class="d-flex col-lg-4 lgBox" style="place-content: end; padding-right: 30px;">
-        
+        <div class="d-flex col-lg-4 lgBox" style="place-content: end; padding-right: 30px; align-items: center;">
+	        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" style="width: 60%;">
+				<input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+	        </form>
+		
 	        <c:if test="${id==null}">
-            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
-	            <a href = "/loginRegister/login"><p class="bannerSub" style="color: white;">
-	                로그인
-	            </p></a>
-            </div>
-            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #4598ace3;">
-	            <a href = "/loginRegister/register"><p class="bannerSub" style="color: white;">
-                	회원가입
-	            </p></a>
-            </div>
-            </c:if>
-            
-            <c:if test="${id!=null}">
-            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #4598ace3;">
-	            <a href = "#"><p class="bannerSub" style="color: white;">
-	                마이페이지
-	            </p></a>
-            </div>
-            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
-	            <a href = "/loginRegister/logout"><p class="bannerSub" style="color: white;">
-                	로그아웃
-	            </p></a>
-            </div>
-            </c:if>
-            
+	        
+	        <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
+				<a href = "/loginRegister/login"><p class="bannerSub" style="color: white;">
+				로그인
+				</a>
+	        </div>
+	        <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #4598ace3;">
+				<a href = "/loginRegister/register"><p class="bannerSub" style="color: white;">
+				회원가입
+				</a>
+	        </div>
+			</c:if>
+
+			<c:if test="${id!=null}">
+	            <div class="dropdown text-end">
+	            	<c:if test="${profile_image eq '/image/upload/0'}">
+						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+			            	<img src="/image/user.png" alt="프로필" width="50" height="50" class="rounded-circle">
+						</a>
+					</c:if>
+	            	<c:if test="${profile_image != '/image/upload/0'}">
+						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+			            	<img src="${profile_image}" alt="프로필" width="50" height="50" class="rounded-circle">
+						</a>
+					</c:if>
+				<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="min-width: 6rem;">
+					<li><a class="dropdown-item" href="#">마이페이지</a></li>
+					<li><hr class="dropdown-divider"></li>
+					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
+				</ul>
+		  		</c:if>
+	        </div>
         </div>
     </div>
     
@@ -214,7 +221,7 @@
 
         <div class="d-flex col-10" style="align-self: center; height: 100%">
 	        <div class='col-lg-3 text-center'>
-	        	<a href='#'>
+	        	<a href='/main/mentoring'>
 		        	<img alt="멘토링" src="/image/mortarboard.png"
 	        		width="80px"
 		        	>
@@ -222,15 +229,15 @@
 	        	</a>
 	        </div>
 	        <div class='col-lg-3 text-center'>
-	        	        	<a href='#'>
-	        	<img alt="룸메이트" src="/image/house.png"
+   	        	<a href='/main/board'>
+	        		<img alt="룸메이트" src="/image/house.png"
  					width="80px"
 		        	>
 		        	<p class="text-center" style="margin-top: 15px;">룸메이트</p>
 					            </a>
 	        </div>
 	        <div class='col-lg-3 text-center'>
-	   			<a href='#'>
+	   			<a href='/main/rommate'>
 	        		<img alt="유학정보" src="/image/student2.png" 
 	        		width="80px"
 		        	>
@@ -238,7 +245,7 @@
 				</a>	
 	        </div>
 	        <div class='col-lg-3 text-center'>
-				<a href='#'>
+				<a href='/main/univInfo'>
 	        	<img alt="자유게시판" src="/image/board.png"
 					width="80px"
 		        	>

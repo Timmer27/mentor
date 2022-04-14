@@ -51,8 +51,9 @@ public class loginService {
 		return loginMapper.GoogleRegister(vo) > 0 ? true : false;
 	}
 	public boolean Googlelogin(userVO vo) {
-		System.err.println(vo.getId());
-		System.err.println(loginMapper.Googlelogin(vo));
 		return loginMapper.Googlelogin(vo) > 0 ? true : false;
+	}
+	public String getProfileImg(String userType, String id) {
+		return loginMapper.getProfileImg(userType, id);
 	}
 }

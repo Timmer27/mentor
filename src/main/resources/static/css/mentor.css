@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+.mainBanner{
+   	height: 100px;
+   	flex-direction: column;
+	background-color: #829ea557
+}
+
+.mainSub{
+    height: 100%;
+    margin: auto;
+    place-content: center;
+    align-items: center;
+}
+
+.categoriText{
+	margin-top: 15px;
+	color: #434343b5;
+}
+
+.questionBox{
+	margin: auto;
+    width: 18rem;
+    display: flex;
+    align-items: center;
+    place-content: center;
+}
+
+.contentBox{
+   max-width: 69rem;
+    margin: auto
+}
+
+.countries{
+	height: 30rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.seeAll{
+	text-align: end;
+	place-self: center;
+	color: #016eff;
+}
+
+.content{
+	height: 5rem;
+    border-bottom: 1px solid #c1c1c170;
+    padding: 4px 5px 5px 20px;
+    align-items: center;
+}

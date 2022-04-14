@@ -24,62 +24,97 @@
 <!-- top -->
     <div class = "d-flex" style='border-bottom: 1px solid #6d6d6d8a;'>
         <div class='col-lg-1' style="padding-left: 12px;">
-           <a href="/main"><img src="/image/logo.png" alt="" style='width: 75px; margin-left: 15px;'></a>
+			<a href="/main"><img src="/image/logo.png" alt="" style='width: 75px; margin-left: 15px;'></a>
         </div>
         <div class = "d-flex col-lg-7" style="color: #000000ab;">
-            <div class = "col-lg-1 bann_box mx-1">
-	            <a href="#"><p class="bannerSub">
-	                멘토해주기
-	            </p></a>
-            </div>      
-            <div class = "col-lg-1 bann_box mx-1">
-	            <a href="#"><p class="bannerSub">
-	                멘티받기
-	            </p></a>
-            </div>      
-            <div class = "col-lg-1 bann_box mx-1">
-	            <a href="#"><p class="bannerSub">
-	                멘톨후기
-	            </p></a>
-            </div>      
-            <div class = "col-lg-1 bann_box mx-1">
-	            <a href="#"><p class="bannerSub">
-	                사용방법
-	            </p></a>
-            </div>      
+			<c:if test="${userType==null}">
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						멘톨후기
+					</p></a>
+				</div>      
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						사용방법
+					</p></a>
+				</div>  
+			</c:if>            
+			<c:if test="${userType eq 'mentor'}">
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						멘토하기
+					</p></a>
+				</div>      
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						멘톨후기
+					</p></a>
+				</div>      
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						사용방법
+					</p></a>
+				</div>  
+			</c:if>
+			<c:if test="${userType eq 'menti'}">
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						질문하기
+					</p></a>
+				</div>      
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						멘톨후기
+					</p></a>
+				</div>      
+				<div class = "col-lg-1 bann_box mx-1">
+					<a href="#"><p class="bannerSub">
+						사용방법
+					</p></a>
+				</div>  
+			</c:if>
         </div>
-        <div class="d-flex col-lg-4 lgBox" style="place-content: end; padding-right: 30px;">
-        
+        <div class="d-flex col-lg-4 lgBox" style="place-content: end; padding-right: 30px; align-items: center;">
+	        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" style="width: 60%;">
+				<input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+	        </form>
+		
 	        <c:if test="${id==null}">
-            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
-	            <a href = "/loginRegister/login"><p class="bannerSub" style="color: white;">
-	                로그인
-	            </p></a>
-            </div>
-            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #4598ace3;">
-	            <a href = "/loginRegister/register"><p class="bannerSub" style="color: white;">
-                	회원가입
-	            </p></a>
-            </div>
-            </c:if>
-            
-            <c:if test="${id!=null}">
-            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #4598ace3;">
-	            <a href = "#"><p class="bannerSub" style="color: white;">
-	                마이페이지
-	            </p></a>
-            </div>
-            <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
-	            <a href = "/loginRegister/logout"><p class="bannerSub" style="color: white;">
-                	로그아웃
-	            </p></a>
-            </div>
-            </c:if>
-            
+	        
+	        <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #2a3339bf;">
+				<a href = "/loginRegister/login"><p class="bannerSub" style="color: white;">
+				로그인
+				</a>
+	        </div>
+	        <div class = "col-lg-2 bann_box mx-1 lgBox" style="background-color: #4598ace3;">
+				<a href = "/loginRegister/register"><p class="bannerSub" style="color: white;">
+				회원가입
+				</a>
+	        </div>
+	        
+			</c:if>
+
+			<c:if test="${id!=null}">
+	            <div class="dropdown text-end">
+	            	<c:if test="${profile_image eq '/image/upload/0'}">
+						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+			            	<img src="/image/user.png" alt="프로필" width="50" height="50" class="rounded-circle">
+						</a>
+					</c:if>
+	            	<c:if test="${profile_image != '/image/upload/0'}">
+						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+			            	<img src="${profile_image}" alt="프로필" width="50" height="50" class="rounded-circle">
+						</a>
+					</c:if>
+				<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="min-width: 6rem;">
+					<li><a class="dropdown-item" href="#">마이페이지</a></li>
+					<li><hr class="dropdown-divider"></li>
+					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
+				</ul>
+		  		</c:if>
+	        </div>
         </div>
     </div>
-    
-    <div>
     
     <!-- 메인 시작 -->
 	<form id='login' class="container mt-4 mb-4" ><!-- 	onsubmit="return webRegister();" -->
@@ -100,13 +135,13 @@
 				    alt="카카오 회원가입 버튼"/>
 					</a>
 			    <!-- 네이버 -->
-				<a id="naverIdLogin_loginButton" class="socialLogin" href="javascript:void(0)">
+<!-- 				<a id="naverIdLogin_loginButton" class="socialLogin" href="javascript:showLoginPopup()">
     	    	  <img
 					width="60px"
 				    style="margin-right: 6px;"
 					alt="네이버 회원가입 버튼"
     	    	  	src="/image/naver_login.png" />
-				</a>					
+				</a> -->
 				
 			    <!-- 구글 -->
 				  <a id="GgCustomLogin" class="socialLogin" href="javascript:init()" style="background-color: #ebe8e882;">
@@ -158,10 +193,10 @@
 						<label for="email" class="col-3">이메일</label><input id='email' value="whdghtpgml@gmail.com" name="email" type="email" class="form-control" placeholder="이메일을 입력해주세요" aria-label="Recipient's email" aria-describedby="button-addon2" required="required">
 					</div>
 					<div class="autocomplete input-group mb-3 d-flex">
-						<label for="country" class="col-3">나라</label><input id="myInput" type="text" name="country" placeholder="나라 영문 입력" class="form-control">
+						<label for="country" class="col-3">나라</label><input id="myInput" type="text" name="country" placeholder="나라 영문 입력" class="form-control" required="required">
 					</div>					
 					<div class="autocomplete input-group mb-3 d-flex">
-						<label for="city" class="col-3">거주 도시</label><input id="cities" type="text" name="city" placeholder="도시 영문 입력" class="form-control">
+						<label for="city" class="col-3">거주 도시</label><input id="cities" type="text" name="city" placeholder="도시 영문 입력" class="form-control" required="required">
 					</div>					
 					<div class="input-group mb-3 col-12">
 						<div class="col-12 text-center">
@@ -171,7 +206,7 @@
 					
 					<div class = 'buttonBox'>
 						<div class = "d-flex col-7 mb-2" style="margin: auto;">
-							<a class="btn btn btn-dark" id='registerA' href="javascript:webRegister()" style="height: 45px; width: 100%">
+							<a class="btn btn btn-dark" id='registerA' href="javascript:webRegisterMentor()" style="height: 45px; width: 100%">
 							<span style="vertical-align: -webkit-baseline-middle;">회원가입</span>
 							</a>			
 						</div>
@@ -212,6 +247,7 @@
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <!-- 네이버 로그인 API연동  -->
     <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+ 	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
     <!-- 구글 로그인 API 연동 -->
     <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
     

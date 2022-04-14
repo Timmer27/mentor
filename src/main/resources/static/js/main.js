@@ -24,7 +24,8 @@ const geojson = {
             },
             'geometry': {
                 'type': 'Point',
-                'coordinates': [-61.21582, -15.971891]
+                'coordinates': [-83.1024, 42.3834] 
+
             }
         },
         {
