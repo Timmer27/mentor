@@ -113,6 +113,7 @@
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
 					<li><div id="pointshow" class="dropdown-item">보유 포인트 : <span style="color: red;">${currentPoint}</span> </div></li>
+					<li><div id="pointshow" class="dropdown-item">명예 포인트 : <span style="color: red;">${currentRepPoint}</span> </div></li>					
 				</ul>
 		  		</c:if>
 	        </div>
@@ -164,7 +165,7 @@
 					<img alt="Q" src="/image/question.png" width="66px" height="66px">
 				</div>
 				<div>
-					${list.boardTitle}
+					${list.boardTitle} 
 				</div>
 			</div>
 			
@@ -173,6 +174,13 @@
 					${list.boardContent}
 				</div>
 				
+				<!-- 첨부파일 삽입 -->
+				<div class="imageattachBox">첨부파일</div>
+					<div class="d-flex" style="margin: 30px 0px 20px 0px;">
+						<c:forEach var="filelist" items="${fileList}">
+							<img alt="files" src="${filelist}" width="200px" height="200px">
+						</c:forEach>
+					</div>
 				
 				<div class="text-center col-12 m-auto likeBox">
 					<a href="#">
@@ -230,7 +238,7 @@
 	    </c:if>
 	    
 	    <!-- 댓글 입력창 -->
-		<div class="contentBox">
+		<form class="contentBox" id='contentBox' onsubmit="return replyPost();">
 			<div class="contentBox">
 		    	
 		    	<div class="col-9 m-auto mt-4 replyBox" id='replyBox' style="display: none">
@@ -273,10 +281,12 @@
 			    		</span>
 			    		<button class="btn btn-dark" type="submit" name='replyAnswer' style="height: 33px;">저장</button>
 				    </div>
-				    
+		    		<input style="visibility: hidden;" name = "mentiNum" type="text" value ="${list.userNum}">
+		    		<input style="visibility: hidden;" name = "boardNum" type="text" value ="${list.num}">
+		    		<input style="visibility: hidden;" name = "id" type="text" value ="${id}">
 			    </div>
 		    </div>
-	    </div>
+	    </form>
 	    
 <!-- 댓글 숫자 검사 후 재삽입 예정  -->	    
 <!-- 		<div class="contentBox">
@@ -297,47 +307,56 @@
 		    		<img alt="" src="/image/qa.png" class="" width="70px" height="70px">
 		    	</div>
 		    	
-				<div class="contentBox">
+		    	
+		    	<c:forEach items="${replyList}" var="list">
 					<div class="contentBox">
-				    	
-				    	<div class="col-9 m-auto mt-4 replyBox">
-							<div class="d-flex mentorTitle">
-						    	<div style="margin-left: 20px; margin-right: 20px;">
-						    		<img alt="" src="/image/user.png" class="rounded-circle" width="56px" height="56px">
-						    	</div>
-						    	<div class="d-flex flex-column" style="width: 50%;">
-							    	<div class="">
-							    		멘토 닉네임
-							    	</div>
-							    	<div class="d-flex subProfile">
-							    		<span>순위</span>
-							    		<span>[102]</span>
-							    		<span>|</span>
-							    		<span>답변 채택 수</span>
-							    		<span>3개</span>
-							    		<span>|</span>
-							    		<span>채택율</span>
-							    		<span>30%</span>
-							    	</div>
-						    	</div>
-				    		</div>
-				    		
-							<div class="m-auto" style="height: auto; padding: 22px;">
-								댓글 목록
+						<div class="contentBox">
+					    	
+					    	<div class="col-9 m-auto mt-4 replyBox">
+								<div class="d-flex mentorTitle">
+								
+							    	<c:if test="${profile_image=='/image/upload/0'}">
+							    		<img alt="" src="/image/user.png" class="rounded-circle" width="56px" height="56px">
+							    	</c:if>
+							    	<c:if test="${profile_image!='/image/upload/0'}">
+							    		<img alt="" src="${list.profile_image}" class="rounded-circle" width="56px" height="56px">
+							    	</c:if>
+								    	<div class="d-flex flex-column" style="width: 50%;">
+									    	<div class="">
+									    		${list.nickname}
+									    	</div>
+									    	<div class="d-flex subProfile">
+									    		<span>순위</span>
+									    		<span>[102]</span>
+									    		<span>|</span>
+									    		<span>답변 채택 수</span>
+									    		<span>3개</span>
+									    		<span>|</span>
+									    		<span>채택율</span>
+									    		<span>30%</span>
+									    	</div>
+								    	</div>
+						    		</div>
+						    		
+									<div class="m-auto" style="height: auto; padding: 22px;">
+										${list.mentorreplyContent}
+								    </div>
+								    
+						    		<div class="d-flex subContent" style="width: 20%;">
+						    			<span style="padding-left: 10px">작성일자</span> ${list.replyDate}
+					    			</div>
+								    
+								    <hr>
+						    		<span style="font-size: 12px; padding-left: 10px; color: gray;">
+						    		</span>
+							    </div>
 						    </div>
-						    
-						    <hr>
-				    		<span style="font-size: 12px; padding-left: 10px; color: gray;">
-				    		</span>
 					    </div>
-				    </div>
+				    </c:forEach>
+				    
 			    </div>
-			    
-			    
 		    </div>
-	    </div>
-	    
-    </div>    
+	    </div>    
 	
 	
     <!-- footer -->

@@ -15,27 +15,35 @@ $('.heartImogi').click(function(e){
 }) */
 
 //textarea 자동 크기 조절
-document.querySelector('#replyContent').addEventListener('keyup', function(){
-	let textarea = document.querySelector('#replyContent');
-    let height = textarea.scrollHeight; // 높이
-    
-    if(height>47){
-	    textarea.style.height = `${height + 6}px`;
-		//mainarea.style.height = `${mainheight + 15}px`;
-	    //화면도 자동 이동
-	    //scrollTo(0,`${height - 550}`)
-	}
+$(document).ready(function(){
+	$('textarea').keyup(function(){
+		$(this).css("height", "auto");
+		$(this).height(this.scrollHeight);
+	})
 })
 
-//댓글달기 슬라이드 토글 js
+//댓글달기 슬라이드 토글 js - 로그인 검사
 $('#writeAnswer').click(function(){
 	
-	if(sessionStorage.getItem("id")==null){
-		alert('로그인을 먼저 해주세요');
-		return;
-	}
-	
-	$('#replyBox').slideToggle();
+	$.ajax({
+		dataType:'json',
+		caches: false,
+		method: 'post',
+		url:'/loginRegister/idCheck',
+		success:function(res){
+			if(res.result){
+				$('#replyBox').slideToggle();
+			}
+			else{
+				alert('로그인을 먼저 해주세요');
+				location.href = "/loginRegister/login"
+			}
+		},
+		error:function(request){
+			alert('로그인을 먼저 해주세요');
+			location.href = "/loginRegister/login"
+		}
+	})
 })
 
 
@@ -47,4 +55,30 @@ function searchInfo(){
 		alert('최소 두글자 이상 입력해주세요');
 		return false;
 	}
+}
+
+//댓글 포스팅
+
+function replyPost(){
+	var d = $('#contentBox').serialize();
+	alert(d);
+	
+	$.ajax({
+		data:d,
+		dataType:'json',
+		caches: false,
+		method: 'post',
+		url:'/menti/saveReply',
+		success:function(res){
+			if(res.result){
+				location.reload();
+			}
+			else{
+				alert('저장 실패');
+			}
+		},
+		error:function(request){
+			console.log(request.responseText);
+		}
+	})
 }

@@ -26,18 +26,41 @@
 		INSERT into ${userType}point (num, mentiNum, mentiboardnum, currentPoint, spendDate, spendAmount) VALUES (Null, #{mentiNum}, #{mentiboardnum}, #{currentPoint}, #{spendDate}, #{spendAmount})
 	</insert>
 	
-	<select id="mentiboard" resultType="com.mid.VO.userboardVO" parameterType="String">
-		SELECT * FROM mentiBoard WHERE num = #{num}
-	</select>
-	
 	<select id="searchInfo" resultType="com.mid.VO.userboardVO" parameterType="String">
 		SELECT * FROM mentiboard WHERE boardTitle LIKE #{search} UNION (SELECT * FROM mentiboard WHERE boardContent LIKE #{search});
 	</select>
+
+	<select id="mentiboard" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT num, mentiNum as userNum, country, city, boardTitle, boardContent, boardDate, boardLike, boardPoint FROM mentiBoard WHERE num = #{num}
+	</select>
 	
+	<select id="getfiles" resultType="com.mid.VO.userboardfilesVO" parameterType="String">
+		SELECT * FROM mentiboardattach where mentiboardnum = #{num}
+	</select>
 	
+	<select id="getmentorNum" resultType="String" parameterType="String">
+		SELECT num mentorNum FROM mentoruser where id = #{id}
+	</select>
 	
+	<insert id="saveReply" parameterType="String">
+		INSERT INTO mentiboardreply VALUES (Null, #{boardNum}, #{mentiNum}, #{mentorNum}, #{replyContent}, #{today})
+	</insert>
 	
+	<select id="getboardPoint" resultType="String" parameterType="String">
+		SELECT boardPoint mentorNum FROM mentiboard WHERE num = #{boardNum}
+	</select>
 	
+	<insert id="getreputationPoint" parameterType="String">
+		INSERT INTO mentorreppoint VALUES (Null, #{mentorNum}, #{mentiNum}, #{boardNum}, #{updatedrepPoint}, #{today})
+	</insert>
+	
+	<select id="replyList" resultType="com.mid.VO.mentiboardReplyVO" parameterType="String">
+		SELECT boardNum, mentiNum, mentorNum, mentorreplyContent, replyDate, id, password, nickname, profile_image, email, gender, city, country FROM mentiboardreply mb LEFT OUTER JOIN mentoruser mu on mu.num = mb.mentorNum WHERE boardNum = #{num}; 
+	</select>
+	
+	<select id="recentrepPoint" resultType="String" parameterType="String">
+		SELECT IFNULL(currentRepPoint,0) FROM mentorreppoint WHERE mentorNum = #{mentorNum} ORDER BY num DESC LIMIT 1;
+	</select>
 	
 </mapper>
 

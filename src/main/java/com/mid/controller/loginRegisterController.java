@@ -25,11 +25,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mid.VO.userPointVO;
 import com.mid.VO.userVO;
+import com.mid.mapper.mentiMapper;
 import com.mid.service.loginService;
 
 @Controller
 @RequestMapping("/loginRegister")
-@SessionAttributes({"id", "nickName", "userType", "profile_image", "currentPoint"})
+@SessionAttributes({"id", "nickName", "userType", "profile_image", "currentPoint", "currentRepPoint"})
 public class loginRegisterController {
 	
 	@Autowired
@@ -37,6 +38,9 @@ public class loginRegisterController {
 	
 	@Autowired
 	loginService service;
+	
+	@Autowired
+	mentiMapper mapper;
 
 //	로그인 페이지 이동
 	@GetMapping("/login")
@@ -57,6 +61,9 @@ public class loginRegisterController {
 			m.addAttribute("nickName", vo.getNickname());
 			m.addAttribute("userType", vo.getUserType());
 			m.addAttribute("currentPoint", service.getpointN(userType, vo));
+			
+			String num = mapper.getmentorNum(vo.getId());
+			m.addAttribute("currentRepPoint", mapper.recentrepPoint(num));
 			
 			if(vo.getProfile_image().contains("http")) {
 				m.addAttribute("profile_image", vo.getProfile_image());
@@ -92,6 +99,8 @@ public class loginRegisterController {
 			m.addAttribute("userType", vo.getUserType());
 			m.addAttribute("nickName", vo.getNickname());
 			m.addAttribute("currentPoint", service.getpointN(vo.getUserType(), vo));
+			m.addAttribute("currentRepPoint", mapper.recentrepPoint(vo.getNum()));
+
 
 			
 			if(vo.getProfile_image().contains("http")) {
@@ -119,6 +128,8 @@ public class loginRegisterController {
 			m.addAttribute("userType", userType);
 			m.addAttribute("nickName", service.getnickName(userType, id));
 			m.addAttribute("currentPoint", service.getpointN(userType, vo));
+			m.addAttribute("currentRepPoint", mapper.recentrepPoint(service.getUserNum(userType, id)));
+
 
 			String profile_image = service.getProfileImg(userType, id);
 			
@@ -268,9 +279,20 @@ public class loginRegisterController {
 			map.put("result", false);
 			return map;
 		}
-	
 	}	
 	
+//	로그아웃
+	@PostMapping("/idCheck")
+	@ResponseBody
+	public Map<String, Boolean> idCheck(@SessionAttribute String id) {
+		Map<String, Boolean> map = new HashMap<String, Boolean>();
+		if(id!=null) {
+			map.put("result", true);
+			return map;
+		}
+		map.put("result", true);
+		return map;
+	}
 	
 //	로그아웃
 	@GetMapping("/logout")

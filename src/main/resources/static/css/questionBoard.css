@@ -139,3 +139,10 @@
     place-content: center;
     align-items: center;
 }
+
+.imageattachBox{
+    font-size: 15px;
+    color: gray;
+    margin-top: 8rem;
+    border-bottom: 1px solid #8080803d;
+}

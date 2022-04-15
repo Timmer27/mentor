@@ -57,7 +57,7 @@
 }
 
 .content{
-	height: 10rem;
+	height: 9rem;
     border-bottom: 1px solid #c1c1c170;
     padding: 4px 5px 5px 20px;
     align-items: center;
@@ -103,7 +103,7 @@
 }
 
 .textmain{
-    height: 7rem;
+	height: 4rem;
     align-items: center;
 }
 

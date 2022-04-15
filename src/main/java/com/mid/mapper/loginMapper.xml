@@ -49,6 +49,9 @@
 		SELECT nickName FROM ${userType}user WHERE id = #{id}
 	</select>
 	
+	<select id="getUserNum" resultType="String" parameterType="String">
+		SELECT num FROM ${userType}user WHERE id = #{id}
+	</select>
 	
 	
 	

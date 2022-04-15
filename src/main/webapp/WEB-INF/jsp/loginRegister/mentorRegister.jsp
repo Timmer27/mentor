@@ -114,6 +114,7 @@
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
 					<li><div id="pointshow" class="dropdown-item">보유 포인트 : <span style="color: red;">${currentPoint}</span> </div></li>
+					<li><div id="pointshow" class="dropdown-item">명예 포인트 : <span style="color: red;">${currentRepPoint}</span> </div></li>			
 				</ul>
 		  		</c:if>
 	        </div>

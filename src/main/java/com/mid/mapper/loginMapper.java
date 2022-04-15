@@ -33,4 +33,6 @@ public interface loginMapper {
 
 	String getnickName(String userType, String id);
 
+	String getUserNum(String userType, String id);
+
 }

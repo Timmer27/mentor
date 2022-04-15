@@ -68,4 +68,7 @@ public class loginService {
 		return loginMapper.getnickName(userType, id);
 		
 	}
+	public String getUserNum(String userType, String id) {
+		return loginMapper.getUserNum(userType, id);
+	}
 }

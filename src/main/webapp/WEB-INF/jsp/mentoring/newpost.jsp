@@ -21,7 +21,6 @@
 </head>
 <body>
 <!-- top -->
-<!-- top -->
     <div class = "d-flex" style='border-bottom: 1px solid #6d6d6d8a;'>
         <div class='col-lg-1' style="padding-left: 12px; margin: auto;">
 			<a href="/main"><img src="/image/logo.png" alt="" style='width: 75px; margin-left: 15px;'></a>
@@ -113,6 +112,7 @@
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
 					<li><div id="pointshow" class="dropdown-item">보유 포인트 : <span id="cPoint" style="color: red;">${currentPoint}</span> </div></li>
+					<li><div id="pointshow" class="dropdown-item">명예 포인트 : <span style="color: red;">${currentRepPoint}</span> </div></li>				
 				</ul>
 		  		</c:if>
 	        </div>
@@ -143,7 +143,7 @@
     			<input type="text" id="title" name="boardTitle" maxlength="100" placeholder="제목을 입력하세요" required="required">
     		</div>
     		<div class="col-12 m-auto">
-    			<textarea id="contentInfo" name="boardContent" maxlength="1500" required="required">이런적도 있고 저런적도 등등</textarea>
+    			<textarea id="contentInfo" name="boardContent" maxlength="1500" required="required" placeholder="내용을 입력해주세요" onkeydown="resize(this)"></textarea>
     		</div>
     	</div>
     	

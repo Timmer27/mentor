@@ -1,14 +1,17 @@
 package com.mid.VO;
 
 public class userboardfilesVO extends userboardVO {
-	private String[] files;
+	private String files;
 
-	public String[] getFiles() {
+	public String getFiles() {
 		return files;
 	}
-
-	public void setFiles(String[] files) {
+	public void setFiles(String files) {
 		this.files = files;
 	}
 	
+	@Override
+	public String toString() {
+		return "/upload/" + getFiles().toString();
+	}
 }

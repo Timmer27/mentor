@@ -14,29 +14,13 @@ document.querySelector('#pointInput').addEventListener('change', function(){
 })
 
 //textarea 자동 크기 조절
-document.querySelector('#contentInfo').addEventListener('keyup', function(){
-	let textarea = document.querySelector('#contentInfo');
-	let mainarea = document.querySelector('.mainBanner');
-	
-    let height = textarea.scrollHeight; // 높이
-    let mainheight = mainarea.scrollHeight; // 높이
-    
-    if(height>550){
-	    textarea.style.height = `${height + 6}px`;
-		mainarea.style.height = `${mainheight + 15}px`;
-	    //화면도 자동 이동
-	    scrollTo(0,`${height - 550}`)
-	}
-    
-
-	//최대 길이 도달 시 알람
-	var textLength = $('#contentInfo').val().length;
-	
-	if(textLength >= 1500){
-		alert('최대 글자 수는 1500자 입니다');
-		return;	
-	}
+$(document).ready(function(){
+	$('textarea').keyup(function(){
+		$(this).css("height", "auto");
+		$(this).height(this.scrollHeight);
+	})
 })
+
 
 //제목 길이 조절
 document.querySelector('#title').addEventListener('keyup', function(){
