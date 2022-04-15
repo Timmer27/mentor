@@ -156,10 +156,10 @@
 			키워드로 검색하세요!		
 		</p>
 		<!-- search button -->
-		<form class="col-12 mb-3 input-groups">
+		<form class="col-12 mb-3 input-groups" method="post" action="/menti/search">
 			<div class="input-group mb-3">
-				<input id='search' name='seacrh' type="search" class="form-control" placeholder="키워드를 입력해주세요" aria-label="Recipient's nickname" aria-describedby="button-addon2">
-				<button id="searchButton" class="btn btn-outline-dark" type="button">검색</button>
+				<input id='search' name='seacrh' type="search" class="form-control" min="2" placeholder="키워드를 입력해주세요" aria-label="Recipient's nickname" aria-describedby="button-addon2">
+				<button id="searchButton" class="btn btn-outline-dark" type="submit" onclick="return searchInfo();">검색</button>
 			</div>				
 		</form>
 	</div>

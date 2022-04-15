@@ -1,0 +1,141 @@
+@charset "UTF-8";
+
+.contentBox{
+	max-width: 69rem;
+	margin: auto
+}
+
+.questionBox{
+    height: auto;
+	padding: 26px 26px 0px 26px;
+}
+
+.noticeBanner{
+    background-color: #abcdb938;
+    border-radius: 4px;
+    border: 1px solid #c3c3c3;
+    height: auto;
+    padding: 26px;
+    align-items: center;
+}
+
+.regionInfo{
+    color: #626262d1;
+    justify-content: space-evenly;
+    font-size: 17px;
+    width: 16%;
+}
+
+.titleBox{
+    align-items: center;
+    margin-bottom: 2rem;
+    font-size: 26px;
+	margin-top: 1.3rem;
+}
+
+.boardContentBox{
+	padding: 30px 30px 0px 42px;
+    font-size: 18px;
+}
+
+.likeBox{
+	border: 1px solid;
+    width: 11%;
+    border-radius: 6px;
+}
+
+.likeBox:hover{
+    box-shadow: 0px 0px 7px 0px #00000045;
+    border: 2px solid #0000005e;
+}
+
+.likeBox:hover .likeText{
+	color: #000000;
+}
+
+.subContent{
+	font-size: 13px;
+	justify-content: space-between;
+    width: 40%;
+    place-items: end;
+    margin-top: 3rem;
+}
+
+.reporthref{
+    align-items: flex-end;
+}
+
+#report:hover{
+	color: red;
+	text-decoration: underline red;
+}
+
+#writeAnswer{
+    background-color: #0059a1d6;
+    color: white;
+    border: none;
+    width: 90px;
+    height: 2.5rem;
+    border-radius: 5px;
+    margin: auto;
+}
+#writeAnswer:hover{
+    background-color: #04386ebf;
+}
+
+#replyAnswer{
+	background-color: #0059a1d6;
+    color: white;
+    border: none;
+    width: 60px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+#replyAnswer:hover{
+    background-color: #04386ebf;
+}
+
+.noneBox{
+    color: gray;
+    font-size: 18px;
+    text-align: center;
+    padding: 26px;
+}
+
+.mentorTitle{
+	padding-bottom: 15px;
+    align-items: center;
+    border-bottom: 1px solid #80808063;
+}
+
+.replyBox{
+	border-radius: 5px;
+    padding: 26px;
+    border: 1px solid #80808094;
+}
+.replyContent{
+	width: 100%;
+    height: auto;
+    border: none;
+    resize: none;
+    overflow: hidden;
+}
+.replyContent:focus-visible{
+	outline: white;
+}
+
+.subProfile{
+    color: #808080bd;
+	font-size: 11px;
+    padding-top: 10px;
+    width: 59%;
+    justify-content: space-around;
+}
+
+.mainSub{
+    height: 100%;
+    margin: auto;
+    place-content: center;
+    align-items: center;
+}

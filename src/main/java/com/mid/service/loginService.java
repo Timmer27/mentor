@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.type.MappedJdbcTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,5 +63,9 @@ public class loginService {
 		map.put("userType", userType);
 
 		return loginMapper.getpointN(map);
+	}
+	public String getnickName(String userType, String id) {
+		return loginMapper.getnickName(userType, id);
+		
 	}
 }

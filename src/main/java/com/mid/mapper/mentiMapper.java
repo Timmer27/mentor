@@ -24,4 +24,6 @@ public interface mentiMapper {
 
 	userboardVO mentiboard(String num);
 
+	List<userboardVO> searchInfo(String search);
+
 }

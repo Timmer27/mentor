@@ -31,4 +31,6 @@ public interface loginMapper {
 
 	int getpointN(Map<String, String> map);
 
+	String getnickName(String userType, String id);
+
 }

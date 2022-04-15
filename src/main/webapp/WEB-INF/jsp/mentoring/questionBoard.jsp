@@ -10,7 +10,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/main.css?<%=System.currentTimeMillis()%>">
-<%-- <link rel="stylesheet" href="/css/mentor.css?<%=System.currentTimeMillis()%>"> --%>
+<link rel="stylesheet" href="/css/questionBoard.css?<%=System.currentTimeMillis()%>">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -148,28 +148,196 @@
     </div>    
 	
 	<hr>
-	
-	
-	<div>
-	test 공간
-	</div>
-	
-	<div>
-	${list.userNum}
-	</div>
-	<div>
-	${list.country}
-	</div>
-	<div>
-	${list.city}
-	</div>
-	<div>
-	${list.boardTitle}
-	</div>
-	<div>
-	${list.boardContent}
-	</div>
-	
+	<div class="contentBox">
+		<div class="col-9 m-auto mt-4 questionBox">
+			<div class="d-flex regionInfo">
+				<div>
+					${list.country},
+				</div>
+				<div>
+					${list.city}
+				</div>
+			</div>
+			
+			<div class="d-flex col-12 titleBox">
+				<div class="col-1" style="margin: 0rem 1.2rem 0rem 2rem;">
+					<img alt="Q" src="/image/question.png" width="66px" height="66px">
+				</div>
+				<div>
+					${list.boardTitle}
+				</div>
+			</div>
+			
+			<div class="col-12 boardContentBox" >
+				<div style="margin-bottom: 4rem;">
+					${list.boardContent}
+				</div>
+				
+				
+				<div class="text-center col-12 m-auto likeBox">
+					<a href="#">
+						<div id='imageBox' style="margin: 8px 0px 8px 0px;">
+							<img alt="like" src="/image/heart.png" width="22px" height="22px">
+						</div>
+						<div class="mb-2 likeText" style="font-size: 14px;">
+							좋아요
+						</div>
+						<div id='test'></div>
+					</a>
+				</div>
+				<div class="d-flex subContent">
+					<div>
+						조회수 <span style="margin-left: 5px">30</span>
+					</div>
+					<div>	
+						${list.boardDate}
+					</div>
+					<div>
+						<a href="javascript:void(0)" class="reporthref">
+							<span id='report'>신고하기</span>
+							<img alt="report" src="/image/report.png" width="21px" height="21px"
+							style="padding-left: 3px; padding-bottom: 3px; margin-bottom: -1px;"
+							>
+						</a>
+					</div>
+				</div>
+				
+		    </div>
+	    </div>
+	    
+	    <hr>
+	    
+	    <c:if test="${list.boardPoint == 0}">
+			<div class="contentBox">
+				<div class="">
+					<div class="col-9 m-auto mt-4 noticeBanner text-center d-flex">
+			    		<span class="col-10">이 글에 답해주시면 채택여부에 관계없이 여러분들의 명성 포인트가 올라갑니다 :)</span>
+						<button class="col-1" type="button" name='writeAnswer' id='writeAnswer' class="btn">작성하기</button>
+				    </div>
+			    </div>
+		    </div>
+	    </c:if>
+	    
+	    <c:if test="${list.boardPoint != 0}">
+			<div class="contentBox">
+				<div class="">
+					<div class="col-9 m-auto mt-4 noticeBanner text-center d-flex">
+			    		<span class="col-10">이 글을 통해 채택된 분에게 ${list.boardPoint} 포인트를 드립니다 :)</span>
+						<button class="col-1" type="button" name='writeAnswer' id='writeAnswer' class="btn">작성하기</button>
+				    </div>
+			    </div>
+		    </div>
+	    </c:if>
+	    
+	    <!-- 댓글 입력창 -->
+		<div class="contentBox">
+			<div class="contentBox">
+		    	
+		    	<div class="col-9 m-auto mt-4 replyBox" id='replyBox' style="display: none">
+					<div class="d-flex mentorTitle">
+				    	<div style="margin-left: 20px; margin-right: 20px;">
+				    	
+				    	<c:if test="${profile_image=='/image/upload/0'}">
+				    		<img alt="" src="/image/user.png" class="rounded-circle" width="56px" height="56px">
+				    	</c:if>
+				    	<c:if test="${profile_image!='/image/upload/0'}">
+				    		<img alt="" src="${profile_image}" class="rounded-circle" width="56px" height="56px">
+				    	</c:if>
+				    	
+				    	</div>
+				    	<div class="d-flex flex-column" style="width: 50%;">
+					    	<div class="">
+					    		${nickName}
+					    	</div>
+					    	<div class="d-flex subProfile">
+					    		<span>순위</span>
+					    		<span>[102]</span>
+					    		<span>|</span>
+					    		<span>답변 채택 수</span>
+					    		<span>3개</span>
+					    		<span>|</span>
+					    		<span>채택율</span>
+					    		<span>30%</span>
+					    	</div>
+				    	</div>
+		    		</div>
+		    		
+					<div class="m-auto" style="padding: 22px;">
+			    		<textarea class="replyContent" id="replyContent" name="replyContent" maxlength="2000" placeholder="답변을 입력해주세요"></textarea>
+				    </div>
+				    
+				    <hr>
+				   	<div class="d-flex">
+			    		<span style="font-size: 12px; padding-left: 10px; color: gray; width: 87%">
+				    		최대 2000자까지 입력 가능합니다.
+			    		</span>
+			    		<button class="btn btn-dark" type="submit" name='replyAnswer' style="height: 33px;">저장</button>
+				    </div>
+				    
+			    </div>
+		    </div>
+	    </div>
+	    
+<!-- 댓글 숫자 검사 후 재삽입 예정  -->	    
+<!-- 		<div class="contentBox">
+			<div class="contentBox">
+				<div class="col-9 m-auto" style="padding-top: 60px; text-align: center;">
+					<img alt="loading" src="/image/loading.png" width="30px" height="30px">
+				</div>
+				<div class="col-9 m-auto noneBox">
+			    	아직까지 작성된 답변이 없습니다. 첫번째 주인공이 되어보세요!
+	    		</div>
+		    </div>
+	    </div> -->
+	    
+	    <!-- 댓글 목록 -->
+		<div class="contentBox">
+			<div class="contentBox">
+		    	<div class="" style="width: 75%; margin: auto; padding-top: 40px;">
+		    		<img alt="" src="/image/qa.png" class="" width="70px" height="70px">
+		    	</div>
+		    	
+				<div class="contentBox">
+					<div class="contentBox">
+				    	
+				    	<div class="col-9 m-auto mt-4 replyBox">
+							<div class="d-flex mentorTitle">
+						    	<div style="margin-left: 20px; margin-right: 20px;">
+						    		<img alt="" src="/image/user.png" class="rounded-circle" width="56px" height="56px">
+						    	</div>
+						    	<div class="d-flex flex-column" style="width: 50%;">
+							    	<div class="">
+							    		멘토 닉네임
+							    	</div>
+							    	<div class="d-flex subProfile">
+							    		<span>순위</span>
+							    		<span>[102]</span>
+							    		<span>|</span>
+							    		<span>답변 채택 수</span>
+							    		<span>3개</span>
+							    		<span>|</span>
+							    		<span>채택율</span>
+							    		<span>30%</span>
+							    	</div>
+						    	</div>
+				    		</div>
+				    		
+							<div class="m-auto" style="height: auto; padding: 22px;">
+								댓글 목록
+						    </div>
+						    
+						    <hr>
+				    		<span style="font-size: 12px; padding-left: 10px; color: gray;">
+				    		</span>
+					    </div>
+				    </div>
+			    </div>
+			    
+			    
+		    </div>
+	    </div>
+	    
+    </div>    
 	
 	
     <!-- footer -->

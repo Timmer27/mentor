@@ -31,8 +31,8 @@
 }
 
 .contentBox{
-   max-width: 69rem;
-    margin: auto
+	max-width: 69rem;
+	margin: auto
 }
 
 .countries{
@@ -46,6 +46,7 @@
     border: 1px solid #80808054;
     padding: 16px;
     align-self: center;
+    
 }
 
 .seeAll{

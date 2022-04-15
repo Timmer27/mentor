@@ -57,6 +57,7 @@ function loginWithKakao() {
 						contentType: false, 
 						success:function(res){
 							if(res){
+								sessionStorage.setItem("id", formData.id);
 								location.href="/main"
 							}
 							else{
@@ -103,6 +104,7 @@ function weblogin(){
 		url:'/loginRegister/webLogin',
 		success:function(res){
 			if(res){
+				sessionStorage.setItem("id", formData.id);
 				location.href="/main"
 			}
 			else{
@@ -175,6 +177,7 @@ function onSignIn(googleUser) {
 			contentType: false, 
 			success:function(res){
 				if(res.result){
+					sessionStorage.setItem("id", formData.id);					
 					location.href="/main"
 				}
 				else{

@@ -59,4 +59,8 @@ public class mentimentorService {
 	public userboardVO mentiboard(String num) {
 		return mapper.mentiboard(num);
 	}
+
+	public List<userboardVO> searchInfo(String search) {
+		return mapper.searchInfo("%" + search + "%");
+	}
 }

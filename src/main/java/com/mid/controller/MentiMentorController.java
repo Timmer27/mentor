@@ -77,12 +77,20 @@ public class MentiMentorController {
 		return "redirect:/main/mentoring";
 	}
 	
+//	메인 보드(국가별) 게시글 출력
 	@GetMapping("mentiboard")
 	public String mentiboard(@RequestParam String num, Model m) {
 		
 		m.addAttribute("list", service.mentiboard(num));
-		
 		return "/mentoring/questionBoard";
+	}
+	
+//	글 검색기능
+	@PostMapping("/search")
+	public String search(@RequestParam("seacrh")String search, Model m) {
+		System.err.println("test");
+		m.addAttribute("list", service.searchInfo(search));
+		return "/mentoring/searchBoard";
 	}
 	
 }

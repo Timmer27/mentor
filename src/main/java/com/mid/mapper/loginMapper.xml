@@ -45,5 +45,11 @@
 		SELECT IFNULL(currentPoint, 0) FROM ${userType}user mu LEFT OUTER JOIN ${userType}point mp on mu.num = mp.${userType}Num WHERE id =#{id} ORDER BY mp.num DESC LIMIT 1
 	</select>
 	
+	<select id="getnickName" resultType="String" parameterType="String">
+		SELECT nickName FROM ${userType}user WHERE id = #{id}
+	</select>
+	
+	
+	
 	
 </mapper>

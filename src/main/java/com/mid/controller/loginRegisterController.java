@@ -29,7 +29,7 @@ import com.mid.service.loginService;
 
 @Controller
 @RequestMapping("/loginRegister")
-@SessionAttributes({"id", "userType", "profile_image", "currentPoint"})
+@SessionAttributes({"id", "nickName", "userType", "profile_image", "currentPoint"})
 public class loginRegisterController {
 	
 	@Autowired
@@ -54,6 +54,7 @@ public class loginRegisterController {
 	public boolean kakaoLogin(@RequestParam String userType, userVO vo, Model m) {
 		if(service.kakaoLogin(userType, vo)) {
 			m.addAttribute("id", vo.getId());
+			m.addAttribute("nickName", vo.getNickname());
 			m.addAttribute("userType", vo.getUserType());
 			m.addAttribute("currentPoint", service.getpointN(userType, vo));
 			
@@ -89,6 +90,7 @@ public class loginRegisterController {
 			
 			m.addAttribute("id", vo.getId());
 			m.addAttribute("userType", vo.getUserType());
+			m.addAttribute("nickName", vo.getNickname());
 			m.addAttribute("currentPoint", service.getpointN(vo.getUserType(), vo));
 
 			
@@ -115,6 +117,7 @@ public class loginRegisterController {
 		if(service.webLogin((userType+"user"), id, password)) {
 			m.addAttribute("id", id);
 			m.addAttribute("userType", userType);
+			m.addAttribute("nickName", service.getnickName(userType, id));
 			m.addAttribute("currentPoint", service.getpointN(userType, vo));
 
 			String profile_image = service.getProfileImg(userType, id);

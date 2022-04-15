@@ -30,6 +30,9 @@
 		SELECT * FROM mentiBoard WHERE num = #{num}
 	</select>
 	
+	<select id="searchInfo" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT * FROM mentiboard WHERE boardTitle LIKE #{search} UNION (SELECT * FROM mentiboard WHERE boardContent LIKE #{search});
+	</select>
 	
 	
 	
