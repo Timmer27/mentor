@@ -131,25 +131,25 @@
 		  </div>
 		  <div class="carousel-inner">
 		    <div class="carousel-item active">
-		      <img src="image/1.jpg" class="d-block w-100" alt="...">
-		      <div class="carousel-caption d-none d-md-block">
+		      <img src="image/1.png" class="d-block w-100" alt="..." width="710px" height="440px">
+<!-- 		      <div class="carousel-caption d-none d-md-block">
 		        <h5>First slide label</h5>
 		        <p>Some representative placeholder content for the first slide.</p>
-		      </div>
+		      </div> -->
 		    </div>
 		    <div class="carousel-item">
-		      <img src="image/2.jpg" class="d-block w-100" alt="...">
-		      <div class="carousel-caption d-none d-md-block">
+		      <img src="image/2.png" class="d-block w-100" alt="..." width="710px" height="440px">
+<!-- 		      <div class="carousel-caption d-none d-md-block">
 		        <h5>Second slide label</h5>
 		        <p>Some representative placeholder content for the second slide.</p>
-		      </div>
+		      </div> -->
 		    </div>
 		    <div class="carousel-item">
-		      <img src="image/3.jpg" class="d-block w-100" alt="...">
-		      <div class="carousel-caption d-none d-md-block">
+		      <img src="image/3.png" class="d-block w-100" alt="..." width="710px" height="440px">
+<!-- 		      <div class="carousel-caption d-none d-md-block">
 		        <h5>Third slide label</h5>
 		        <p>Some representative placeholder content for the third slide.</p>
-		      </div>
+		      </div> -->
 		    </div>
 		  </div>
 		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -161,24 +161,60 @@
 		    <span class="visually-hidden">Next</span>
 		  </button>
 		</div>
+		
 		<!-- 랭킹 배너 -->
-        <div class = "col-4 d-flex flex-column" style="padding: 15px; flex-direction: column; align-items: center;">
-        	<p>멘토</p>
-        	<div class="mx-4">
-        		<c:forEach var="user" items="${userPointRank}">
-		            <p class="mt-2 mb-2">
-		            	<c:if test="${fn:contains(user.profile_image, 'http')}">
-			            	<img src="${user.profile_image}" alt="profile" width="60px" height="60px" style='border-radius: 50%;'>
-		            	</c:if>
-
-		            	<c:if test="${!fn:contains(user.profile_image, 'http')}">
-			            	<img src="/upload/${user.profile_image}" alt="profile" width="60px" height="60px" style='border-radius: 50%;'>
-		            	</c:if>
-		            	<span>${user.nickname}</span>
-		            	<span>${user.earnAmount}</span>
-		            </p>
-        		</c:forEach>
-            </div>
+        <div class = "col-4 d-flex flex-column rankingBox">
+        	<p class="col-12 text-center" style="border-bottom: 1px solid #95959557;">
+        		<img src="/image/crown.png" width="40px" height="40px" style="margin: 0px 15px 7px 0px;"><span style="color: #d49103c9; font-weight: bold;">전설의 멘토</span>
+        	</p>
+			
+			<div class= "d-flex col-12">
+				
+				<div class="col-2 text-center d-flex flex-column">
+					
+					<div class="col-12" style="margin: 8px 0px 25px 0px;">
+						<img alt="fist" src="/image/first.png" width="50px" height="50px">
+					</div>
+					<div class="col-12" style="margin: 8px 0px 25px 0px;">
+						<img alt="second" src="/image/second.png" width="50px" height="50px">
+					</div>
+					<div class="col-12" style="margin: 8px 0px 25px 0px;;">
+						<img alt="thrid" src="/image/third.png" width="50px" height="50px">
+					</div>
+					<div class="col-12" style="margin: 8px 0px 25px 0px;">
+						<img alt="fourth" src="/image/fourth.png" width="40px" height="40px">
+					</div>
+					
+				</div>
+			
+			
+	        	<div class="col-10 text-center ranking" style="align-items: center;">
+	        		<c:forEach var="user" items="${userPointRank}">
+			            <div class="mx-2 mb-4 pb-2 col-10 d-flex" style="align-items: center; border-bottom: 1px solid #a8a8a83b;">
+			            	<c:if test="${fn:contains(user.profile_image, 'http')}">
+				            	<div class="col-3">
+					            	<img src="${user.profile_image}" alt="profile" width="52px" height="52px" style='border-radius: 50%;'>
+				            	</div>
+			            	</c:if>
+			            	<c:if test="${!fn:contains(user.profile_image, 'http')}">
+				            	<div class="col-3">
+					            	<img src="/upload/${user.profile_image}" alt="profile" width="52px" height="52px" style='border-radius: 50%;'>
+					            </div>
+			            	</c:if>
+			            	<div class="col-5">
+			            		${user.nickname}
+		            		</div>
+		            		
+			            	<div class="col-4 d-flex" style="justify-content: flex-end;">
+			            		${user.earnAmount} <img alt="point" src="/image/gem.png" width="20px" height="20px" style="margin-left: 5px">
+		            		</div>
+		            		
+			            </div>
+	        		</c:forEach>
+	            </div>
+	
+	
+	        </div>
         </div>
     </div>
 
@@ -186,35 +222,35 @@
     
     <div class='container col-9 d-flex mb-2 mt-2' style="height: 120px; flex-direction: column;">
 
-        <div class="d-flex col-10" style="align-self: center; height: 100%">
-	        <div class='col-lg-3 text-center'>
+        <div class="d-flex col-9 m-auto" style="align-self: center; height: 100%">
+	        <div class='col-3 text-center'>
 	        	<a href='/main/mentoring'>
 		        	<img alt="멘토링" src="/image/mortarboard.png"
-	        		width="80px"
+	        		width="68px"
 		        	>
 		        	<p class="text-center" style="margin-top: 15px;">멘토링</p>
 	        	</a>
 	        </div>
-	        <div class='col-lg-3 text-center'>
+	        <div class='col-3 text-center'>
    	        	<a href='/main/board'>
 	        		<img alt="룸메이트" src="/image/house.png"
- 					width="80px"
+ 					width="68px"
 		        	>
 		        	<p class="text-center" style="margin-top: 15px;">룸메이트</p>
 					            </a>
 	        </div>
-	        <div class='col-lg-3 text-center'>
+	        <div class='col-3 text-center'>
 	   			<a href='/main/rommate'>
 	        		<img alt="유학정보" src="/image/student2.png" 
-	        		width="80px"
+	        		width="68px"
 		        	>
 		        	<p class="text-center" style="margin-top: 15px;">유학정보</p>
 				</a>	
 	        </div>
-	        <div class='col-lg-3 text-center'>
+	        <div class='col-3 text-center'>
 				<a href='/main/univInfo'>
 	        	<img alt="자유게시판" src="/image/board.png"
-					width="80px"
+					width="68px"
 		        	>
 		        	<p class="text-center" style="margin-top: 15px;">자유게시판</p>
 	            </a>
@@ -248,7 +284,7 @@
 		        
 		        <c:forEach var="list" items="${userCount}">
 			        <div class='col-lg-12'>
-			           	${list}
+			           	${list} 명	
 			        </div>
 		        </c:forEach>
 		        <div class='col-lg-12'>
@@ -298,105 +334,6 @@
             </a>
     	
     </div>            
-        
-<!--         <div class='col-lg-12 d-flex' style="height: 25em; justify-content: center;">
-            <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
-            	<img class="card-img-top" src="/image/test.jpg" alt="">
-            	<div class="card-body">
-            		<h5 class="card-title">Card title</h5>
-            		<p class="card-text">
-            			This is a wider card with supporting text below
-            		</p>
-            	</div>
-            </div>
-            <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
-            	<img class="card-img-top" src="/image/test.jpg" alt="">
-            	<div class="card-body">
-            		<h5 class="card-title">Card title</h5>
-            		<p class="card-text">
-            			This is a wider card with supporting text below
-            		</p>
-            	</div>
-            </div>
-            <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
-            	<img class="card-img-top" src="/image/test.jpg" alt="">
-            	<div class="card-body">
-            		<h5 class="card-title">Card title</h5>
-            		<p class="card-text">
-            			This is a wider card with supporting text below
-            		</p>
-            	</div>
-            </div>
-        </div> -->
-        
-
-<!--     후기 및 고민방
-    <hr>
-    <div class='container' style="height: 55rem;">
-    	<p class="text-center" style="font-size: 25px;">오늘의 고민방</p>
-        
-        <div class='col-lg-12 d-flex' style="height: 25em; justify-content: center;">
-            
-            <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
-            	<img class="card-img-top" src="/image/test.jpg" alt="">
-            	<div class="card-body">
-            		<h5 class="card-title">Card title</h5>
-            		<p class="card-text">
-            			This is a wider card with supporting text below
-            		</p>
-            	</div>
-            </div>
-            <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
-            	<img class="card-img-top" src="/image/test.jpg" alt="">
-            	<div class="card-body">
-            		<h5 class="card-title">Card title</h5>
-            		<p class="card-text">
-            			This is a wider card with supporting text below
-            		</p>
-            	</div>
-            </div>
-            <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
-            	<img class="card-img-top" src="/image/test.jpg" alt="">
-            	<div class="card-body">
-            		<h5 class="card-title">Card title</h5>
-            		<p class="card-text">
-            			This is a wider card with supporting text below
-            		</p>
-            	</div>
-            </div>
-        </div>
-        
-        <div class='col-lg-12 d-flex' style="height: 25em; justify-content: center;">
-            <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
-            	<img class="card-img-top" src="/image/test.jpg" alt="">
-            	<div class="card-body">
-            		<h5 class="card-title">Card title</h5>
-            		<p class="card-text">
-            			This is a wider card with supporting text below
-            		</p>
-            	</div>
-            </div>
-            <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
-            	<img class="card-img-top" src="/image/test.jpg" alt="">
-            	<div class="card-body">
-            		<h5 class="card-title">Card title</h5>
-            		<p class="card-text">
-            			This is a wider card with supporting text below
-            		</p>
-            	</div>
-            </div>
-            <div class='col-lg-3 col-md-3 col-sm-3 mt-4 mb-2 mx-2'>
-            	<img class="card-img-top" src="/image/test.jpg" alt="">
-            	<div class="card-body">
-            		<h5 class="card-title">Card title</h5>
-            		<p class="card-text">
-            			This is a wider card with supporting text below
-            		</p>
-            	</div>
-            </div>
-            
-        </div>
-    </div> -->
 
     <!-- footer -->
     <div class="container">

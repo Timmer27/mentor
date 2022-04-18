@@ -85,6 +85,7 @@ p > a:hover{
     font-weight: bold;
     padding: 60px 0px 20px 27px;
     font-size: 20px;
+    margin: auto;
 }
 
 #pointshow{
@@ -95,6 +96,17 @@ p > a:hover{
 
 #pointshow:hover{
 	background-color: white;
+}
+
+.ranking{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.rankingBox{
+	padding: 15px;
+    border-radius: 5px;
+    align-items: center;
 }
 
 
