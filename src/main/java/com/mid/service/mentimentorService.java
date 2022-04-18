@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mid.VO.mentiboardReplyVO;
+import com.mid.VO.replycountVO;
 import com.mid.VO.userboardVO;
 import com.mid.VO.userboardfilesVO;
 import com.mid.mapper.mentiMapper;
-import com.mysql.cj.protocol.a.NativeConstants.IntegerDataType;
 
 @Service
 @SessionAttributes("")
@@ -26,7 +28,7 @@ public class mentimentorService {
 	public boolean newpost(userboardVO vo, String usernum, String boardNum, String currentPoint, String userType) {
 //		오늘날짜 구하기
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String today = sdf.format(date);
 		
 //		소모한 포인트 반영
@@ -96,5 +98,102 @@ public class mentimentorService {
 
 	public List<mentiboardReplyVO> replyList(String num) {
 		return mapper.replyList(num);
+	}
+
+	public replycountVO countReplies(String countryDBname, String boardNum) {
+		return mapper.countReplies(countryDBname, boardNum);
+	}
+
+	public replycountVO countReplies(String boardNum) {
+		return mapper.countReplies(boardNum);
+	}
+
+	public int like(String boardNum) {
+		return mapper.like(boardNum);
+	}
+
+	public int saveLikePost(String boardNum, String userType, String id) {
+		return mapper.saveLikePost(boardNum, userType, id);
+	}
+	
+	public int likeRevert(String boardNum) {
+		return mapper.likeRevert(boardNum);
+	}
+
+	public int saveLikePostRevert(String boardNum, String userType, String id) {
+		return mapper.saveLikePostRevert(boardNum, userType, id);
+	}
+
+	public boolean likecheck(String id, String boardNum, String userType) {
+		return mapper.likecheck(id, boardNum, userType)>0 ? true : false;
+	}
+
+	public List<replycountVO> countLikesList() {
+		return mapper.countLikesList();
+	}
+
+	public List<userboardVO> seeAllList(int pageNum, String country) {
+		
+		if(country.equals("usa")) {
+			country = "미국";
+		}
+		else if(country.equals("ca")) {
+			country = "캐나다";
+		}
+		else if(country.equals("eur")) {
+			country = "유럽";
+		}
+		else if(country.equals("jp")) {
+			country = "일본";
+		}
+		else if(country.equals("cn")) {
+			country = "중국";
+		}
+		else if(country.equals("ap")) {
+			country = "동남아";
+		}
+		else {
+			country = "중동";
+		}
+		
+		PageHelper.startPage(pageNum, 5);
+		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllList(country));
+		
+		return pageinfo.getList();
+		
+//		PageHelper.startPage(pageNum, 20);
+//		PageInfo<newsVO> pageInfo = new PageInfo<newsVO>(newsMapper.getpageList(dbname));
+//		
+//		return pageInfo.getNavigatepageNums();
+	}
+
+	public int[] seeAllListPageNum(int pageNum, String country) {
+		
+		if(country.equals("usa")) {
+			country = "미국";
+		}
+		else if(country.equals("ca")) {
+			country = "캐나다";
+		}
+		else if(country.equals("eur")) {
+			country = "유럽";
+		}
+		else if(country.equals("jp")) {
+			country = "일본";
+		}
+		else if(country.equals("cn")) {
+			country = "중국";
+		}
+		else if(country.equals("ap")) {
+			country = "동남아";
+		}
+		else {
+			country = "중동";
+		}
+		
+		PageHelper.startPage(pageNum, 5);
+		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllList(country));
+		
+		return pageinfo.getNavigatepageNums();
 	}
 }

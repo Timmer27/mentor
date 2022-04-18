@@ -29,3 +29,11 @@
     align-self: center;
     margin-left: 6px;
 }
+
+.pages{
+	padding: 10px;
+}
+.pages:hover{
+	background-color: black;
+	color: white; 
+}

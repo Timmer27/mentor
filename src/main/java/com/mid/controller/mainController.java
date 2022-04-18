@@ -1,5 +1,9 @@
 package com.mid.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.mid.VO.replycountVO;
 import com.mid.service.mainService;
 import com.mid.service.mentimentorService;
 
@@ -38,12 +43,27 @@ public class mainController {
 			m.addAttribute(countryList[i], service.getBoard(countryDBList[i]));
 		}
 		
+//		글 목록 출력 후 아래의 댓글 개수 입력
+//		표시 리스트 수가 4개이므로 4개만 출력 후 대조
+		List<Integer> list = mainService.getboardnumList();
+		List<replycountVO> countList = new ArrayList<>();
+		List<replycountVO> countLikesList = new ArrayList<>();
 		
+//		글 목록을 출력하기 위한 보드 넘버 리스트를 뽑아서 일일이 대조
+		for(int j = 0; j<list.size(); j++) {
+//		출력한 number 리스트를 사용하여 댓글개수, booardNum 출력
+			countList.add(service.countReplies((list.get(j) + "")));
+		}
+//		댓글 숫자 화면 출력
+		m.addAttribute("countReplies", countList);
+	
+//		좋아요 숫자 화면 출력
+		m.addAttribute("countLikes", service.countLikesList());
 		
 		return "/mentoring/mentoring";
 	}
-	
-//	글쓰기 페이지 이동
+
+	//	글쓰기 페이지 이동
 	@GetMapping("/newpost")
 	public String newpost() {
 		return "/mentoring/newpost";

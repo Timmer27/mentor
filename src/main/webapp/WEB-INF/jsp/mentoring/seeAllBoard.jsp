@@ -174,10 +174,6 @@
 			</select>
 		</div>
 		
-		<!-- 검색결과text -->
-		<main>
-			<h4 class="text-center"><span style="color: #0468ffba;">`${search}` </span>검색결과</h4>
-		</main>
 	</div>
 	
 	
@@ -186,35 +182,43 @@
 	<div class="contentBox">
 		<div class="col-7 boardInfo">
 			<div class="col-9" style="width:100%">
-				<c:forEach var="list" items="${list}">
-				<a class="d-flex col-11 m-auto boardcontent" href="/menti/mentiboard?num=${list.num}">
-					
-				 	<div class="col-2" style="margin-right: 10px; color: #808080a8;">${list.country}, ${list.city}</div>			
-					<div class="col-5">${list.boardTitle}</div>				
-					
-					<c:if test="${list.boardPoint == 0}">
-						<img alt="point" src="/image/point.png" width="15px" height="15px" style="margin-top: 3px;">		
-						<div class="col-1 likes">❤️</div>				
-					</c:if>
-					<c:if test="${list.boardPoint != 0}">
-						<img alt="point" src="/image/point.png" width="15px" height="15px" style="margin-top: 3px;">		
-						<div class="col-1 likes">${list.boardPoint}</div>				
-					</c:if>
-					
-					<img alt="likes" src="/image/heart.png" width="15px" height="15px" style="margin-top: 3px;">		
-					
-					<c:if test="${list.boardLike != null}">
-						<div class="col-1 likes">${list.boardLike}</div>				
-					</c:if>
-					<c:if test="${list.boardLike == null}">
-						<div class="col-1 likes">0</div>				
-					</c:if>
-					<div class="col-2">${list.boardDate}</div>	
-									
-					</a>
-				</c:forEach>
-			</div>
+				<div class="col-9" style="width:100%">
+					<c:forEach var="list" items="${countryList}">
+					<a class="d-flex col-11 m-auto boardcontent" href="/menti/mentiboard?num=${list.num}">
+						
+					 	<div class="col-2" style="margin-right: 10px; color: #808080a8;">${list.country}, ${list.city}</div>			
+						<div class="col-5">${list.boardTitle}</div>				
+						
+						<c:if test="${list.boardPoint == 0}">
+							<img alt="point" src="/image/point.png" width="15px" height="15px" style="margin-top: 3px;">		
+							<div class="col-1 likes">❤️</div>				
+						</c:if>
+						<c:if test="${list.boardPoint != 0}">
+							<img alt="point" src="/image/point.png" width="15px" height="15px" style="margin-top: 3px;">		
+							<div class="col-1 likes">${list.boardPoint}</div>				
+						</c:if>
+						
+						<img alt="likes" src="/image/heart.png" width="15px" height="15px" style="margin-top: 3px;">		
+						
+						<c:if test="${list.boardLike != null}">
+							<div class="col-1 likes">${list.boardLike}</div>				
+						</c:if>
+						<c:if test="${list.boardLike == null}">
+							<div class="col-1 likes">0</div>				
+						</c:if>
+						<div class="col-2">${list.boardDate}</div>	
+										
+						</a>
+					</c:forEach>
+				</div>
+		    </div>    
+
+		<div class="col-11 m-auto text-center mt-4" style="font-size: 16px">
+			<c:forEach var="pageNum" items="${countryListPageNum}">
+				<a class="pages" href="/menti/seeAll?country=usa&num=${pageNum}">${pageNum}</a>
+			</c:forEach>
 	    </div>    
+    
     </div>    
 
     <!-- footer -->
@@ -236,7 +240,7 @@
     </div>
 
     
-<script src="/js/searchBoard.js?<%=System.currentTimeMillis()%>>"></script>
+<script src="/js/seeAllBoard.js?<%=System.currentTimeMillis()%>>"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

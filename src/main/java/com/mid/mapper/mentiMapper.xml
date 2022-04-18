@@ -62,6 +62,60 @@
 		SELECT IFNULL(currentRepPoint,0) FROM mentorreppoint WHERE mentorNum = #{mentorNum} ORDER BY num DESC LIMIT 1;
 	</select>
 	
+	<select id="countReplies" resultType="com.mid.VO.replycountVO" parameterType="String">
+		SELECT count(mu.boardNum) countNum, IFNULL(mu.boardNum, 0) boardNum FROM mentiBoard mb 
+			LEFT JOIN mentiboardreply mu ON mb.num = mu.boardNum
+		    WHERE mu.boardNum = #{boardNum} ORDER BY mb.num DESC;
+	</select>
+	
+	<update id="like" parameterType="String">
+		UPDATE mentiboard SET
+			boardlike = (SELECT SUM(boardLike)+1 FROM
+				(SELECT SUM(boardLike) AS boardLikes FROM mentiboard WHERE num = #{boardNum})tmp);
+	</update>
+	
+	<insert id="saveLikePost" parameterType="String">
+		INSERT INTO ${userType}likespost VALUES (null, #{boardNum}, #{id});
+	</insert>
+	
+	<update id="likeRevert" parameterType="String">
+		UPDATE mentiboard SET
+			boardlike = (SELECT SUM(boardLike)-1 FROM
+				(SELECT SUM(boardLike) AS boardLikes FROM mentiboard WHERE num = #{boardNum})tmp);
+	</update>
+	
+	<delete id="saveLikePostRevert" parameterType="String">
+		DELETE FROM ${userType}likespost
+			WHERE ${userType}LikesBoardnum = #{boardNum} AND ${userType}ID = #{id};
+	</delete>
+	
+	<select id="likecheck" resultType="Integer" parameterType="String">
+		SELECT COUNT(num) FROM ${userType}likespost
+			WHERE ${userType}LikesBoardnum = #{boardNum} AND ${userType}ID = #{id};
+	</select>
+	
+	<select id="countLikesList" resultType="com.mid.VO.replycountVO">
+	SELECT boardNum, COUNT(boardNum) countNum FROM(
+		(SELECT mentiLikesBoardnum boardNum FROM mentilikespost) UNION ALL
+	    (SELECT mentorLikesBoardnum boardNum FROM mentorlikespost))m
+	    GROUP BY boardNum;
+	</select>
+	
+	
+	<select id="seeAllList" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT * FROM mentiboard WHERE country = #{country} ORDER BY num DESC
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
 
 

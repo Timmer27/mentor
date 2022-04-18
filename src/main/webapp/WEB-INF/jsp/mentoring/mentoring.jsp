@@ -193,7 +193,7 @@
 		
 		<c:if test="${usaBoard[0].boardTitle!=null}">
 		<div class='col-9 d-flex flex-column countries'>
-			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<a class="col-9 seeAll"  href="/menti/seeAll?country=usa">전체보기</a>
 			<div class="d-flex flex-column col-9 semiBox">
 				<c:forEach items="${usaBoard}" var="list">
 					
@@ -244,16 +244,36 @@
 						
 						<div class="replyBox">
 							<span>
-							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
-							</span> <span class="replyText">3</span> 
+								<img class="heartImogi" alt="하트" src="/image/heart.png" width="18px" height="16px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countLikes}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
+							
 							<span class="replyImogi">
-							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
-							</span> <span class="replyText">5</span>
+								<img class="chatImogi" alt="답글" src="/image/texting.png" width="20px" height="20px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countReplies}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
 						</div>
+						
 						</div>
-					
 					</a>
-		
 				</c:forEach>
 				
 			</div>
@@ -276,7 +296,7 @@
 		
 		<c:if test="${caBoard[0].boardTitle!=null}">
 		<div class='col-9 d-flex flex-column countries'>
-			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<a class="col-9 seeAll"  href="/menti/seeAll?country=ca">전체보기</a>
 			<div class="d-flex flex-column col-9 semiBox">
 			<c:forEach items="${caBoard}" var="list">
 			
@@ -327,12 +347,34 @@
 						
 						<div class="replyBox">
 							<span>
-							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
-							</span> <span class="replyText">3</span> 
+								<img class="heartImogi" alt="하트" src="/image/heart.png" width="18px" height="16px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countLikes}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
+							
 							<span class="replyImogi">
-							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
-							</span> <span class="replyText">5</span>
+								<img class="chatImogi" alt="답글" src="/image/texting.png" width="20px" height="20px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countReplies}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
 						</div>
+						
 						</div>
 					
 					</a>
@@ -360,7 +402,7 @@
 		
 		<c:if test="${eurBoard[0].boardTitle!=null}">
 		<div class='col-9 d-flex flex-column countries'>
-			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<a class="col-9 seeAll"  href="/menti/seeAll?country=eur">전체보기</a>
 			<div class="d-flex flex-column col-9 semiBox">
 			<c:forEach items="${eurBoard}" var="list">
 				
@@ -411,12 +453,34 @@
 						
 						<div class="replyBox">
 							<span>
-							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
-							</span> <span class="replyText">3</span> 
+								<img class="heartImogi" alt="하트" src="/image/heart.png" width="18px" height="16px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countLikes}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
+							
 							<span class="replyImogi">
-							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
-							</span> <span class="replyText">5</span>
+								<img class="chatImogi" alt="답글" src="/image/texting.png" width="20px" height="20px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countReplies}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
 						</div>
+						
 						</div>
 					
 					</a>
@@ -445,7 +509,7 @@
 		
 		<c:if test="${jpBoard[0].boardTitle!=null}">
 		<div class='col-9 d-flex flex-column countries'>
-			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<a class="col-9 seeAll"  href="/menti/seeAll?country=jp">전체보기</a>
 			<div class="d-flex flex-column col-9 semiBox">
 			<c:forEach items="${jpBoard}" var="list">
 			
@@ -496,12 +560,34 @@
 						
 						<div class="replyBox">
 							<span>
-							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
-							</span> <span class="replyText">3</span> 
+								<img class="heartImogi" alt="하트" src="/image/heart.png" width="18px" height="16px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countLikes}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
+							
 							<span class="replyImogi">
-							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
-							</span> <span class="replyText">5</span>
+								<img class="chatImogi" alt="답글" src="/image/texting.png" width="20px" height="20px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countReplies}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
 						</div>
+						
 						</div>
 					
 					</a>
@@ -529,7 +615,7 @@
 		
 		<c:if test="${cnBoard[0].boardTitle!=null}">
 		<div class='col-9 d-flex flex-column countries'>
-			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<a class="col-9 seeAll"  href="/menti/seeAll?country=cn">전체보기</a>
 			<div class="d-flex flex-column col-9 semiBox">
 			<c:forEach items="${cnBoard}" var="list">
 				
@@ -580,12 +666,34 @@
 						
 						<div class="replyBox">
 							<span>
-							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
-							</span> <span class="replyText">3</span> 
+								<img class="heartImogi" alt="하트" src="/image/heart.png" width="18px" height="16px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countLikes}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
+							
 							<span class="replyImogi">
-							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
-							</span> <span class="replyText">5</span>
+								<img class="chatImogi" alt="답글" src="/image/texting.png" width="20px" height="20px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countReplies}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
 						</div>
+						
 						</div>
 					
 					</a>
@@ -613,7 +721,7 @@
 		
 		<c:if test="${apBoard[0].boardTitle!=null}">
 		<div class='col-9 d-flex flex-column countries'>
-			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<a class="col-9 seeAll"  href="/menti/seeAll?country=ap">전체보기</a>
 			<div class="d-flex flex-column col-9 semiBox">
 			<c:forEach items="${apBoard}" var="list">
 				
@@ -664,12 +772,34 @@
 						
 						<div class="replyBox">
 							<span>
-							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
-							</span> <span class="replyText">3</span> 
+								<img class="heartImogi" alt="하트" src="/image/heart.png" width="18px" height="16px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countLikes}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
+							
 							<span class="replyImogi">
-							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
-							</span> <span class="replyText">5</span>
+								<img class="chatImogi" alt="답글" src="/image/texting.png" width="20px" height="20px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countReplies}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
 						</div>
+						
 						</div>
 					
 					</a>
@@ -697,7 +827,7 @@
 		
 		<c:if test="${meBoard[0].boardTitle!=null}">
 		<div class='col-9 d-flex flex-column countries'>
-			<a class="col-9 seeAll"  href="#">전체보기</a>
+			<a class="col-9 seeAll"  href="/menti/seeAll?country=me">전체보기</a>
 			<div class="d-flex flex-column col-9 semiBox">
 			<c:forEach items="${meBoard}" var="list">
 				
@@ -748,12 +878,34 @@
 						
 						<div class="replyBox">
 							<span>
-							<img class="heartImogi" alt="하트" src="/image/heart.png" width="20px" height="20px">
-							</span> <span class="replyText">3</span> 
+								<img class="heartImogi" alt="하트" src="/image/heart.png" width="18px" height="16px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countLikes}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
+							
 							<span class="replyImogi">
-							<img class="chatImogi" alt="답글" src="/image/texting.png" width="24px" height="27px">
-							</span> <span class="replyText">5</span>
+								<img class="chatImogi" alt="답글" src="/image/texting.png" width="20px" height="20px">
+							</span>
+							
+							<span class="replyText">
+								<c:forEach items="${countReplies}" var="countList">
+									<c:choose>
+										<c:when test="${countList.boardNum == list.num}">
+											${countList.countNum}
+										</c:when>		
+									</c:choose>
+								</c:forEach>
+							</span>
 						</div>
+						
 						</div>
 					
 					</a>

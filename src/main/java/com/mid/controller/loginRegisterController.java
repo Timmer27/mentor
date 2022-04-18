@@ -45,9 +45,6 @@ public class loginRegisterController {
 //	로그인 페이지 이동
 	@GetMapping("/login")
 	public String login(@SessionAttribute(value = "id", required = false)String id) {
-		if(id!=null) {
-			return "/loginrequired";
-		}
 		return "/loginRegister/login";
 	}
 	
@@ -281,7 +278,7 @@ public class loginRegisterController {
 		}
 	}	
 	
-//	로그아웃
+//	아이디 세션 확인
 	@PostMapping("/idCheck")
 	@ResponseBody
 	public Map<String, Boolean> idCheck(@SessionAttribute String id) {

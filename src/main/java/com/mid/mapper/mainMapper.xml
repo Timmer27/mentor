@@ -5,6 +5,11 @@
 	<select id="userCount" resultType="Integer">
 		SELECT COUNT(*) FROM mentoruser UNION SELECT COUNT(*) FROM mentiuser;
 	</select>
+
+	<select id="getboardnumList" resultType="Integer">
+		SELECT num FROM mentiBoard;
+	</select>
+	
 	
 	
 </mapper>

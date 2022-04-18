@@ -57,8 +57,71 @@ function searchInfo(){
 	}
 }
 
-//댓글 포스팅
+//좋아요 클릭 기능
+function likePost(){
+     // display : none가 아닐 경우
+	if($('#likeBox').is(":visible")){
+		$.ajax({
+			url: '/loginRegister/idCheck',
+			caches: false,
+			method: 'post',
+			dataType:'json',
+			success:function(res){
+				
+				if(res){
+					document.getElementById('likeBox').style.display = "none";
+					document.getElementById('likedBox').style.display = "block";
+					var formData = new FormData();
+					
+					formData.append("boardNum", $('#boardNum').val());
+					
+					$.ajax({
+						data: formData,
+						url: '/menti/like',
+						caches: false,
+						method: 'post',
+						processData: false,
+						contentType: false,
+						error:function(request){
+							console.log(request.responseText);
+						}
+					})	
+				}
+			},
+			error:function(request){
+				alert('로그인을 해주세요');
+				location.href="/loginRegister/login"
+			}
+		})	
+	}
+}
 
+//좋아요 취소 기능
+function likePostRevert(){
+		if(window.confirm('정말로 취소할까요?')){
+			
+			document.getElementById('likeBox').style.display = "block";
+			document.getElementById('likedBox').style.display = "none";
+			var formData = new FormData();
+			
+			formData.append("boardNum", $('#boardNum').val());
+			
+			$.ajax({
+				data: formData,
+				url: '/menti/likeRevert',
+				caches: false,
+				method: 'post',
+				processData: false,
+				contentType: false,
+				error:function(request){
+					console.log(request.responseText);
+				}
+			})	
+		}
+}
+
+
+//댓글 포스팅
 function replyPost(){
 	var d = $('#contentBox').serialize();
 	alert(d);

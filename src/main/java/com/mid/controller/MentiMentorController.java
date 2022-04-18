@@ -27,6 +27,8 @@ import com.mid.mapper.loginMapper;
 import com.mid.mapper.mentiMapper;
 import com.mid.service.mentimentorService;
 
+import jnr.ffi.Struct.mode_t;
+
 @Controller // 브라우저로 바로안감
 @RequestMapping("/menti")
 @SessionAttributes("currentPoint")
@@ -85,16 +87,49 @@ public class MentiMentorController {
 	
 //	게시글 세부사항 출력 - detail
 	@GetMapping("mentiboard")
-	public String mentiboard(@RequestParam String num, Model m) {
+	public String mentiboard(
+			@SessionAttribute(required = false)String id, @SessionAttribute(required = false)String userType,
+			@RequestParam(defaultValue = "0") String num, Model m) {
 		
+		if(userType==null) {
+			userType = "menti";
+		}
 //		저장된 댓글 목록 출력
 		m.addAttribute("replyList", service.replyList(num));
+		
+//		댓글 숫자 출력
+		m.addAttribute("replyCount", service.countReplies(num));
 		
 //		저장된 파일, 글 리스트 출력
 		m.addAttribute("fileList", service.getfiles(num));
 		m.addAttribute("list", service.mentiboard(num));
-
+		
+//		만약 좋아요를 누른 글이라면 하트 유지
+		m.addAttribute("likecheck", service.likecheck(id,num, userType));
+		
 		return "/mentoring/questionBoard";
+	}
+	
+//	좋아요 클릭 업데이트
+	@Transactional
+	@PostMapping("/like")
+	@ResponseBody
+	public void like(@RequestParam String boardNum, @SessionAttribute(required = false) String userType, @SessionAttribute(required = false) String id) {
+//		mentiboard like column update
+		service.like(boardNum);
+//		좋아요 클릭 멘토, 멘티 수
+		service.saveLikePost(boardNum, userType, id);
+	}
+	
+//	좋아요 취소 업데이트
+	@Transactional
+	@PostMapping("/likeRevert")
+	@ResponseBody
+	public void likeRevert(@RequestParam String boardNum, @SessionAttribute(required = false) String userType, @SessionAttribute(required = false) String id) {
+//		mentiboard like column update
+		service.likeRevert(boardNum);
+//		좋아요 클릭 멘토, 멘티 수
+		service.saveLikePostRevert(boardNum, userType, id);
 	}
 	
 //	글 검색기능
@@ -121,8 +156,19 @@ public class MentiMentorController {
 		
 //		댓글 저장
 		Map<String, Boolean> map = service.saveReply(replyContent, boardNum, mentiNum, mentorNum);
-			
 		return map;
+	}
+	
+//	나라별 전체페이지 출력
+	@GetMapping("seeAll")
+	public String seeAll(@RequestParam String country, @RequestParam(name = "num", defaultValue = "0")String pageNum, Model m){
+//		페이지 정보 출력, pageHelper를 이용한 지정 사이즈 출력
+		m.addAttribute("countryList", service.seeAllList(Integer.valueOf(pageNum), country));
+		
+//		페이징 넘버 출력
+		m.addAttribute("countryListPageNum", service.seeAllListPageNum(Integer.valueOf(pageNum), country));
+		
+		return "/mentoring/seeAllBoard";
 	}
 	
 }

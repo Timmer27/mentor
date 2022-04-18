@@ -102,7 +102,6 @@
 						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pt-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
 			            	<img src="/image/user.png" alt="프로필" width="50" height="50" class="rounded-circle">
 						</a>
-	        			<div style="height: fit-content; color: black; font-size: 10px; padding-top: 7px;">보유 포인트 <span style="color: red;">100점</span></div>						
 					</c:if>
 	            	<c:if test="${profile_image != '/image/upload/0'}">
 						<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle pt-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">

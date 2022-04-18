@@ -14,7 +14,6 @@ public class userboardVO extends userVO{
 	private String boardLike;
 	private String boardPoint;
 	
-	
 	public String getBoardPoint() {
 		return boardPoint;
 	}

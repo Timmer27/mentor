@@ -174,42 +174,67 @@
 					${list.boardContent}
 				</div>
 				
-				<!-- 첨부파일 삽입 -->
-				<div class="imageattachBox">첨부파일</div>
-					<div class="d-flex" style="margin: 30px 0px 20px 0px;">
-						<c:forEach var="filelist" items="${fileList}">
-							<img alt="files" src="${filelist}" width="200px" height="200px">
-						</c:forEach>
-					</div>
-				
-				<div class="text-center col-12 m-auto likeBox">
-					<a href="#">
-						<div id='imageBox' style="margin: 8px 0px 8px 0px;">
-							<img alt="like" src="/image/heart.png" width="22px" height="22px">
-						</div>
-						<div class="mb-2 likeText" style="font-size: 14px;">
-							좋아요
-						</div>
-						<div id='test'></div>
-					</a>
-				</div>
-				<div class="d-flex subContent">
-					<div>
-						조회수 <span style="margin-left: 5px">30</span>
-					</div>
-					<div>	
-						${list.boardDate}
-					</div>
-					<div>
-						<a href="javascript:void(0)" class="reporthref">
-							<span id='report'>신고하기</span>
-							<img alt="report" src="/image/report.png" width="21px" height="21px"
-							style="padding-left: 3px; padding-bottom: 3px; margin-bottom: -1px;"
-							>
+				<c:if test="${!likecheck}">
+					<div class="text-center col-12 m-auto likeBox" id='likeBox'>
+						<a href="javascript:likePost()">
+							<div id='imageBox' style="margin: 8px 0px 8px 0px;">
+								<img alt="like" src="/image/heart.png" width="22px" height="22px">
+							</div>
+							<div class="mb-2 likeText" style="font-size: 14px;">
+								좋아요
+							</div>
+							<div id='test'></div>
 						</a>
 					</div>
-				</div>
 				
+					<div class="text-center col-12 m-auto likeBox" id='likedBox' style="display: none;">
+						<a href="javascript:likePostRevert()">
+							<div id='imageBox' style="margin: 8px 0px 8px 0px;">
+								<img alt="like" src="/image/heartcolored.png" width="22px" height="22px">
+							</div>
+							<div class="mb-2 likeText" style="font-size: 14px;">
+								좋아요
+							</div>
+							<div id='test'></div>
+						</a>
+					</div>
+				</c:if>
+				
+				<c:if test="${likecheck}">
+					<div class="text-center col-12 m-auto likeBox" id='likedBox'>
+						<a href="javascript:likePostRevert()">
+							<div id='imageBox' style="margin: 8px 0px 8px 0px;">
+								<img alt="like" src="/image/heartcolored.png" width="22px" height="22px">
+							</div>
+							<div class="mb-2 likeText" style="font-size: 14px;">
+								좋아요
+							</div>
+							<div id='test'></div>
+						</a>
+					</div>
+					
+					<div class="text-center col-12 m-auto likeBox" id='likeBox' style="display: none;">
+						<a href="javascript:likePost()">
+							<div id='imageBox' style="margin: 8px 0px 8px 0px;">
+								<img alt="like" src="/image/heart.png" width="22px" height="22px">
+							</div>
+							<div class="mb-2 likeText" style="font-size: 14px;">
+								좋아요
+							</div>
+							<div id='test'></div>
+						</a>
+					</div>					
+				</c:if>
+				
+				<!-- 첨부파일 체크 -->
+				<div class="imageattachBox">첨부파일</div>
+				
+				<div class="d-flex" style="margin: 30px 0px 20px 0px;">
+					<c:forEach var="filelist" items="${fileList}">
+						<img alt="files" src="${filelist}" width="150px" height="150px" style="border: 1px solid #8080807a; border-radius: 5px;">
+					</c:forEach>
+				</div>
+								
 		    </div>
 	    </div>
 	    
@@ -281,15 +306,17 @@
 			    		</span>
 			    		<button class="btn btn-dark" type="submit" name='replyAnswer' style="height: 33px;">저장</button>
 				    </div>
-		    		<input style="visibility: hidden;" name = "mentiNum" type="text" value ="${list.userNum}">
-		    		<input style="visibility: hidden;" name = "boardNum" type="text" value ="${list.num}">
+		    		<input style="visibility: hidden;" name = "mentiNum" id='mentiNum' type="text" value ="${list.userNum}">
+		    		<input style="visibility: hidden;" name = "boardNum" id='boardNum' type="text" value ="${list.num}">
 		    		<input style="visibility: hidden;" name = "id" type="text" value ="${id}">
 			    </div>
 		    </div>
 	    </form>
 	    
-<!-- 댓글 숫자 검사 후 재삽입 예정  -->	    
-<!-- 		<div class="contentBox">
+<!-- 댓글 숫자 검사 후 재삽입 예정  -->
+
+	<c:if test="${replyCount.boardNum == 0}">
+ 		<div class="contentBox">
 			<div class="contentBox">
 				<div class="col-9 m-auto" style="padding-top: 60px; text-align: center;">
 					<img alt="loading" src="/image/loading.png" width="30px" height="30px">
@@ -298,8 +325,10 @@
 			    	아직까지 작성된 답변이 없습니다. 첫번째 주인공이 되어보세요!
 	    		</div>
 		    </div>
-	    </div> -->
+	    </div>
+	</c:if>
 	    
+	<c:if test="${replyCount.boardNum != 0}">
 	    <!-- 댓글 목록 -->
 		<div class="contentBox">
 			<div class="contentBox">
@@ -342,7 +371,7 @@
 										${list.mentorreplyContent}
 								    </div>
 								    
-						    		<div class="d-flex subContent" style="width: 20%;">
+						    		<div class="d-flex subContent" style="width: 26%;">
 						    			<span style="padding-left: 10px">작성일자</span> ${list.replyDate}
 					    			</div>
 								    
@@ -357,6 +386,7 @@
 			    </div>
 		    </div>
 	    </div>    
+    	</c:if>
 	
 	
     <!-- footer -->
