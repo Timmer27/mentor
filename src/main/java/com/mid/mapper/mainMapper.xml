@@ -10,6 +10,19 @@
 		SELECT num FROM mentiBoard;
 	</select>
 	
+	<select id="getUserList" resultType="com.mid.VO.userVO">
+		SELECT id, num, IFNULL(city, 1)city, IFNULL(profile_image, 1)profile_image FROM mentiuser
+			UNION ALL SELECT id, num, IFNULL(city, 1)city, IFNULL(profile_image, 1)profile_image FROM mentoruser;
+	</select>
+	
+	<select id="getCityCoordinates" resultType="com.mid.VO.cityCoordinatesVO">
+		SELECT * FROM citiescoordiates;
+	</select>
+	
+	<select id="userPointRank" resultType="com.mid.VO.userPointVO">
+		SELECT * FROM mentoruser mu JOIN (SELECT mentorNum, sum(earnAmount)earnAmount FROM mentorpoint GROUP BY mentorNum)t
+			ON mu.num = t.mentorNum;
+	</select>
 	
 	
 </mapper>

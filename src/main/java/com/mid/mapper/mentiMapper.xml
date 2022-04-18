@@ -101,11 +101,13 @@
 	    GROUP BY boardNum;
 	</select>
 	
-	
 	<select id="seeAllList" resultType="com.mid.VO.userboardVO" parameterType="String">
 		SELECT * FROM mentiboard WHERE country = #{country} ORDER BY num DESC
 	</select>
 	
+	<select id="seeAllListFiltered" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT * FROM mentiboard WHERE country = #{country} ORDER BY ${type} DESC
+	</select>
 	
 	
 	

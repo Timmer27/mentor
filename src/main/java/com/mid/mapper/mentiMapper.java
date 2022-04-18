@@ -64,4 +64,6 @@ public interface mentiMapper {
 
 	List<userboardVO> seeAllList(String country);
 
+	List<userboardVO> seeAllListFiltered(String country, String type);
+
 }

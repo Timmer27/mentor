@@ -161,14 +161,41 @@ public class MentiMentorController {
 	
 //	나라별 전체페이지 출력
 	@GetMapping("seeAll")
-	public String seeAll(@RequestParam String country, @RequestParam(name = "num", defaultValue = "0")String pageNum, Model m){
-//		페이지 정보 출력, pageHelper를 이용한 지정 사이즈 출력
+	public String seeAll(@RequestParam String country, @RequestParam(name = "num", defaultValue = "0")String pageNum, Model m){//		페이지 정보 출력, pageHelper를 이용한 지정 사이즈 출력
+//		나라 이름 출력
+		m.addAttribute("countryName", country);
+		
+//		전체페이지 출력
 		m.addAttribute("countryList", service.seeAllList(Integer.valueOf(pageNum), country));
 		
 //		페이징 넘버 출력
 		m.addAttribute("countryListPageNum", service.seeAllListPageNum(Integer.valueOf(pageNum), country));
 		
+//		페이징 마지막 숫자 출력
+		m.addAttribute("countryListLastPageNum", service.countryListLastPageNum(Integer.valueOf(pageNum), country));
+		
 		return "/mentoring/seeAllBoard";
 	}
 	
+//	나라별 전체페이지 필터링 - 추천순, 최신순, 포인트 순
+	@GetMapping("seeAllFiltered")
+	public String seeAllFiltered(
+			@RequestParam String country, @RequestParam(name = "num", defaultValue = "0")String pageNum,
+			@RequestParam String type, Model m){
+		
+//		나라 이름 출력
+		m.addAttribute("countryName", country);
+		m.addAttribute("type", type);
+		
+//		전체페이지 출력
+		m.addAttribute("countryList", service.seeAllListFiltered(Integer.valueOf(pageNum), country, type));
+		
+//		페이징 넘버 출력
+		m.addAttribute("countryListPageNum", service.seeAllListPageNumFiltered(Integer.valueOf(pageNum), country, type));
+		
+//		페이징 마지막 숫자 출력
+		m.addAttribute("countryListLastPageNum", service.countryListLastPageNumFiltered(Integer.valueOf(pageNum), country, type));
+		
+		return "/mentoring/seeAllBoard";
+	}
 }

@@ -1,6 +1,7 @@
 package com.mid.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,10 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.mid.VO.cityCoordinatesVO;
 import com.mid.VO.replycountVO;
+import com.mid.VO.userVO;
+import com.mid.VO.userboardVO;
 import com.mid.service.mainService;
 import com.mid.service.mentimentorService;
 
@@ -25,10 +31,56 @@ public class mainController {
 	@Autowired
 	mentimentorService service;
 	
+//	시작페이지
 	@GetMapping("")
 	public String main(Model m) {
-//		m.addAttribute("userCount", mainService.userCount());
+//		활동 회원 수 출력
+		m.addAttribute("userCount", mainService.userCount());
+		
+//		회원 포인트 랭킹보드 출력
+		m.addAttribute("userPointRank", mainService.userPointRank());
+		
 		return "/main/main";
+	}
+	
+//	시작 맵 이용자 표시
+	@PostMapping("")
+	@ResponseBody
+	public List<Map<String, Object>> mainMap() {
+		
+		List<userVO> userList = mainService.getUserList();
+		List<cityCoordinatesVO> cityList = mainService.getCityCoordinates();
+		
+		List<Map<String, Object>> coordinates = new ArrayList<>();
+		
+		for(int i = 0; i<userList.size(); i++) {
+			
+			for(int j = 0; j<cityList.size(); j++) {
+				if(cityList.get(j).getCity().contains(userList.get(i).getCity())) {
+					Map<String, Object> map = new HashMap<String, Object>();
+					List<Double> tmp = new ArrayList<>();
+
+					map.put("id", userList.get(i).getId());
+					
+					if(userList.get(i).getProfile_image().contains("http")) {
+						map.put("profile", userList.get(i).getProfile_image());
+					}
+					else {
+						map.put("profile", "/upload/" + userList.get(i).getProfile_image());
+					}
+					
+					map.put("city", userList.get(i).getCity());
+					
+					tmp.add(cityList.get(i).getLng());
+					tmp.add(cityList.get(i).getLat());
+
+					map.put("coordiates", tmp);
+					
+					coordinates.add(map);
+				}
+			}
+		}
+		return coordinates;
 	}
 	
 //	멘토링 페이지 이동

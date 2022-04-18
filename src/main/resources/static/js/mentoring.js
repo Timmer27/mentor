@@ -16,10 +16,13 @@ $('.heartImogi').click(function(e){
 
 //textarea 자동 크기 조절
 $(document).ready(function(){
-	$('textarea').keyup(function(){
-		$(this).css("height", "auto");
-		$(this).height(this.scrollHeight);
-	})
+	if($('textarea').scrollHeight > 550){
+		
+		$('textarea').keyup(function(){
+			$(this).css("height", "auto");
+			$(this).height(this.scrollHeight);
+		})
+	}
 })
 
 //댓글달기 슬라이드 토글 js - 로그인 검사

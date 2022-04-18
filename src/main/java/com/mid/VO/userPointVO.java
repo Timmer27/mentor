@@ -5,9 +5,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class userPointVO extends userboardVO{
 	private String currentPoint;
+	private String earnAmount;
 	private String spendDate;
 	private String spendAmount;
 	
+	public String getEarnAmount() {
+		return earnAmount;
+	}
+	public void setEarnAmount(String earnAmount) {
+		this.earnAmount = earnAmount;
+	}
 	public String getCurrentPoint() {
 		return currentPoint;
 	}

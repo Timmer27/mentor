@@ -82,10 +82,8 @@ p > a:hover{
 }
 
 .questionHedder{
-	border-bottom: 1px solid #41414129;
     font-weight: bold;
-    padding: 60px 0px 20px 0;
-    margin: auto;
+    padding: 60px 0px 20px 27px;
     font-size: 20px;
 }
 

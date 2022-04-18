@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,7 +123,7 @@
     <!-- 메인 시작 -->
     <!-- 상단 슬라이딩 배너 -->
     <div class='container d-flex mt-4 mb-4' style='justify-content: space-around;'>
-		<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="margin: 15px;">
+		<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="padding: 15px;">
 		  <div class="carousel-indicators">
 		    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 		    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -161,67 +162,28 @@
 		  </button>
 		</div>
 		<!-- 랭킹 배너 -->
-        <div class = "col-lg-4 d-flex flex-column" style="margin: 15px; flex-direction: column; align-items: center;">
-        	<div>오늘의 멘톨왕 - 포인트로 ?</div>
+        <div class = "col-4 d-flex flex-column" style="padding: 15px; flex-direction: column; align-items: center;">
+        	<p>멘토</p>
         	<div class="mx-4">
-	            <p class="mt-2 mb-2">
-	            	<img src="/image/mentorLogo.png" alt="" style='width: 60px;'><span>홍길동</span><span>10회</span>
-	            </p>
-	            <p class="mt-2 mb-2">
-	            	<img src="/image/mentorLogo.png" alt="" style='width: 60px;'><span>홍길동</span><span>10회</span>
-	            </p>
-	            <p class="mt-2 mb-2">
-	            	<img src="/image/mentorLogo.png" alt="" style='width: 60px;'><span>홍길동</span><span>10회</span>
-	            </p>
-	            <p class="mt-2 mb-2">
-	            	<img src="/image/mentorLogo.png" alt="" style='width: 60px;'><span>홍길동</span><span>10회</span>
-	            </p>
-	            <p class="mt-2 mb-2">
-	            	<img src="/image/mentorLogo.png" alt="" style='width: 60px;'><span>홍길동</span><span>10회</span>
-	            </p>
-	            <p class="mt-2 mb-2">
-	            	<img src="/image/mentorLogo.png" alt="" style='width: 60px;'><span>홍길동</span><span>10회</span>
-	            </p>
-	            <p class="mt-2 mb-2">
-	            	<img src="/image/mentorLogo.png" alt="" style='width: 60px;'><span>홍길동</span><span>10회</span>
-	            </p>
+        		<c:forEach var="user" items="${userPointRank}">
+		            <p class="mt-2 mb-2">
+		            	<c:if test="${fn:contains(user.profile_image, 'http')}">
+			            	<img src="${user.profile_image}" alt="profile" width="60px" height="60px" style='border-radius: 50%;'>
+		            	</c:if>
+
+		            	<c:if test="${!fn:contains(user.profile_image, 'http')}">
+			            	<img src="/upload/${user.profile_image}" alt="profile" width="60px" height="60px" style='border-radius: 50%;'>
+		            	</c:if>
+		            	<span>${user.nickname}</span>
+		            	<span>${user.earnAmount}</span>
+		            </p>
+        		</c:forEach>
             </div>
         </div>
     </div>
 
-    <!-- 중단 활통 status -->
-    <div class='container d-flex mb-2' style="height: 120px; flex-direction: column;">
-
-        <div class="d-flex col-10" style="align-self: center;">
-	        <div class='col-lg-3'>
-	            로고?
-	        </div>
-	        <c:forEach var="count" items="${userCount}">
-		        <div class='col-lg-3'>
-					${count}	        
-		        </div>
-	        </c:forEach>
-	        <div class='col-lg-3'>
-	            STH
-	        </div>
-        </div>
-        	
-		<div class="d-flex col-12" style="align-self: center;">
-	        <div class='col-lg-3'>
-	            로고?
-	        </div>
-	        <div class='col-lg-3'>
-	            감사한 멘토분들
-	        </div>
-	        <div class='col-lg-3'>
-	            미래의 멘톨님들
-	        </div>
-	        <div class='col-lg-3'>
-	            오늘의 멘톨 숫자 - 고민해결
-	        </div>
-        </div>
-    </div>
     <hr>
+    
     <div class='container col-9 d-flex mb-2 mt-2' style="height: 120px; flex-direction: column;">
 
         <div class="d-flex col-10" style="align-self: center; height: 100%">
@@ -264,10 +226,44 @@
     <!-- 후기 및 고민방 -->
     <hr>
     	
-   	<p class="questionHedder col-9">가입자 수</p>
+    <!-- 중단 활통 status -->
+    <div class='container d-flex mb-2' style="height: auto; flex-direction: column;">
+
+        <div class="d-flex col-10 mb-4" style="align-self: center; border-bottom: 1px solid #41414129;">
+	        <div class='questionHedder col-lg-8'>
+	            가입자 수
+	        </div>
+	       	<div class="col-2 d-flex flex-column" style="justify-content: space-around;">
+		        <div class='col-lg-12'>
+		           	활동 회원님들
+		        </div>
+		        <div class='col-lg-12'>
+		            멘토님들
+		        </div>
+		        <div class='col-lg-12'>
+		            해결된 고민
+		        </div>
+	       	</div>
+	       	<div class="col-2 d-flex flex-column text-center" style="justify-content: space-around;">
+		        
+		        <c:forEach var="list" items="${userCount}">
+			        <div class='col-lg-12'>
+			           	${list}
+			        </div>
+		        </c:forEach>
+		        <div class='col-lg-12'>
+		           	tmp
+		        </div>
+		        
+	       	</div>
+        </div>
+        	
+    </div>
+       	
+   	<!-- 지도 -->
     <div class='container d-flex' style="height: 30rem; justify-content: center;">
-        <div id="map" class='col-10' style="margin-top: 14px"></div>
-        
+        <div id="map" class='col-10' style="margin-top: 14px; border-radius: 8px;">
+        </div>
    	</div>
 
    	<p class="questionHedder col-9">오늘의 고민</p>

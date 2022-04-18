@@ -171,9 +171,6 @@
 			<div class="mx-2">
 				<a href="/menti/newpost"><button class="btn btn-light" style="background-color: #e8c4a391;"><img src="/image/edit-text.png" width="30px" height="30px" style="margin-right: 8px;">질문하기</button></a>
 			</div>
-			<div class="mx-2">
-				<a href="#" ><button class="btn btn-light" style=" height: 44px; width: 120px; background-color: #3d2d6221;">마이멘톨</button></a>
-			</div>
 		</div>
 	</c:if>
     

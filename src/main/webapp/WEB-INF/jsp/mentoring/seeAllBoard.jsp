@@ -153,7 +153,7 @@
 	<div class="m-auto pt-4" style="width:30%;">
 		<p class="text-center">
 			<img alt="검색" src="/image/search.png" width="20px" height="20px">
-			키워드로 검색하세요!		
+			키워드로 검색하세요! 
 		</p>
 		<!-- search button -->
 		<form class="col-12 mb-3 input-groups" method="post" action="/menti/search">
@@ -167,14 +167,21 @@
 	<!-- dropdown menu -->
 	<div class="d-flex m-auto mt-4 selectMenu">
 		<div class="col-5">
-			<select style="font-size: 16px; padding: 5px;">
-				<option>추천순</option>
-				<option>최신순</option>
-				<option>포인트순</option>
+			<select onchange="if(this.value) location.href=(this.value)" style="font-size: 16px; padding: 5px;">
+				
+				<c:if test="${type != 'boardPoint'}">
+					<option selected="selected"  value="/menti/seeAllFiltered?country=${countryName}&type=boardDate">최신순</option>
+					<option value="/menti/seeAllFiltered?country=${countryName}&type=boardPoint">포인트순</option>
+				</c:if>
+				
+				<c:if test="${type == 'boardPoint'}">
+					<option value="/menti/seeAllFiltered?country=${countryName}&type=boardDate">최신순</option>
+					<option selected="selected" value="/menti/seeAllFiltered?country=${countryName}&type=boardPoint">포인트순</option>
+				</c:if>
 			</select>
 		</div>
 		
-	</div>
+	</div>	
 	
 	
 	<hr>
@@ -213,14 +220,20 @@
 				</div>
 		    </div>    
 
-		<div class="col-11 m-auto text-center mt-4" style="font-size: 16px">
-			<c:forEach var="pageNum" items="${countryListPageNum}">
-				<a class="pages" href="/menti/seeAll?country=usa&num=${pageNum}">${pageNum}</a>
-			</c:forEach>
-	    </div>    
+			<div class="col-11 m-auto text-center mt-4" style="font-size: 16px">
+				<a href="/menti/seeAll?country=usa&num=1">
+					<img style="margin-bottom: 3px;" alt="" src="/image/left-arrows.png" width="12px" height="15px">
+				</a>
+				<c:forEach var="pageNum" items="${countryListPageNum}">
+					<a class="pages" href="/menti/seeAll?country=usa&num=${pageNum}">${pageNum}</a>
+				</c:forEach>
+				<a href="/menti/seeAll?country=usa&num=${countryListLastPageNum}">
+					<img style="margin-bottom: 3px;" alt="" src="/image/two-arrows.png" width="12px" height="15px">
+				</a>
+		    </div>    
     
+    	</div>    
     </div>    
-
     <!-- footer -->
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">

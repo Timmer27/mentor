@@ -134,40 +134,77 @@ public class mentimentorService {
 
 	public List<userboardVO> seeAllList(int pageNum, String country) {
 		
-		if(country.equals("usa")) {
-			country = "미국";
-		}
-		else if(country.equals("ca")) {
-			country = "캐나다";
-		}
-		else if(country.equals("eur")) {
-			country = "유럽";
-		}
-		else if(country.equals("jp")) {
-			country = "일본";
-		}
-		else if(country.equals("cn")) {
-			country = "중국";
-		}
-		else if(country.equals("ap")) {
-			country = "동남아";
-		}
-		else {
-			country = "중동";
-		}
+		country = filterCountry(country);
 		
-		PageHelper.startPage(pageNum, 5);
+		PageHelper.startPage(pageNum, 15);
 		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllList(country));
 		
 		return pageinfo.getList();
 		
-//		PageHelper.startPage(pageNum, 20);
-//		PageInfo<newsVO> pageInfo = new PageInfo<newsVO>(newsMapper.getpageList(dbname));
-//		
-//		return pageInfo.getNavigatepageNums();
 	}
 
 	public int[] seeAllListPageNum(int pageNum, String country) {
+		
+		country = filterCountry(country);
+		
+		PageHelper.startPage(pageNum, 15);
+		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllList(country));
+		
+		return pageinfo.getNavigatepageNums();
+	}
+
+	public int countryListLastPageNum(int pageNum, String country) {
+		country = filterCountry(country);
+		
+		PageHelper.startPage(pageNum, 15);
+		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllList(country));
+		
+		return pageinfo.getNavigateLastPage();
+	}
+
+	public Object getCountryName(String country) {
+		country = filterCountry(country);
+		return country;
+	}
+
+	public Object seeAllListFiltered(int pageNum, String country, String type) {
+		country = filterCountry(country);
+		
+		PageHelper.startPage(pageNum, 15);
+		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllListFiltered(country, type));
+		
+		return pageinfo.getList();
+	}
+
+	public int[] seeAllListPageNumFiltered(int pageNum, String country, String type) {
+		country = filterCountry(country);
+		
+		PageHelper.startPage(pageNum, 15);
+		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllListFiltered(country, type));
+		
+		return pageinfo.getNavigatepageNums();
+	}
+
+	public int countryListLastPageNumFiltered(int pageNum, String country, String type) {
+		country = filterCountry(country);
+		
+		PageHelper.startPage(pageNum, 15);
+		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllListFiltered(country, type));
+		
+		return pageinfo.getNavigateLastPage();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	나라 필터링 메서드
+	private String filterCountry(String country) {
 		
 		if(country.equals("usa")) {
 			country = "미국";
@@ -190,10 +227,6 @@ public class mentimentorService {
 		else {
 			country = "중동";
 		}
-		
-		PageHelper.startPage(pageNum, 5);
-		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllList(country));
-		
-		return pageinfo.getNavigatepageNums();
+		return country;
 	}
 }
