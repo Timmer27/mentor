@@ -1,6 +1,6 @@
 //보유 포인트 검사
 document.querySelector('#pointInput').addEventListener('change', function(){
-	var pointN = $("input[name=boardPoint]").val();
+	var pointN = $("#pointInput").val();
 	var cPoint = $("#cPoint").text();
 	
 	if(parseInt(pointN) > parseInt(cPoint)){
@@ -39,14 +39,32 @@ document.querySelector('#btnAtt').addEventListener('change', function(){
 	var currentHeight = 200;
 	//200 130
 	var buttonHeight = submitButton.scrollHeight;
+	console.log(buttonHeight);
 	
 	if(buttonHeight>currentHeight){
-		var mainarea = document.querySelector('.mainBanner');
+		var mainarea = document.querySelector('#newpostInfo');
 		var mainareaHeight = mainarea.scrollHeight;
 		
 	    mainarea.style.height = `${mainareaHeight + 120}px`;
 	}
 })
+//제목 길이 조절 - 첨부파일이 많아지면 자동으로 조절됨
+document.querySelector('#att_zone').addEventListener('drop', function(){
+	var submitButton = document.querySelector('#att_zone');
+	var currentHeight = 200;
+	//200 130
+	var buttonHeight = submitButton.scrollHeight;
+	console.log(buttonHeight);
+	
+	if(buttonHeight>currentHeight){
+		var mainarea = document.querySelector('#newpostInfo');
+		var mainareaHeight = mainarea.scrollHeight;
+		
+	    mainarea.style.height = `${mainareaHeight + 120}px`;
+	}
+})
+
+
 
 //파일 드롭 후 저장
 imageView = function imageView(att_zone, btn){
@@ -84,33 +102,43 @@ imageView = function imageView(att_zone, btn){
     }  
     // 탐색기에서 드래그앤 드롭 사용
     attZone.addEventListener('dragenter', function(e){
-      e.preventDefault();
-      e.stopPropagation();
+ 		e.preventDefault();
+		e.stopPropagation();
     }, false)
     
-    attZone.addEventListener('dragover', function(e){
-      e.preventDefault();
-      e.stopPropagation();
+	attZone.addEventListener('dragover', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		this.style.backgroundColor = '#80c2ff73';
       
     }, false)
+    
+    /* 박스 밖으로 Drag가 나갈 때 */
+	attZone.addEventListener('dragleave', function(e) {
+        this.style.backgroundColor = 'white';
+    });
   
   //드롭 - 확장자 유효성 검사
     attZone.addEventListener('drop', function(e){
+        this.style.backgroundColor = 'white';
 		var reg = /(.*?)\/(jpg|jpeg|png)$/;
 		var files = {};
+        var dt = new DataTransfer();
+        
 		e.preventDefault();
 		e.stopPropagation();
-		var dt = e.dataTransfer;
-		files = dt.files;
-
+		
+		var files = e.dataTransfer.files;
     	for(f of files){
 			if (!f.type.match(reg)) {
 				alert("jpg, jpeg, png 파일만 가능합니다");
 				return;
             }	
-          imageLoader(f);
+			dt.items.add(f);
+			imageLoader(f);
+	        btnAtt.files = dt.files;
         }
-        
+		console.log(btnAtt.files);
       }, false)
     
     /*첨부된 이미리즐을 배열에 넣고 미리보기 */

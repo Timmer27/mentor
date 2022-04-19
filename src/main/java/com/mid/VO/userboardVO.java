@@ -13,7 +13,22 @@ public class userboardVO extends userVO{
 	private String boardDate;
 	private String boardLike;
 	private String boardPoint;
+	private String selection;
+	private String views;
 	
+	
+	public String getView() {
+		return views;
+	}
+	public void setView(String views) {
+		this.views = views;
+	}
+	public String getSelection() {
+		return selection;
+	}
+	public void setSelection(String selection) {
+		this.selection = selection;
+	}
 	public String getBoardPoint() {
 		return boardPoint;
 	}

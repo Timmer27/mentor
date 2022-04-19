@@ -1,6 +1,5 @@
 package com.mid.mapper;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.mid.VO.mentiboardReplyVO;
 import com.mid.VO.replycountVO;
+import com.mid.VO.userVO;
 import com.mid.VO.userboardVO;
 import com.mid.VO.userboardfilesVO;
 
@@ -44,8 +44,6 @@ public interface mentiMapper {
 
 	String recentrepPoint(String mentorNum);
 
-	Object recentrepPointbyID(String id);
-
 	replycountVO countReplies(String countryDBname, String boardNum);
 
 	replycountVO countReplies(String boardNum);
@@ -65,5 +63,27 @@ public interface mentiMapper {
 	List<userboardVO> seeAllList(String country);
 
 	List<userboardVO> seeAllListFiltered(String country, String type);
+
+	int recentrepPointbyNum(String mentorNum);
+
+	userVO mentiuser(String userNum);
+
+	mentiboardReplyVO getboardReply(String replyNum);
+
+	String recentcurPoint(String mentorNum);
+
+	int accruedPoint(String adjustedPoint, String point, String mentorNum, String boardNum, String today);
+
+	void selection(String replyNum);
+
+	int selectedReply(String boardNum);
+
+	void selectionBoard(String boardNum);
+
+	List<userboardVO> selectedBoardList();
+
+	void viewIncrease(String boardNum);
+
+	int view(String num);
 
 }

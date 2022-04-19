@@ -4,8 +4,23 @@ public class mentiboardReplyVO extends userboardVO{
 	
 	private String mentiNum;
 	private String mentorNum;
+	private String boardNum;
 	private String mentorreplyContent;
 	private String replyDate;
+	private String selection;
+	
+	public String getSelection() {
+		return selection;
+	}
+	public void setSelection(String selection) {
+		this.selection = selection;
+	}
+	public String getBoardNum() {
+		return boardNum;
+	}
+	public void setBoardNum(String boardNum) {
+		this.boardNum = boardNum;
+	}
 	
 	public String getMentiNum() {
 		return mentiNum;

@@ -127,7 +127,6 @@ function likePostRevert(){
 //댓글 포스팅
 function replyPost(){
 	var d = $('#contentBox').serialize();
-	alert(d);
 	
 	$.ajax({
 		data:d,
@@ -137,7 +136,7 @@ function replyPost(){
 		url:'/menti/saveReply',
 		success:function(res){
 			if(res.result){
-				location.reload();
+				history.go(0);
 			}
 			else{
 				alert('저장 실패');
@@ -148,3 +147,35 @@ function replyPost(){
 		}
 	})
 }
+
+//채택하기
+$(document).on('click', '.selectAnswer', function(e){
+	//alert($(this).attr('id'));
+	if(window.confirm('채택하시겠습니까? [취소 불가]')){
+		var replyNum = $(this).attr('id');
+		
+		$.ajax({
+			dataType:'json',
+			caches: false,
+			method: 'post',
+			url:'/menti/chosenAnswer?replyNum=' + replyNum,
+			success:function(res){
+				if(res.result){
+					history.go(0);
+				}
+				else{
+					alert('채택 실패');
+				}
+			},
+			error:function(request){
+				console.log(request.responseText);
+			}
+		})
+	}
+	else{
+		return false;
+	}
+})
+
+	
+

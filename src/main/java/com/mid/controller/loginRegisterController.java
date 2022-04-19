@@ -30,7 +30,7 @@ import com.mid.service.loginService;
 
 @Controller
 @RequestMapping("/loginRegister")
-@SessionAttributes({"id", "nickName", "userType", "profile_image", "currentPoint", "currentRepPoint"})
+@SessionAttributes({"num", "id", "nickName", "userType", "profile_image", "currentPoint", "currentRepPoint"})
 public class loginRegisterController {
 	
 	@Autowired
@@ -54,6 +54,7 @@ public class loginRegisterController {
 	@ResponseBody
 	public boolean kakaoLogin(@RequestParam String userType, userVO vo, Model m) {
 		if(service.kakaoLogin(userType, vo)) {
+			m.addAttribute("num", vo.getNum());
 			m.addAttribute("id", vo.getId());
 			m.addAttribute("nickName", vo.getNickname());
 			m.addAttribute("userType", vo.getUserType());
@@ -66,7 +67,7 @@ public class loginRegisterController {
 				m.addAttribute("profile_image", vo.getProfile_image());
 			}
 			else {
-				m.addAttribute("profile_image", ("/image/upload/"+vo.getProfile_image()));
+				m.addAttribute("profile_image", ("/upload/"+vo.getProfile_image()));
 			}
 			return true;
 		}
@@ -92,6 +93,7 @@ public class loginRegisterController {
 		Map<String, Boolean> map = new HashMap<>();
 		if(service.Googlelogin(vo)) {
 			
+			m.addAttribute("num", vo.getNum());
 			m.addAttribute("id", vo.getId());
 			m.addAttribute("userType", vo.getUserType());
 			m.addAttribute("nickName", vo.getNickname());
@@ -104,7 +106,7 @@ public class loginRegisterController {
 				m.addAttribute("profile_image", vo.getProfile_image());
 			}
 			else {
-				m.addAttribute("profile_image", ("/image/upload/"+vo.getProfile_image()));
+				m.addAttribute("profile_image", ("/upload/"+vo.getProfile_image()));
 			}
 			
 			map.put("result", true);
@@ -119,8 +121,11 @@ public class loginRegisterController {
 	@ResponseBody
 	public boolean webLogin(@RequestParam String userType, String password, String id, Model m) {
 		userVO vo = new userVO();
+		String num = mapper.getuserNum(id);
+		
 		vo.setId(id);
 		if(service.webLogin((userType+"user"), id, password)) {
+			m.addAttribute("num", num);
 			m.addAttribute("id", id);
 			m.addAttribute("userType", userType);
 			m.addAttribute("nickName", service.getnickName(userType, id));
@@ -134,7 +139,7 @@ public class loginRegisterController {
 				m.addAttribute("profile_image", profile_image);
 			}
 			else {
-				m.addAttribute("profile_image", ("/image/upload/"+profile_image));
+				m.addAttribute("profile_image", ("/upload/"+profile_image));
 			}
 			return true;
 		}

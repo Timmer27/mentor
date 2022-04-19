@@ -2,10 +2,10 @@ package com.mid.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.python.modules.itertools.count;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,18 +20,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mid.VO.mentiboardReplyVO;
-import com.mid.VO.userPointVO;
 import com.mid.VO.userboardVO;
-import com.mid.VO.userboardfilesVO;
 import com.mid.mapper.loginMapper;
 import com.mid.mapper.mentiMapper;
 import com.mid.service.mentimentorService;
 
-import jnr.ffi.Struct.mode_t;
-
 @Controller // 브라우저로 바로안감
 @RequestMapping("/menti")
-@SessionAttributes("currentPoint")
+@SessionAttributes({"currentPoint", "currentRepPoint"})
 public class MentiMentorController {
 	
 	@Autowired
@@ -94,18 +90,44 @@ public class MentiMentorController {
 		if(userType==null) {
 			userType = "menti";
 		}
+		List<mentiboardReplyVO> list = service.replyList(num);
 //		저장된 댓글 목록 출력
-		m.addAttribute("replyList", service.replyList(num));
+		m.addAttribute("replyList", list);
 		
+//		채택된 댓글 숫자 출력
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getBoardNum().equals(num)) {
+				if(list.get(i).getSelection()!=null) {
+					m.addAttribute("selectedReply", list.get(i).getNum());
+				}
+			}
+		}
 //		댓글 숫자 출력
 		m.addAttribute("replyCount", service.countReplies(num));
+		
+//		조회수 증감 및 출력
+		m.addAttribute("view", service.view(num));
 		
 //		저장된 파일, 글 리스트 출력
 		m.addAttribute("fileList", service.getfiles(num));
 		m.addAttribute("list", service.mentiboard(num));
 		
+//		저장된 작성자 닉네임, 아이디 불러오기
+		m.addAttribute("userInfo", service.mentiuser(service.mentiboard(num).getUserNum()));
+		
 //		만약 좋아요를 누른 글이라면 하트 유지
 		m.addAttribute("likecheck", service.likecheck(id,num, userType));
+		
+//		명예 포인트 업데이트
+		if(id==null) {
+			m.addAttribute("currentRepPoint", 0);
+		}
+		else {
+			m.addAttribute("currentRepPoint", mapper.recentrepPointbyNum(mapper.getmentorNum(id)));
+		}
+		
+//		멘토만 작성 가능하게 변경
+		m.addAttribute("userType", userType);
 		
 		return "/mentoring/questionBoard";
 	}
@@ -143,10 +165,10 @@ public class MentiMentorController {
 	}
 	
 //	댓글 달기 기능 - 만약 board 포인트가 0이라면 repPoint 적립
+	@Transactional
 	@PostMapping("saveReply")
 	@ResponseBody
-	public Map<String, Boolean> saveReply(@RequestParam String replyContent, @RequestParam String boardNum, @RequestParam String mentiNum, @RequestParam String id){
-		String boardPoint = mapper.getboardPoint(boardNum);
+	public Map<String, Boolean> saveReply(@RequestParam String replyContent, @RequestParam String boardNum, @RequestParam String mentiNum, @RequestParam String id, Model m){		String boardPoint = mapper.getboardPoint(boardNum);
 		String mentorNum = mapper.getmentorNum(id);
 
 //		명예 포인트 적립 - service에서 누적적립 로직 실행
@@ -198,4 +220,35 @@ public class MentiMentorController {
 		
 		return "/mentoring/seeAllBoard";
 	}
+	
+//	채택 기능 구현
+	@Transactional
+	@PostMapping("chosenAnswer")
+	@ResponseBody
+	public Map<String, Boolean> chosenAnswer(@RequestParam String replyNum, Model m){
+		Map<String, Boolean>map = new HashMap<String, Boolean>();
+		mentiboardReplyVO vo = service.chosenAnswer(replyNum);
+//		필요한 변수들
+		String point = vo.getBoardPoint();
+		String mentorNum = vo.getMentorNum();
+		String boardNum = vo.getBoardNum();
+		
+//		채택당한 멘토에게 포인트 적립
+		if(service.accruedPoint(point, mentorNum, boardNum)) {
+//			채택됨 컬럼 삽입하여 채택버튼 비활성화
+			mapper.selection(replyNum);
+			
+//			게시글에도 채택 컬럼 추가하여 화면에 표시
+			mapper.selectionBoard(boardNum);
+			
+//			받은 포인트 잔고 업데이트
+			m.addAttribute("currentPoint", mapper.recentcurPoint(mentorNum));
+			
+			map.put("result", true);
+			return map;
+		};
+		map.put("result", false);
+		return map;
+	}
+
 }

@@ -108,11 +108,16 @@
 						</a>
 					</c:if>
 				<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="min-width: 6rem; font-size: 0.9rem;">
+					<li><div style="padding-bottom: 13px; padding-top: 0;" id="pointshow" class="dropdown-item">${nickName}님 환영합니다</div></li>
 					<li><a class="dropdown-item" href="#">마이페이지</a></li>
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
-					<li><div id="pointshow" class="dropdown-item">보유 포인트 : <span id="cPoint" style="color: red;">${currentPoint}</span> </div></li>
-					<li><div id="pointshow" class="dropdown-item">명예 포인트 : <span style="color: red;">${currentRepPoint}</span> </div></li>				
+					<li><div id="pointshow" class="dropdown-item">
+						<img alt="point" src="/image/gem.png" height="20px" width="20px"/>
+					 : <span id='cPoint' style="color: red;">${currentPoint}</span> </div></li>
+					<li><div id="pointshow" class="dropdown-item">
+						<img alt="명예" src="/image/cube.png" height="20px" width="20px"/>
+					 : <span style="color: red;">${currentRepPoint}</span> </div></li>
 				</ul>
 		  		</c:if>
 	        </div>
@@ -149,7 +154,9 @@
     	
     	<hr style="color: #a7a6a6;">
     	<div class="savePost">
-			<label for="boardPoint" class="pointN">포인트</label><input id="pointInput" type="number" name="boardPoint" step="1" value="0" required="required" min="0"	>
+			<label for="boardPoint" class="pointN">
+				<img alt="point" src="/image/gem.png" height="20px" width="20px"/>
+			</label><input id="pointInput" type="number" name="boardPoint" step="1" value="0" required="required" min="0"	>
     	</div>
     	<div class="savePost">
 		    <input type='file' id='btnAtt' name="files" multiple='multiple'>

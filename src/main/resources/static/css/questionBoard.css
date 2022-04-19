@@ -23,7 +23,7 @@
     color: #626262d1;
     justify-content: space-evenly;
     font-size: 17px;
-    width: 16%;
+    width: 18%;
 }
 
 .titleBox{
@@ -52,11 +52,8 @@
     margin-top: 3rem;
 }
 
-.reporthref{
-    align-items: flex-end;
-}
 
-#report:hover{
+.report:hover{
 	color: red;
 	text-decoration: underline red;
 }
@@ -136,4 +133,9 @@
     color: gray;
     margin-top: 8rem;
     border-bottom: 1px solid #8080803d;
+}
+
+.selectAnswer:hover > .answerText{
+    color: #d2b40da8 !important;
+    font-weight: bold;  
 }

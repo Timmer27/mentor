@@ -109,11 +109,16 @@
 						</a>
 					</c:if>
 				<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="min-width: 6rem; font-size: 0.9rem;">
+					<li><div style="padding-bottom: 13px; padding-top: 0;" id="pointshow" class="dropdown-item">${nickName}님 환영합니다</div></li>
 					<li><a class="dropdown-item" href="#">마이페이지</a></li>
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
-					<li><div id="pointshow" class="dropdown-item">보유 포인트 : <span style="color: red;">${currentPoint}</span> </div></li>
-					<li><div id="pointshow" class="dropdown-item">명예 포인트 : <span style="color: red;">${currentRepPoint}</span> </div></li>				
+					<li><div id="pointshow" class="dropdown-item">
+						<img alt="point" src="/image/gem.png" height="20px" width="20px"/>
+					 : <span id='cPoint' style="color: red;">${currentPoint}</span> </div></li>
+					<li><div id="pointshow" class="dropdown-item">
+						<img alt="명예" src="/image/cube.png" height="20px" width="20px"/>
+					 : <span style="color: red;">${currentRepPoint}</span> </div></li>
 				</ul>
 		  		</c:if>
 	        </div>
@@ -169,7 +174,7 @@
 	<c:if test="${userType eq 'menti'}">
 		<div class="questionBox">
 			<div class="mx-2">
-				<a href="/menti/newpost"><button class="btn btn-light" style="background-color: #e8c4a391;"><img src="/image/edit-text.png" width="30px" height="30px" style="margin-right: 8px;">질문하기</button></a>
+				<a href="/menti/newpost"><button class="btn btn-light" style="background-color: #1b5c4fde; color: white;"><img src="/image/edit-text.png" width="30px" height="30px" style="margin-right: 8px;">질문하기</button></a>
 			</div>
 		</div>
 	</c:if>
@@ -193,13 +198,22 @@
 			<a class="col-9 seeAll"  href="/menti/seeAll?country=usa">전체보기</a>
 			<div class="d-flex flex-column col-9 semiBox">
 				<c:forEach items="${usaBoard}" var="list">
-					
+				
 					<a class="d-flex col-12 mb-2 content contentselect flex-column" href="/menti/mentiboard?num=${list.num}">
 						
-						<div class="col-12 d-flex textTitle">
+						<div class="col-12 d-flex textTitle" style="align-items: center;">
+							
 							<div>${list.country}</div>
 							<span style="padding: 0px 10px 0px 10px;">|</span>
 							<div>${list.city}</div>
+							
+							<c:if test="${list.selection != null}">
+								<div style="margin-left: 10px;">
+									<img alt="selected" src="/image/award.png" width="30px" height="30px">
+									<span style="font-size: 13px; color: #d98500;">채택됨</span>
+								</div>
+							</c:if>
+							
 						</div>
 						<div class="col-12 d-flex textmain">
 						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
@@ -208,13 +222,17 @@
 							</div>
 						<!-- 포인트 테스트 -->
 						<c:if test="${list.boardPoint=='0'}">
-							<div class="col-2">
-								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							<div class="col-2 text-center">
+								<span>
+								<img alt="명예" src="/image/cube.png" height="20px" width="20px"/>
+								</span>
 							</div>
 						</c:if>
 						<c:if test="${list.boardPoint!='0'}">
-							<div class="col-2">
-								<span>${list.boardPoint} point</span>
+							<div class="col-2 text-center">
+								<span>${list.boardPoint}
+								<img alt="point" src="/image/gem.png" height="20px" width="20px" style="margin-bottom: 4px;"/>
+								</span>
 							</div>
 						</c:if>
 						
@@ -271,6 +289,7 @@
 						
 						</div>
 					</a>
+					
 				</c:forEach>
 				
 			</div>
@@ -303,6 +322,13 @@
 							<div>${list.country}</div>
 							<span style="padding: 0px 10px 0px 10px;">|</span>
 							<div>${list.city}</div>
+							
+							<c:if test="${list.selection != null}">
+								<div style="margin-left: 10px;">
+									<img alt="selected" src="/image/award.png" width="30px" height="30px">
+									<span style="font-size: 13px; color: #d98500;">채택됨</span>
+								</div>
+							</c:if>
 						</div>
 						<div class="col-12 d-flex textmain">
 						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
@@ -311,13 +337,17 @@
 							</div>
 						<!-- 포인트 테스트 -->
 						<c:if test="${list.boardPoint=='0'}">
-							<div class="col-2">
-								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							<div class="col-2 text-center">
+								<span>
+								<img alt="명예" src="/image/cube.png" height="20px" width="20px"/>
+								</span>
 							</div>
 						</c:if>
 						<c:if test="${list.boardPoint!='0'}">
-							<div class="col-2">
-								<span>${list.boardPoint} point</span>
+							<div class="col-2 text-center">
+								<span>${list.boardPoint}
+								<img alt="point" src="/image/gem.png" height="20px" width="20px" style="margin-bottom: 4px;"/>
+								</span>
 							</div>
 						</c:if>
 						
@@ -409,6 +439,13 @@
 							<div>${list.country}</div>
 							<span style="padding: 0px 10px 0px 10px;">|</span>
 							<div>${list.city}</div>
+							
+							<c:if test="${list.selection != null}">
+								<div style="margin-left: 10px;">
+									<img alt="selected" src="/image/award.png" width="30px" height="30px">
+									<span style="font-size: 13px; color: #d98500;">채택됨</span>
+								</div>
+							</c:if>
 						</div>
 						<div class="col-12 d-flex textmain">
 						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
@@ -417,13 +454,17 @@
 							</div>
 						<!-- 포인트 테스트 -->
 						<c:if test="${list.boardPoint=='0'}">
-							<div class="col-2">
-								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							<div class="col-2 text-center">
+								<span>
+								<img alt="명예" src="/image/cube.png" height="20px" width="20px"/>
+								</span>
 							</div>
 						</c:if>
 						<c:if test="${list.boardPoint!='0'}">
-							<div class="col-2">
-								<span>${list.boardPoint} point</span>
+							<div class="col-2 text-center">
+								<span>${list.boardPoint}
+								<img alt="point" src="/image/gem.png" height="20px" width="20px" style="margin-bottom: 4px;"/>
+								</span>
 							</div>
 						</c:if>
 						
@@ -516,6 +557,13 @@
 							<div>${list.country}</div>
 							<span style="padding: 0px 10px 0px 10px;">|</span>
 							<div>${list.city}</div>
+							
+							<c:if test="${list.selection != null}">
+								<div style="margin-left: 10px;">
+									<img alt="selected" src="/image/award.png" width="30px" height="30px">
+									<span style="font-size: 13px; color: #d98500;">채택됨</span>
+								</div>
+							</c:if>
 						</div>
 						<div class="col-12 d-flex textmain">
 						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
@@ -524,13 +572,17 @@
 							</div>
 						<!-- 포인트 테스트 -->
 						<c:if test="${list.boardPoint=='0'}">
-							<div class="col-2">
-								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							<div class="col-2 text-center">
+								<span>
+								<img alt="명예" src="/image/cube.png" height="20px" width="20px"/>
+								</span>
 							</div>
 						</c:if>
 						<c:if test="${list.boardPoint!='0'}">
-							<div class="col-2">
-								<span>${list.boardPoint} point</span>
+							<div class="col-2 text-center">
+								<span>${list.boardPoint}
+								<img alt="point" src="/image/gem.png" height="20px" width="20px" style="margin-bottom: 4px;"/>
+								</span>
 							</div>
 						</c:if>
 						
@@ -622,6 +674,13 @@
 							<div>${list.country}</div>
 							<span style="padding: 0px 10px 0px 10px;">|</span>
 							<div>${list.city}</div>
+							
+							<c:if test="${list.selection != null}">
+								<div style="margin-left: 10px;">
+									<img alt="selected" src="/image/award.png" width="30px" height="30px">
+									<span style="font-size: 13px; color: #d98500;">채택됨</span>
+								</div>
+							</c:if>
 						</div>
 						<div class="col-12 d-flex textmain">
 						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
@@ -630,13 +689,17 @@
 							</div>
 						<!-- 포인트 테스트 -->
 						<c:if test="${list.boardPoint=='0'}">
-							<div class="col-2">
-								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							<div class="col-2 text-center">
+								<span>
+								<img alt="명예" src="/image/cube.png" height="20px" width="20px"/>
+								</span>
 							</div>
 						</c:if>
 						<c:if test="${list.boardPoint!='0'}">
-							<div class="col-2">
-								<span>${list.boardPoint} point</span>
+							<div class="col-2 text-center">
+								<span>${list.boardPoint}
+								<img alt="point" src="/image/gem.png" height="20px" width="20px" style="margin-bottom: 4px;"/>
+								</span>
 							</div>
 						</c:if>
 						
@@ -728,6 +791,13 @@
 							<div>${list.country}</div>
 							<span style="padding: 0px 10px 0px 10px;">|</span>
 							<div>${list.city}</div>
+							
+							<c:if test="${list.selection != null}">
+								<div style="margin-left: 10px;">
+									<img alt="selected" src="/image/award.png" width="30px" height="30px">
+									<span style="font-size: 13px; color: #d98500;">채택됨</span>
+								</div>
+							</c:if>
 						</div>
 						<div class="col-12 d-flex textmain">
 						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
@@ -736,13 +806,17 @@
 							</div>
 						<!-- 포인트 테스트 -->
 						<c:if test="${list.boardPoint=='0'}">
-							<div class="col-2">
-								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							<div class="col-2 text-center">
+								<span>
+								<img alt="명예" src="/image/cube.png" height="20px" width="20px"/>
+								</span>
 							</div>
 						</c:if>
 						<c:if test="${list.boardPoint!='0'}">
-							<div class="col-2">
-								<span>${list.boardPoint} point</span>
+							<div class="col-2 text-center">
+								<span>${list.boardPoint}
+								<img alt="point" src="/image/gem.png" height="20px" width="20px" style="margin-bottom: 4px;"/>
+								</span>
 							</div>
 						</c:if>
 						
@@ -834,6 +908,13 @@
 							<div>${list.country}</div>
 							<span style="padding: 0px 10px 0px 10px;">|</span>
 							<div>${list.city}</div>
+							
+							<c:if test="${list.selection != null}">
+								<div style="margin-left: 10px;">
+									<img alt="selected" src="/image/award.png" width="30px" height="30px">
+									<span style="font-size: 13px; color: #d98500;">채택됨</span>
+								</div>
+							</c:if>
 						</div>
 						<div class="col-12 d-flex textmain">
 						<div class="col-2" style="padding-left: 5px;">${list.boardDate}</div>
@@ -842,13 +923,17 @@
 							</div>
 						<!-- 포인트 테스트 -->
 						<c:if test="${list.boardPoint=='0'}">
-							<div class="col-2">
-								<span>🧡</span><span style="padding-left: 10px;">point</span>
+							<div class="col-2 text-center">
+								<span>
+								<img alt="명예" src="/image/cube.png" height="20px" width="20px"/>
+								</span>
 							</div>
 						</c:if>
 						<c:if test="${list.boardPoint!='0'}">
-							<div class="col-2">
-								<span>${list.boardPoint} point</span>
+							<div class="col-2 text-center">
+								<span>${list.boardPoint}
+								<img alt="point" src="/image/gem.png" height="20px" width="20px" style="margin-bottom: 4px;"/>
+								</span>
 							</div>
 						</c:if>
 						

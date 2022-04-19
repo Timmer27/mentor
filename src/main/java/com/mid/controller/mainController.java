@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.mid.VO.cityCoordinatesVO;
 import com.mid.VO.replycountVO;
 import com.mid.VO.userVO;
-import com.mid.VO.userboardVO;
 import com.mid.service.mainService;
 import com.mid.service.mentimentorService;
 
@@ -111,6 +109,9 @@ public class mainController {
 	
 //		좋아요 숫자 화면 출력
 		m.addAttribute("countLikes", service.countLikesList());
+		
+////		이미 채택된 글이라면 채택됨 출력
+//		m.addAttribute("selectedList", service.selectedBoardList());
 		
 		return "/mentoring/mentoring";
 	}

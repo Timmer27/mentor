@@ -109,11 +109,16 @@
 						</a>
 					</c:if>
 				<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="min-width: 6rem; font-size: 0.9rem;">
+					<li><div style="padding-bottom: 13px; padding-top: 0;" id="pointshow" class="dropdown-item">${nickName}님 환영합니다</div></li>
 					<li><a class="dropdown-item" href="#">마이페이지</a></li>
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
-					<li><div id="pointshow" class="dropdown-item">보유 포인트 : <span style="color: red;">${currentPoint}</span> </div></li>
-					<li><div id="pointshow" class="dropdown-item">명예 포인트 : <span style="color: red;">${currentRepPoint}</span> </div></li>					
+					<li><div id="pointshow" class="dropdown-item">
+						<img alt="point" src="/image/gem.png" height="20px" width="20px"/>
+					 : <span id='cPoint' style="color: red;">${currentPoint}</span> </div></li>
+					<li><div id="pointshow" class="dropdown-item">
+						<img alt="명예" src="/image/cube.png" height="20px" width="20px"/>
+					 : <span style="color: red;">${currentRepPoint}</span> </div></li>
 				</ul>
 		  		</c:if>
 	        </div>
@@ -236,31 +241,67 @@
 				</div>
 								
 		    </div>
+		    <!-- 하단 서브정보  -->
+		    <div class="col-11 m-auto" style="font-size: 13px;">
+		    	<span style=''>
+		    		${list.boardDate}
+		    	</span>
+		    	<span style="padding: 0px 5px 0px 5px;">
+		    		|
+		    	</span>
+		    	<span style="padding: 0px 5px 0px 5px;">
+		    		${userInfo.nickname}
+		    	</span>
+		    	<span style="padding: 0px 5px 0px 5px;">
+		    		|
+		    	</span>
+		    	<span>
+		    		조회수
+		    	</span>
+		    	<span>
+		    		${view}
+		    	</span>
+		    	<span style="padding: 0px 5px 0px 5px;">
+		    		|
+		    	</span>
+		    	<a href="javascript:void(0)" class="report">
+		    		신고하기
+		    		<img alt="" src="/image/report.png" width="18px" height="18px" style="margin-bottom: 4px;">
+		    	</a>
+		    </div>
 	    </div>
 	    
 	    <hr>
 	    
-	    <c:if test="${list.boardPoint == 0}">
-			<div class="contentBox">
-				<div class="">
-					<div class="col-9 m-auto mt-4 noticeBanner text-center d-flex">
-			    		<span class="col-10">이 글에 답해주시면 채택여부에 관계없이 여러분들의 명성 포인트가 올라갑니다 :)</span>
-						<button class="col-1" type="button" name='writeAnswer' id='writeAnswer' class="btn">작성하기</button>
+	    <c:if test="${userType == 'mentor'}">
+		    <c:if test="${list.boardPoint == 0}">
+				<div class="contentBox">
+					<div class="">
+						<div class="col-9 m-auto mt-4 noticeBanner text-center d-flex">
+				    		<span class="col-10">
+				    		이 글에 답해주시면 채택여부에 관계없이
+				    		<img alt="point" src="/image/cube.png" height="25px" width="25px">
+				    		 를 드립니다 :)</span>
+							<button class="col-1" type="button" name='writeAnswer' id='writeAnswer' class="btn">작성하기</button>
+					    </div>
 				    </div>
 			    </div>
-		    </div>
-	    </c:if>
-	    
-	    <c:if test="${list.boardPoint != 0}">
-			<div class="contentBox">
-				<div class="">
-					<div class="col-9 m-auto mt-4 noticeBanner text-center d-flex">
-			    		<span class="col-10">이 글을 통해 채택된 분에게 ${list.boardPoint} 포인트를 드립니다 :)</span>
-						<button class="col-1" type="button" name='writeAnswer' id='writeAnswer' class="btn">작성하기</button>
+		    </c:if>
+		    
+		    <c:if test="${list.boardPoint != 0}">
+				<div class="contentBox">
+					<div class="">
+						<div class="col-9 m-auto mt-4 noticeBanner text-center d-flex">
+				    		<span class="col-10">이 글을 통해 채택된 분에게 <span style="font-weight: bold; color: red;">${list.boardPoint}</span>  
+				    		<img alt="point" src="/image/gem.png" height="25px" width="25px">
+				    		를 드립니다 :)</span>
+							<button class="col-1" type="button" name='writeAnswer' id='writeAnswer' class="btn">작성하기</button>
+					    </div>
 				    </div>
 			    </div>
-		    </div>
+		    </c:if>
 	    </c:if>
+
 	    
 	    <!-- 댓글 입력창 -->
 		<form class="contentBox" id='contentBox' onsubmit="return replyPost();">
@@ -270,10 +311,10 @@
 					<div class="d-flex mentorTitle">
 				    	<div style="margin-left: 20px; margin-right: 20px;">
 				    	
-				    	<c:if test="${profile_image=='/image/upload/0'}">
-				    		<img alt="" src="/image/user.png" class="rounded-circle" width="56px" height="56px">
+				    	<c:if test = "${not fn:contains(profile_image, 'http')}">
+				    		<img alt="" src="${profile_image}" class="rounded-circle" width="56px" height="56px">
 				    	</c:if>
-				    	<c:if test="${profile_image!='/image/upload/0'}">
+				    	<c:if test = "${fn:contains(profile_image, 'http')}">
 				    		<img alt="" src="${profile_image}" class="rounded-circle" width="56px" height="56px">
 				    	</c:if>
 				    	
@@ -313,8 +354,7 @@
 		    </div>
 	    </form>
 	    
-<!-- 댓글 숫자 검사 후 재삽입 예정  -->
-
+	<!-- 댓글 숫자 검사 후 재삽입 예정  -->
 	<c:if test="${replyCount.boardNum == 0}">
  		<div class="contentBox">
 			<div class="contentBox">
@@ -344,11 +384,11 @@
 					    	<div class="col-9 m-auto mt-4 replyBox">
 								<div class="d-flex mentorTitle">
 								
-							    	<c:if test="${profile_image=='/image/upload/0'}">
-							    		<img alt="" src="/image/user.png" class="rounded-circle" width="56px" height="56px">
+							    	<c:if test = "${not fn:contains(profile_image, 'http')}">
+							    		<img alt="" src="${profile_image}" class="rounded-circle" width="56px" height="56px" style="margin-right: 15px;">
 							    	</c:if>
-							    	<c:if test="${profile_image!='/image/upload/0'}">
-							    		<img alt="" src="${list.profile_image}" class="rounded-circle" width="56px" height="56px">
+							    	<c:if test = "${fn:contains(profile_image, 'http')}">
+							    		<img alt="" src="${profile_image}" class="rounded-circle" width="56px" height="56px" style="margin-right: 15px;">
 							    	</c:if>
 								    	<div class="d-flex flex-column" style="width: 50%;">
 									    	<div class="">
@@ -365,8 +405,31 @@
 									    		<span>30%</span>
 									    	</div>
 								    	</div>
+								    	
+								    	<!-- 작성자 전용 채텍칸 -->
+							    	 	<c:if test="${selectedReply == null}"> 
+									    	<c:if test="${userInfo.id == id}">
+										    	<c:if test="${userInfo.num == num}">
+										    		<a href="javascript:void(0)" style="width: 38%; text-align: end;" class="d-flex flex-column selectAnswer" id='${list.num}'>
+										    			<img alt="채택" src="/image/star.png" width="52px" height="52px" style="place-self: end; margin-right: 2px;">
+										    			<span class="answerText" style="padding-top: 6px; font-size: 14px; color: #4d4d4d82;">채택하기</span>
+										    		</a>
+										    	</c:if>
+									    	</c:if>
+								    	</c:if>
+								    	
+							    		<c:if test="${selectedReply != null}">
+								    		<c:if test="${selectedReply == list.num}">
+									    		<a style="width: 38%; text-align: end;" class="d-flex flex-column" id='${list.num}'>
+									    			<img alt="채택" src="/image/star.png" width="52px" height="52px" style="place-self: end; margin-right: 2px;">
+									    			<span class="answerText" style="padding-right: 13px; padding-top: 6px; font-size: 15px; color: #0b7ea9;">채택</span>
+									    		</a>
+									    	</c:if> 
+								    	</c:if> 
+							    		
 						    		</div>
 						    		
+									<input class='replyNum' value='' type="text" style="visibility: hidden;">									
 									<div class="m-auto" style="height: auto; padding: 22px;">
 										${list.mentorreplyContent}
 								    </div>

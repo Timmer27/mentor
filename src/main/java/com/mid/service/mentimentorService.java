@@ -14,6 +14,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.mid.VO.mentiboardReplyVO;
 import com.mid.VO.replycountVO;
+import com.mid.VO.userVO;
 import com.mid.VO.userboardVO;
 import com.mid.VO.userboardfilesVO;
 import com.mid.mapper.mentiMapper;
@@ -72,7 +73,7 @@ public class mentimentorService {
 	public Map<String, Boolean> saveReply(String replyContent, String boardNum, String mentiNum, String mentorNum) {
 		Map<String, Boolean> map = new HashMap<String, Boolean>();
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String today = sdf.format(date);
 		
 		
@@ -194,9 +195,35 @@ public class mentimentorService {
 		return pageinfo.getNavigateLastPage();
 	}
 	
+	public userVO mentiuser(String userNum) {
+		return mapper.mentiuser(userNum);
+	}
+
+	public mentiboardReplyVO chosenAnswer(String replyNum) {
+		return mapper.getboardReply(replyNum);
+	}
 	
-	
-	
+	public boolean accruedPoint(String point, String mentorNum, String boardNum) {
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String today = sdf.format(date);
+		
+		
+//		포인트 누적합 - 현재 포인트 구하여 누적합
+		String curPoint = mapper.recentcurPoint(mentorNum);
+		String adjustedPoint = (Integer.valueOf(point) + Integer.valueOf(curPoint))+"";
+
+		return mapper.accruedPoint(adjustedPoint, point, mentorNum, boardNum, today)>0 ? true : false;
+	}
+
+	public int view(String boardNum) {
+//		조회수 증가
+		mapper.viewIncrease(boardNum);
+//		증가된 조회수 출력
+		return mapper.view(boardNum);
+	}
+
+
 	
 	
 	
@@ -229,4 +256,6 @@ public class mentimentorService {
 		}
 		return country;
 	}
+
+
 }

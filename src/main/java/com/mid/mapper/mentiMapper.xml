@@ -3,7 +3,7 @@
 <mapper namespace="com.mid.mapper.mentiMapper">
 	
 	<insert id="newpost" parameterType="com.mid.VO.userboardVO" useGeneratedKeys="true" keyProperty="num">
-		INSERT INTO mentiBoard (num, mentiNum, country, city, boardTitle, boardContent, boardDate, boardPoint) VALUES(Null, #{userNum}, #{country}, #{city}, #{boardTitle}, #{boardContent}, #{boardDate}, #{boardPoint})
+		INSERT INTO mentiBoard (num, mentiNum, country, city, boardTitle, boardContent, boardDate, boardPoint, views) VALUES(Null, #{userNum}, #{country}, #{city}, #{boardTitle}, #{boardContent}, #{boardDate}, #{boardPoint}, 0)
 	</insert>
 	
 	<select id="getuserNum" resultType="String" parameterType="String">
@@ -19,7 +19,9 @@
 	</insert>
 	
 	<select id="getBoard" resultType="com.mid.VO.userboardVO" parameterType="String">
-		SELECT mb.num, mentiNum, mb.country, mb.city, boardTitle, boardContent, boardDate, boardLike, boardPoint, IFNULL(profile_image, 0) profile_image FROM mentiBoard mb LEFT OUTER JOIN mentiuser mu ON mb.mentiNum = mu.num WHERE mb.country = #{countryDBname} ORDER BY num DESC LIMIT 4;
+		SELECT mb.num, mentiNum, mb.country, mb.city, boardTitle, boardContent, boardDate, boardLike, boardPoint, IFNULL(profile_image, 0) profile_image, mb.selection FROM mentiBoard mb
+			LEFT OUTER JOIN mentiuser mu ON mb.mentiNum = mu.num WHERE mb.country = #{countryDBname}
+			ORDER BY num DESC LIMIT 4;
 	</select>
 	
 	<insert id="spendPoint" parameterType="map">
@@ -43,7 +45,7 @@
 	</select>
 	
 	<insert id="saveReply" parameterType="String">
-		INSERT INTO mentiboardreply VALUES (Null, #{boardNum}, #{mentiNum}, #{mentorNum}, #{replyContent}, #{today})
+		INSERT INTO mentiboardreply VALUES (Null, #{boardNum}, #{mentiNum}, #{mentorNum}, #{replyContent}, #{today}, Null)
 	</insert>
 	
 	<select id="getboardPoint" resultType="String" parameterType="String">
@@ -55,7 +57,7 @@
 	</insert>
 	
 	<select id="replyList" resultType="com.mid.VO.mentiboardReplyVO" parameterType="String">
-		SELECT boardNum, mentiNum, mentorNum, mentorreplyContent, replyDate, id, password, nickname, profile_image, email, gender, city, country FROM mentiboardreply mb LEFT OUTER JOIN mentoruser mu on mu.num = mb.mentorNum WHERE boardNum = #{num}; 
+		SELECT mb.num, boardNum, mentiNum, mentorNum, mentorreplyContent, replyDate, id, password, nickname, profile_image, email, gender, city, country, mb.selection FROM mentiboardreply mb LEFT OUTER JOIN mentoruser mu on mu.num = mb.mentorNum WHERE boardNum = #{num}; 
 	</select>
 	
 	<select id="recentrepPoint" resultType="String" parameterType="String">
@@ -109,13 +111,60 @@
 		SELECT * FROM mentiboard WHERE country = #{country} ORDER BY ${type} DESC
 	</select>
 	
+	<select id="recentrepPointbyNum" resultType="Integer" parameterType="String">
+		SELECT IFNULL(currentRepPoint,0) FROM mentorreppoint WHERE mentorNum = #{mentorNum} ORDER BY num DESC LIMIT 1
+	</select>
 	
+	<select id="mentiuser" resultType="com.mid.VO.userVO" parameterType="String">
+		SELECT * FROM mentiuser WHERE num = #{userNum};
+	</select>
 	
+	<select id="getboardReply" resultType="com.mid.VO.mentiboardReplyVO" parameterType="String">
+		SELECT * FROM mentiboardreply mr LEFT OUTER JOIN mentiboard mb ON mb.num = mr.boardNum WHERE mr.num = #{replyNum};
+	</select>
 	
+	<select id="recentcurPoint" resultType="String" parameterType="String">
+		SELECT IFNULL(currentPoint,0) FROM mentorpoint WHERE mentorNum = #{mentorNum} ORDER BY num DESC LIMIT 1;
+	</select>
 	
+	<insert id="accruedPoint" parameterType="String">
+		INSERT INTO mentorpoint (num, mentorNum, mentiboardnum, currentPoint, earnDate, earnAmount) 
+			VALUES(Null, #{mentorNum}, #{boardNum}, #{adjustedPoint}, #{today}, #{point})
+	</insert>
 	
+	<insert id="selection" parameterType="String">
+		UPDATE mentiboardreply SET selection = 1 WHERE num = #{replyNum};
+	</insert>
 	
+	<select id="selectedReply" resultType="Integer" parameterType="String">
+		SELECT IFNULL(num,0) FROM mentiboardreply WHERE boardNum = #{boardNum} AND selection = 1;
+	</select>
 	
+	<insert id="selectionBoard" parameterType="String">
+		UPDATE mentiboard SET selection = 1 WHERE num = #{boardNum};
+	</insert>
+	
+	<select id="selectedBoardList" resultType="com.mid.VO.userboardVO">
+		SELECT num, selection FROM mentiboard	
+	</select>
+	
+	<update id="viewIncrease" parameterType="String">
+		UPDATE mentiboard SET views = views+1 WHERE num = #{boardNum}
+	</update>
+
+	<select id="view" resultType="Integer" parameterType="String">
+		SELECT IFNULL(views,0) FROM mentiboard WHERE num = #{boardNum}	
+	</select>
+
+
+
+
+
+
+
+
+
+
 	
 	
 </mapper>
