@@ -109,4 +109,14 @@ p > a:hover{
     align-items: center;
 }
 
+.rounded-circle{
+   margin-bottom: 10px;
+}
+
+.registeredGuest{
+    font-weight: bold;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+}
+
 

@@ -119,9 +119,10 @@ public class loginRegisterController {
 //	웹 로그인 - DB
 	@PostMapping("/webLogin")
 	@ResponseBody
-	public boolean webLogin(@RequestParam String userType, String password, String id, Model m) {
+	public Map<String, Boolean> webLogin(@RequestParam String userType, String password, String id, Model m) {
 		userVO vo = new userVO();
 		String num = mapper.getuserNum(id);
+		Map<String, Boolean>map = new HashMap<String, Boolean>();
 		
 		vo.setId(id);
 		if(service.webLogin((userType+"user"), id, password)) {
@@ -132,7 +133,6 @@ public class loginRegisterController {
 			m.addAttribute("currentPoint", service.getpointN(userType, vo));
 			m.addAttribute("currentRepPoint", mapper.recentrepPoint(service.getUserNum(userType, id)));
 
-
 			String profile_image = service.getProfileImg(userType, id);
 			
 			if(profile_image.contains("http")) {
@@ -141,9 +141,12 @@ public class loginRegisterController {
 			else {
 				m.addAttribute("profile_image", ("/upload/"+profile_image));
 			}
-			return true;
+			map.put("result", true);
+			return map;
 		}
-		return false;
+		map.put("result", false);
+		return map;
+		
 	}
 	
 //	기본 회원가입 페이지 이동
@@ -197,7 +200,7 @@ public class loginRegisterController {
 	@ResponseBody
 	public  Map<String, Boolean> webRegister(userVO vo, @RequestParam(name="profilePicture")MultipartFile mfile) {
 		
-		String saveFileName = mfile.getOriginalFilename() + "|" + System.nanoTime();
+		String saveFileName = mfile.getOriginalFilename() + "_" + System.nanoTime();
 		
 		try {
 			String uploadPath = "/C:\\Eclipse\\mentor\\src\\main\\resources\\static\\upload";

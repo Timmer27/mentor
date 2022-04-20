@@ -224,11 +224,109 @@ public class mentimentorService {
 	}
 
 
+//	============ 마이페이지 좋아요 전체페이지 보기 페이징 작업 ============ 
+	public List<userboardVO> seeAllLikes(int pageNum, String id, String userType) {
+		return pagination(pageNum, id, userType).getList();
+	}
+	
+	public int[] seeAllLikesListMyPagePageNum(int pageNum, String id, String userType) {
+		return pagination(pageNum, id, userType).getNavigatepageNums();
+	}
+	
+	public int countryListLikesMyPageLastPageNum(int pageNum, String id, String userType) {
+		return pagination(pageNum, id, userType).getNavigateLastPage();
+	}
+//	============ 마이페이지 좋아요 전체페이지 보기 페이징 작업 ============ 
+	
+//	 ============ 마이페이지 채택글 전체페이지 보기 페이징 작업 - 멘토 ============ 
+	public List<userboardVO> seeAllSelected(int pageNum, String num) {
+		return pagination(pageNum, num).getList();
+	}
+	
+	public int[] seeAllSelectedMyPagePageNum(int pageNum, String num) {
+		return pagination(pageNum, num).getNavigatepageNums();
+	}
+
+	public int seeAllSelectedMyPageLastPageNum(int pageNum, String num) {
+		return pagination(pageNum, num).getNavigateLastPage();
+	}
+//	 ============ 마이페이지 채택글 전체페이지 보기 페이징 작업 - 멘토 ============ 
+
+//	============ 마이페이지 작성 글 전체 보기 ============ 
+	public List<userboardVO> seeAllWriten(int pageNum, String num) {
+		return paginationAll(pageNum, num).getList();
+	}
+
+	public int[] seeAllWritenMyPagePageNum(int pageNum, String num) {
+		return paginationAll(pageNum, num).getNavigatepageNums();
+	}
+
+	public int seeAllWritenMyPageLastPageNum(int pageNum, String num) {
+		return paginationAll(pageNum, num).getNavigateLastPage();
+	}
+//	============ 마이페이지 작성 글 전체 보기 ============ 
+	
+//	============ 마이페이지 채택 필요한 글 전체 보기 ============ 
+	public List<userboardVO> seeAllrequired(int pageNum, String num) {
+		return paginationRequired(pageNum, num).getList();
+	}
+
+	public int[] seeAllrequiredMyPagePageNum(int pageNum, String num) {
+		return paginationRequired(pageNum, num).getNavigatepageNums();
+	}
+
+	public int seeAllrequiredMyPageLastPageNum(int pageNum, String num) {
+		return paginationRequired(pageNum, num).getNavigateLastPage();
+	}
+//	============ 마이페이지 채택 필요한 글 전체 보기 ============ 
 	
 	
 	
 	
+
+//	============ 멘토링 전체 글 보기 ============ 정체가 무엇???
+	public List<userboardVO> seeAllMyPage(int pageNum, String num) {
+		return pagination(pageNum, num).getList();
+	}
+	public int[] seeAllListMyPagePageNum(int pageNum, String num) {
+		return pagination(pageNum, num).getNavigatepageNums();
+	}
+	public int countryListMyPageLastPageNum(int pageNum, String num) {
+		return pagination(pageNum, num).getNavigateLastPage();
+	}
+//	============ 멘토링 전체 글 보기 ============ 
+
 	
+//	Pagination 좋아요 글 메서드
+	public PageInfo<userboardVO> pagination(int pageNum, String id, String userType){
+		PageHelper.startPage(pageNum, 15);
+		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllLikesMyPage(id, userType));
+	
+		return pageinfo;
+	}
+//	Pagination 채택 글 메서드
+	public PageInfo<userboardVO> pagination(int pageNum, String num){
+		PageHelper.startPage(pageNum, 15);
+		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllMyPage(num));
+		
+		return pageinfo;
+	}
+	
+//	Pagination 전체 글 메서드
+	public PageInfo<userboardVO> paginationAll(int pageNum, String num){
+		PageHelper.startPage(pageNum, 15);
+		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllMyPageWritten(num));
+		
+		return pageinfo;
+	}
+	
+//	Pagination 채택 요구 전체 글 메서드
+	public PageInfo<userboardVO> paginationRequired(int pageNum, String num){
+		PageHelper.startPage(pageNum, 15);
+		PageInfo<userboardVO> pageinfo = new PageInfo<userboardVO>(mapper.seeAllMyPageRequired(num));
+		
+		return pageinfo;
+	}
 	
 //	나라 필터링 메서드
 	private String filterCountry(String country) {

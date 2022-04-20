@@ -35,4 +35,6 @@ public interface loginMapper {
 
 	String getUserNum(String userType, String id);
 
+	String getCWPassword(String userType, String id);
+
 }

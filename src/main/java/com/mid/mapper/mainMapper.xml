@@ -24,5 +24,35 @@
 			ON mu.num = t.mentorNum;
 	</select>
 	
+	<select id="prevDBPic" resultType="String" parameterType="String">
+		SELECT profile_image FROM ${userType}user WHERE id = #{id};
+	</select>
+	
+	<update id="updateProfileFile" parameterType="String">
+		UPDATE ${userType}user SET profile_image = #{newPic} WHERE profile_image = #{prevDBPic}
+	</update>
+	
+	<select id="modifyInfo" resultType="com.mid.VO.userVO" parameterType="String">
+		SELECT email, city, country FROM ${userType}user WHERE id = #{id};
+	</select>
+	
+	<update id="modify" parameterType="map">
+		UPDATE ${userType}user
+			SET password = #{password},
+			nickname = #{nickname},
+			email = #{email},
+			city = #{city},
+			country = #{country}
+				WHERE id = #{id}
+	</update>
+	
+	<select id="questionNum" resultType="Integer">
+		SELECT COUNT(*) FROM mentiboard
+	</select>
+	
+	<select id="SolvedquestionNum" resultType="Integer">
+		SELECT COUNT(selection) FROM mentiboard
+	</select>
+	
 	
 </mapper>

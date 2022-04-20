@@ -14,7 +14,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&family=Nanum+Gothic:wght@700&family=Noto+Sans+KR&display=swap" rel="stylesheet">
 <!-- mapBox -->
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
 
@@ -110,7 +110,15 @@
 					</c:if>
 				<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="min-width: 6rem; font-size: 0.9rem;">
 					<li><div style="padding-bottom: 13px; padding-top: 0;" id="pointshow" class="dropdown-item">${nickName}님 환영합니다</div></li>
-					<li><a class="dropdown-item" href="#">마이페이지</a></li>
+					
+					<c:if test="${userType == 'menti'}">
+						<li><a class="dropdown-item" href="/main/mypageMenti">마이페이지</a></li>
+					</c:if>
+					
+					<c:if test="${userType == 'mentor'}">
+						<li><a class="dropdown-item" href="/main/mypageMentor">마이페이지</a></li>
+					</c:if>
+					
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
 					<li><div id="pointshow" class="dropdown-item">
@@ -170,7 +178,7 @@
 		<!-- 랭킹 배너 -->
         <div class = "col-4 d-flex flex-column rankingBox">
         	<p class="col-12 text-center" style="border-bottom: 1px solid #95959557;">
-        		<img src="/image/crown.png" width="40px" height="40px" style="margin: 0px 15px 7px 0px;"><span style="color: #d49103c9; font-weight: bold;">전설의 멘토</span>
+        		<img src="/image/crown.png" width="40px" height="40px" style="margin: 0px 15px 7px 0px;"><span style="color: #d49103c9; font-weight: bold;">멘토왕</span>
         	</p>
 			
 			<div class= "d-flex col-12">
@@ -237,15 +245,15 @@
 	        	</a>
 	        </div>
 	        <div class='col-3 text-center'>
-   	        	<a href='/main/board'>
+   	        	<a href='/main/rommate'>
 	        		<img alt="룸메이트" src="/image/house.png"
  					width="68px"
 		        	>
 		        	<p class="text-center" style="margin-top: 15px;">룸메이트</p>
-					            </a>
+	            </a>
 	        </div>
 	        <div class='col-3 text-center'>
-	   			<a href='/main/rommate'>
+	   			<a href='/main/univInfo'>
 	        		<img alt="유학정보" src="/image/student2.png" 
 	        		width="68px"
 		        	>
@@ -253,7 +261,7 @@
 				</a>	
 	        </div>
 	        <div class='col-3 text-center'>
-				<a href='/main/univInfo'>
+				<a href='/main/board'>
 	        	<img alt="자유게시판" src="/image/board.png"
 					width="68px"
 		        	>
@@ -271,32 +279,44 @@
     <div class='container d-flex mb-2' style="height: auto; flex-direction: column;">
 
         <div class="d-flex col-10 mb-4" style="align-self: center; border-bottom: 1px solid #41414129;">
-	        <div class='questionHedder col-lg-8'>
+	        <div class='questionHedder col-4'>
 	            가입자 수
 	        </div>
 	       	<div class="col-2 d-flex flex-column" style="justify-content: space-around;">
-		        <div class='col-lg-12'>
+		        <div class='col-lg-12 registeredGuest'>
 		           	활동 회원님들
 		        </div>
-		        <div class='col-lg-12'>
+		        <div class='col-lg-12 registeredGuest'>
 		            멘토님들
 		        </div>
-		        <div class='col-lg-12'>
-		            해결된 고민
-		        </div>
 	       	</div>
+	       	
 	       	<div class="col-2 d-flex flex-column text-center" style="justify-content: space-around;">
-		        
 		        <c:forEach var="list" items="${userCount}">
 			        <div class='col-lg-12'>
 			           	${list} 명	
 			        </div>
 		        </c:forEach>
-		        <div class='col-lg-12'>
-		           	tmp
-		        </div>
-		        
 	       	</div>
+	       	
+	       	<div class="col-2 d-flex flex-column" style="justify-content: space-around;">
+		        <div class='col-lg-12 registeredGuest'>
+		           	질문 수
+		        </div>
+		        <div class='col-lg-12 registeredGuest'>
+		            해결된 고민
+		        </div>
+	       	</div>
+	       	
+	       	<div class="col-2 d-flex flex-column text-center" style="justify-content: space-around;">
+		        <div class='col-lg-12'>
+		           	${qNum}
+		        </div>
+		        <div class='col-lg-12'>
+		           	${solvedqNum}
+		        </div>
+	       	</div>
+	       	
         </div>
         	
     </div>
@@ -307,10 +327,10 @@
         </div>
    	</div>
 
-   	<p class="questionHedder col-9">오늘의 고민</p>
+<!--    	<p class="questionHedder col-9">오늘의 고민</p>
     <div class='d-flex col-10 mt-4' style="height: 25rem; justify-content: space-evenly; margin: auto">
-            
-            <a class="col-4 questionBox" href="#">
+             -->
+<!--             <a class="col-4 questionBox" href="#">
             	<div class="questionCard">
             		<div class="card-title">미국, California | 거주문제</div>
             		<div class="profileImage col-12 d-flex flex-column">
@@ -336,7 +356,7 @@
 	            		</div>
             		</div>
             	</div>
-            </a>
+            </a> -->
     	
     </div>            
 

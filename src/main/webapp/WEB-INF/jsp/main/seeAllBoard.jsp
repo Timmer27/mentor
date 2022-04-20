@@ -166,7 +166,7 @@
 	<div class="m-auto pt-4" style="width:30%;">
 		<p class="text-center">
 			<img alt="검색" src="/image/search.png" width="20px" height="20px">
-			키워드로 검색하세요!		
+			키워드로 검색하세요! 
 		</p>
 		<!-- search button -->
 		<form class="col-12 mb-3 input-groups" method="post" action="/menti/search">
@@ -177,21 +177,23 @@
 		</form>
 	</div>	
 	
-	<!-- dropdown menu -->
+<%-- 	<!-- dropdown menu -->
 	<div class="d-flex m-auto mt-4 selectMenu">
 		<div class="col-5">
-			<select style="font-size: 16px; padding: 5px;">
-				<option>추천순</option>
-				<option>최신순</option>
-				<option>포인트순</option>
+			<select onchange="if(this.value) location.href=(this.value)" style="font-size: 16px; padding: 5px;">
+				
+				<c:if test="${type != 'boardPoint'}">
+					<option selected="selected"  value="/menti/seeAllFiltered?country=${countryName}&type=boardDate">최신순</option>
+					<option value="/menti/seeAllFiltered?country=${countryName}&type=boardPoint">포인트순</option>
+				</c:if>
+				
+				<c:if test="${type == 'boardPoint'}">
+					<option value="/menti/seeAllFiltered?country=${countryName}&type=boardDate">최신순</option>
+					<option selected="selected" value="/menti/seeAllFiltered?country=${countryName}&type=boardPoint">포인트순</option>
+				</c:if>
 			</select>
 		</div>
-		
-		<!-- 검색결과text -->
-		<main>
-			<h4 class="text-center"><span style="color: #0468ffba;">`${search}` </span>검색결과</h4>
-		</main>
-	</div>
+	</div> --%>
 	
 	
 	<hr>
@@ -199,37 +201,54 @@
 	<div class="contentBox">
 		<div class="col-7 boardInfo">
 			<div class="col-9" style="width:100%">
-				<c:forEach var="list" items="${list}">
-				<a class="d-flex col-11 m-auto boardcontent" href="/menti/mentiboard?num=${list.num}">
-					
-				 	<div class="col-2" style="margin-right: 10px; color: #808080a8;">${list.country}, ${list.city}</div>			
-					<div class="col-5">${list.boardTitle}</div>				
-					
-					<c:if test="${list.boardPoint == 0}">
-						<img alt="point" src="/image/point.png" width="15px" height="15px" style="margin-top: 3px;">		
-						<div class="col-1 likes">❤️</div>				
-					</c:if>
-					<c:if test="${list.boardPoint != 0}">
-						<img alt="point" src="/image/point.png" width="15px" height="15px" style="margin-top: 3px;">		
-						<div class="col-1 likes">${list.boardPoint}</div>				
-					</c:if>
-					
-					<img alt="likes" src="/image/heart.png" width="15px" height="15px" style="margin-top: 3px;">		
-					
-					<c:if test="${list.boardLike != null}">
-						<div class="col-1 likes">${list.boardLike}</div>				
-					</c:if>
-					<c:if test="${list.boardLike == null}">
-						<div class="col-1 likes">0</div>				
-					</c:if>
-					<div class="col-2">${list.boardDate}</div>	
-									
+				<div class="col-9" style="width:100%">
+					<c:forEach var="list" items="${countryList}">
+					<a class="d-flex col-11 m-auto boardcontent" href="/menti/mentiboard?num=${list.num}">
+						
+					 	<div class="col-2" style="margin-right: 10px; color: #808080a8;">${list.country}, ${list.city}</div>			
+						<div class="col-5">${list.boardTitle}</div>				
+						
+						<c:if test="${list.boardPoint == 0}">
+							<div class="col-1 likes">
+								<img alt="point" src="/image/cube.png" width="15px" height="15px" style="margin-top: 1px;">		
+							</div>
+						</c:if>
+						<c:if test="${list.boardPoint != 0}">
+							<div class="col-1 likes d-flex">
+								<img alt="point" src="/image/gem.png" width="15px" height="15px" style="margin-top: 1px;">		
+								<div class="" style="padding-left: 8px;">${list.boardPoint}</div>				
+							</div>
+						</c:if>
+						
+						<img alt="likes" src="/image/heart.png" width="15px" height="15px" style="margin-top: 3px;">		
+						
+						<c:if test="${list.boardLike != null}">
+							<div class="col-1 likes">${list.boardLike}</div>				
+						</c:if>
+						<c:if test="${list.boardLike == null}">
+							<div class="col-1 likes">0</div>				
+						</c:if>
+						<div class="col-2">${list.boardDate}</div>	
+										
 					</a>
-				</c:forEach>
-			</div>
-	    </div>    
-    </div>    
+					</c:forEach>
+				</div>
+		    </div>    
 
+			<div class="col-11 m-auto text-center mt-4" style="font-size: 16px">
+				<a href="/menti/seeAll?country=usa&num=1">
+					<img style="margin-bottom: 3px;" alt="" src="/image/left-arrows.png" width="12px" height="15px">
+				</a>
+				<c:forEach var="pageNum" items="${countryListPageNum}">
+					<a class="pages" href="/${url}?num=${pageNum}">${pageNum}</a>
+				</c:forEach>
+				<a href="/menti/seeAll?country=usa&num=${countryListLastPageNum}">
+					<img style="margin-bottom: 3px;" alt="" src="/image/two-arrows.png" width="12px" height="15px">
+				</a>
+		    </div>    
+    
+    	</div>    
+    </div>    
     <!-- footer -->
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -249,7 +268,7 @@
     </div>
 
     
-<script src="/js/searchBoard.js?<%=System.currentTimeMillis()%>>"></script>
+<script src="/js/seeAllBoard.js?<%=System.currentTimeMillis()%>>"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

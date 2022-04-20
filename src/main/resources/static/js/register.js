@@ -365,7 +365,7 @@ function webRegister(userType){
 	var specialChar = /[`~!@#$%^&*|\'\";:\/?]/;
 
 	if(specialChar.test($('#password').val())){
-		alert('아이디에는 특수문자를 포함하실 수 없습니다');
+		alert('비밀번호에는 특수문자를 포함하실 수 없습니다');
 	}
 
 	// 비밀번호가 동일하지 않을 시 return
@@ -374,7 +374,7 @@ function webRegister(userType){
 
 	if(p1!=p2){
 		alert('비밀번호가 동일하지 않습니다');
-		return;
+		return false;
 	}
 	
 	// 약관동의 안했을 시

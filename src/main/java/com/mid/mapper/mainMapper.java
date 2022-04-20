@@ -1,6 +1,7 @@
 package com.mid.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,5 +21,17 @@ public interface mainMapper {
 	List<userVO> getUserList();
 
 	List<userPointVO> userPointRank();
+
+	String prevDBPic(String userType, String id);
+
+	int updateProfileFile(String prevDBPic, String newPic, String userType);
+
+	userVO modifyInfo(String id, String userType);
+
+	int modify(Map<String, String> map);
+
+	int questionNum();
+
+	int SolvedquestionNum();
 
 }

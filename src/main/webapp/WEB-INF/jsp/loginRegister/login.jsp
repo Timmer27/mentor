@@ -110,7 +110,15 @@
 					</c:if>
 				<ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="min-width: 6rem; font-size: 0.9rem;">
 					<li><div style="padding-bottom: 13px; padding-top: 0;" id="pointshow" class="dropdown-item">${nickName}님 환영합니다</div></li>
-					<li><a class="dropdown-item" href="#">마이페이지</a></li>
+					
+					<c:if test="${userType == 'menti'}">
+						<li><a class="dropdown-item" href="/main/mypageMenti">마이페이지</a></li>
+					</c:if>
+					
+					<c:if test="${userType == 'mentor'}">
+						<li><a class="dropdown-item" href="/main/mypageMentor">마이페이지</a></li>
+					</c:if>
+					
 					<li><hr class="dropdown-divider"></li>
 					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
 					<li><div id="pointshow" class="dropdown-item">

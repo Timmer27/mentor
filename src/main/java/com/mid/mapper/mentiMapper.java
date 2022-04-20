@@ -86,4 +86,26 @@ public interface mentiMapper {
 
 	int view(String num);
 
+	int[] selectedBoardNumList(String num);
+
+	userboardVO boardInfo(int num);
+
+	List<userboardVO> seeAllMyPage(String num);
+
+	int[] likedList(String id, String userType);
+
+	List<userboardVO> seeAllLikesMyPage(String id, String userType);
+
+	String getID(String num, String userType);
+
+	List<userboardVO> seeAllSelectedMyPage(String num);
+
+	List<userboardVO> writenList(String num);
+
+	List<userboardVO> requiredList(String num);
+
+	List<userboardVO> seeAllMyPageWritten(String num);
+
+	List<userboardVO> seeAllMyPageRequired(String num);
+
 }

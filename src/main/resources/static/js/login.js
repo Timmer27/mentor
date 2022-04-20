@@ -96,23 +96,27 @@ function weblogin(){
 	
 	$.ajax({
 		data: formData,
-		dataType: 'text',
+		dataType: 'json',
 		method: 'post',
 		caches: false,
 		processData: false,
 		contentType: false, 
 		url:'/loginRegister/webLogin',
 		success:function(res){
-			if(res){
+			if(res.result){
 				sessionStorage.setItem("id", formData.id);
 				location.href="/main"
 			}
 			else{
-				alert('등록된 아이디가 없습니다');
-				location.href="/loginRegister/register"
+				alert('아이디/비밀번호가 틀립니다.');
+				return false;
 			}
+		},
+		error:function(request){
+			console.log(request.responseText)
 		}
 	});
+	return false;
 }
 
 //구글 로그인 - init을 실행시켜서 onSignin 메서드를 동작시키고 프로필 정보를 받아옴

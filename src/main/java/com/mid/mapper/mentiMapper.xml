@@ -103,6 +103,10 @@
 	    GROUP BY boardNum;
 	</select>
 	
+	<select id="seeAllMyPage" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT * FROM mentiboard WHERE mentiNum = #{num} AND selection = 1 ORDER BY num DESC
+	</select>
+	
 	<select id="seeAllList" resultType="com.mid.VO.userboardVO" parameterType="String">
 		SELECT * FROM mentiboard WHERE country = #{country} ORDER BY num DESC
 	</select>
@@ -156,12 +160,57 @@
 		SELECT IFNULL(views,0) FROM mentiboard WHERE num = #{boardNum}	
 	</select>
 
+	<select id="selectedBoardNumList" resultType="Integer" parameterType="String">
+		SELECT boardNum FROM mentiboardreply WHERE mentorNum = #{num} AND selection = 1;
+	</select>
 
+	<select id="boardInfo" resultType="com.mid.VO.userboardVO" parameterType="Integer">
+		SELECT num, mentiNum userNum, country, city, boardTitle, boardContent, boardDate, boardLike, boardPoint, selection, views FROM mentiboard WHERE num = #{num} ORDER BY num DESC LIMIT 5
+	</select>
 
+	<select id="likedList" resultType="Integer" parameterType="String">
+		SELECT ${userType}LikesBoardnum userNum FROM ${userType}likespost WHERE ${userType}ID = #{id}
+	</select>
+	
+	<select id="seeAllLikesMyPage" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT mb.num, country, city, boardTitle, boardContent, boardDate, boardLike, boardPoint, selection, views
+			FROM ${userType}likespost mp
+			LEFT OUTER JOIN mentiboard mb
+				ON mp.${userType}LikesBoardnum = mb.num
+					WHERE ${userType}ID = #{id}
+	</select>
 
+	<select id="getID" resultType="String" parameterType="String">
+		SELECT id FROM ${userType}user WHERE num = #{num}
+	</select>
+	
+	<select id="seeAllSelectedMyPage" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT mb.num, mb.mentiNum userNum, country, city, boardTitle, boardContent, boardDate, boardLike, boardPoint, mb.selection, views
+			FROM mentiboard mb LEFT OUTER JOIN mentiboardreply mr ON mr.boardNum = mb.num
+				WHERE mr.mentorNum = #{num} and mr.selection = 1
+	</select>
 
+	<select id="writenList" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT * FROM mentiboard WHERE mentiNum = #{num} ORDER BY num DESC LIMIT 5
+	</select>
 
+	<select id="requiredList" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT mb.num, mb.mentiNum, country, city, boardTitle, boardContent, boardDate, boardLike, boardPoint, mb.selection, views
+			FROM mentiboard mb LEFT OUTER JOIN mentiboardreply mr ON mb.num = mr.boardNum
+				WHERE mb.mentiNum = #{num} AND mb.selection IS NULL AND mr.mentorreplyContent IS NOT NULL
+				ORDER BY num DESC LIMIT 5
+	</select>
 
+	<select id="seeAllMyPageWritten" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT * FROM mentiboard WHERE mentiNum = #{num} ORDER BY num DESC
+	</select>
+
+	<select id="seeAllMyPageRequired" resultType="com.mid.VO.userboardVO" parameterType="String">
+		SELECT mb.num, mb.mentiNum, country, city, boardTitle, boardContent, boardDate, boardLike, boardPoint, mb.selection, views
+			FROM mentiboard mb LEFT OUTER JOIN mentiboardreply mr ON mb.num = mr.boardNum
+				WHERE mb.mentiNum = #{num} AND mb.selection IS NULL AND mr.mentorreplyContent IS NOT NULL
+				ORDER BY num DESC
+	</select>
 
 
 

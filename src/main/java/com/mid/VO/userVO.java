@@ -7,6 +7,7 @@ public class userVO {
 	
 	private String num;
 	private String id;
+	private String currentPW;
 	private String password;
 	private String nickname;
 	private String profile_image;
@@ -15,7 +16,13 @@ public class userVO {
 	private String city;
 	private String gender;
 	private String userType;
-
+	
+	public String getCurrentPW() {
+		return currentPW;
+	}
+	public void setCurrentPW(String currentPW) {
+		this.currentPW = currentPW;
+	}
 	
 	public String getNum() {
 		return num;
