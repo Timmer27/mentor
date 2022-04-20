@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+#country{
+	height: 37px;
+    width: 25%;
+    margin: auto;
+}
+
+#cityBox{
+	place-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.countryLabel{
+    width: 40%;
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.cities{
+    height: 34px;
+    color: #000000d4;
+    border-radius: 5px;
+    background-color: #66b0d1a8;
+    font-size: 18px;
+    padding-top: 5px;
+    margin: 5px 20px 5px 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.cities:hover{
+    background-color: #066ba5;
+    color: #ffffff;
+}
+
+.cityTitle{
+    text-align: center;
+    margin-top: 25px;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.cityBoard{
+    border-radius: 26px;
+    background-color: #ececec40;
+    min-height: 30rem;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+}

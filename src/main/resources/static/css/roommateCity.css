@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.regionTitle{
+    font-size: 25px;
+   	font-weight: bold;
+    padding-top: 50px;
+}
+
+.boardBox{
+    border-radius: 10px;
+    padding: 10px;
+    margin: 35px;
+    border: 2px solid #5050505c;
+}
+
+.imgBox{
+    overflow: hidden;
+    border-bottom: 1px solid #0000004a;
+    height: 20rem;
+    margin-bottom: 25px;
+}
+
+.cardImg{
+	height: auto;
+    max-width: 100%;
+    display: block;
+}
+
+.boardContent{
+	padding: 10px;
+}

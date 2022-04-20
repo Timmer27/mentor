@@ -143,17 +143,17 @@
 				</a>
 			</div>
 			<div class='col-2 text-center'>
-				<a href='/main/rommate'>
+				<a href='/roommate'>
 					<div class="text-center categoriText">룸메이트</div>
 				</a>
 			</div>
 			<div class='col-2 text-center'>
-				<a href='/main/univInfo'>
+				<a href='/univInfo'>
 					<div class="text-center categoriText">유학정보</div>
 				</a>	
 			</div>
 			<div class='col-2 text-center'>
-				<a href='/main/board'>
+				<a href='/board'>
 					<div class="text-center categoriText">자유게시판</div>
 				</a>
 			</div>
@@ -320,12 +320,11 @@
 				    	<div style="margin-left: 20px; margin-right: 20px;">
 				    	
 				    	<c:if test = "${not fn:contains(profile_image, 'http')}">
-				    		<img alt="" src="${profile_image}" class="rounded-circle" width="56px" height="56px">
+				    		<img alt="" src="/upload/${profile_image}" class="rounded-circle" width="56px" height="56px">
 				    	</c:if>
 				    	<c:if test = "${fn:contains(profile_image, 'http')}">
 				    		<img alt="" src="${profile_image}" class="rounded-circle" width="56px" height="56px">
 				    	</c:if>
-				    	
 				    	</div>
 				    	<div class="d-flex flex-column" style="width: 50%;">
 					    	<div class="">
@@ -392,11 +391,11 @@
 					    	<div class="col-9 m-auto mt-4 replyBox">
 								<div class="d-flex mentorTitle">
 								
-							    	<c:if test = "${not fn:contains(profile_image, 'http')}">
-							    		<img alt="" src="${profile_image}" class="rounded-circle" width="56px" height="56px" style="margin-right: 15px;">
+							    	<c:if test = "${not fn:contains(list.profile_image, 'http')}">
+							    		<img alt="" src="/upload/${list.profile_image}" class="rounded-circle" width="56px" height="56px" style="margin-right: 15px;">
 							    	</c:if>
-							    	<c:if test = "${fn:contains(profile_image, 'http')}">
-							    		<img alt="" src="${profile_image}" class="rounded-circle" width="56px" height="56px" style="margin-right: 15px;">
+							    	<c:if test = "${fn:contains(list.profile_image, 'http')}">
+							    		<img alt="" src="${list.profile_image}" class="rounded-circle" width="56px" height="56px" style="margin-right: 15px;">
 							    	</c:if>
 								    	<div class="d-flex flex-column" style="width: 50%;">
 									    	<div class="">

@@ -297,9 +297,6 @@ public class mainController {
 		return "/main/seeAllBoard";
 	}
 	
-	
-	
-	
 //	프로필 사진 변경
 	@PostMapping("/profileChange")
 	@Transactional
@@ -374,24 +371,4 @@ public class mainController {
 		}
 		return mainService.modify(userType, id, vo);
 	}
-
-	
-//	자유게시판 이동
-	@GetMapping("/board")
-	public String board() {
-		return "/categories/board";
-	}
-	
-//	룸메이트 이동
-	@GetMapping("/rommate")
-	public String rommate() {
-		return "/categories/rommate";
-	}
-	
-//	유학정보 이동
-	@GetMapping("/univInfo")
-	public String univInfo() {
-		return "/categories/univInfo";
-	}
-	
 }

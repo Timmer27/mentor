@@ -245,7 +245,7 @@
 	        	</a>
 	        </div>
 	        <div class='col-3 text-center'>
-   	        	<a href='/main/rommate'>
+   	        	<a href='/roommate'>
 	        		<img alt="룸메이트" src="/image/house.png"
  					width="68px"
 		        	>
@@ -253,7 +253,7 @@
 	            </a>
 	        </div>
 	        <div class='col-3 text-center'>
-	   			<a href='/main/univInfo'>
+	   			<a href='/univInfo'>
 	        		<img alt="유학정보" src="/image/student2.png" 
 	        		width="68px"
 		        	>
@@ -261,7 +261,7 @@
 				</a>	
 	        </div>
 	        <div class='col-3 text-center'>
-				<a href='/main/board'>
+				<a href='/board'>
 	        	<img alt="자유게시판" src="/image/board.png"
 					width="68px"
 		        	>

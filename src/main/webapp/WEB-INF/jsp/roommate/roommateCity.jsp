@@ -10,7 +10,8 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/main.css?<%=System.currentTimeMillis()%>">
-<link rel="stylesheet" href="/css/searchBoard.css?<%=System.currentTimeMillis()%>">
+<link rel="stylesheet" href="/css/roommateCity.css?<%=System.currentTimeMillis()%>">
+<link rel="stylesheet" href="/css/mentor.css?<%=System.currentTimeMillis()%>">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -160,97 +161,47 @@
         </div>
             
     </div>    
-	<hr>
-	
-	<!-- searchBox  -->
-	<div class="m-auto pt-4" style="width:30%;">
-		<p class="text-center">
-			<img alt="검색" src="/image/search.png" width="20px" height="20px">
-			키워드로 검색하세요! 
-		</p>
-		<!-- search button -->
-		<form class="col-12 mb-3 input-groups" method="post" action="/menti/search">
-			<div class="input-group mb-3">
-				<input id='search' name='seacrh' type="search" class="form-control" min="2" placeholder="키워드를 입력해주세요" aria-label="Recipient's nickname" aria-describedby="button-addon2">
-				<button id="searchButton" class="btn btn-outline-dark" type="submit" onclick="return searchInfo();">검색</button>
-			</div>				
-		</form>
-	</div>	
-	
-	<!-- dropdown menu -->
-	<div class="d-flex m-auto mt-4 selectMenu">
-		<div class="col-5">
-			<select onchange="if(this.value) location.href=(this.value)" style="font-size: 16px; padding: 5px;">
-				
-				<c:if test="${type != 'boardPoint'}">
-					<option selected="selected"  value="/menti/seeAllFiltered?country=${countryName}&type=boardDate">최신순</option>
-					<option value="/menti/seeAllFiltered?country=${countryName}&type=boardPoint">포인트순</option>
-				</c:if>
-				
-				<c:if test="${type == 'boardPoint'}">
-					<option value="/menti/seeAllFiltered?country=${countryName}&type=boardDate">최신순</option>
-					<option selected="selected" value="/menti/seeAllFiltered?country=${countryName}&type=boardPoint">포인트순</option>
-				</c:if>
-			</select>
-		</div>
-		
-	</div>	
-	
 	
 	<hr>
-	<!-- searchContent -->
-	<div class="contentBox">
-		<div class="col-7 boardInfo">
-			<div class="col-9" style="width:100%">
-				<div class="col-9" style="width:100%">
-					<c:forEach var="list" items="${countryList}">
-					<a class="d-flex col-11 m-auto boardcontent" href="/menti/mentiboard?num=${list.num}">
-						
-					 	<div class="col-2" style="margin-right: 10px; color: #808080a8;">${list.country}, ${list.city}</div>			
-						<div class="col-5">${list.boardTitle}</div>				
-						
-						<c:if test="${list.boardPoint == 0}">
-							<div class="col-1 likes">
-								<img alt="point" src="/image/cube.png" width="15px" height="15px" style="margin-top: 1px;">		
-							</div>
-						</c:if>
-						<c:if test="${list.boardPoint != 0}">
-							<div class="col-1 likes d-flex">
-								<img alt="point" src="/image/gem.png" width="15px" height="15px" style="margin-top: 1px;">		
-								<div class="" style="padding-left: 8px;">${list.boardPoint}</div>				
-							</div>
-						</c:if>
-						
-						<img alt="likes" src="/image/heart.png" width="15px" height="15px" style="margin-top: 3px;">		
-						
-						<c:if test="${list.boardLike != null}">
-							<div class="col-1 likes">${list.boardLike}</div>				
-						</c:if>
-						<c:if test="${list.boardLike == null}">
-							<div class="col-1 likes">0</div>				
-						</c:if>
-						<div class="col-2">${list.boardDate}</div>	
-										
-					</a>
-					</c:forEach>
-				</div>
-		    </div>    
+	
+    <!-- main 시작 -->	
 
-			<div class="col-11 m-auto text-center mt-4" style="font-size: 16px">
-				<a href="/menti/seeAll?country=usa&num=1">
-					<img style="margin-bottom: 3px;" alt="" src="/image/left-arrows.png" width="12px" height="15px">
-				</a>
-				<c:forEach var="pageNum" items="${countryListPageNum}">
-					<a class="pages" href="/menti/seeAll?country=usa&num=${pageNum}">${pageNum}</a>
-				</c:forEach>
-				<a href="/menti/seeAll?country=usa&num=${countryListLastPageNum}">
-					<img style="margin-bottom: 3px;" alt="" src="/image/two-arrows.png" width="12px" height="15px">
-				</a>
-		    </div>    
+	<!-- 나라, 도시 표출 -->
+	<p class="text-center col-11 m-auto regionTitle">
+		<img alt="" src="/image/map.png" width="50px" style="margin-right: 10px;">
+		<span>${selectedCountry}, ${cityName}</span>
+	</p>
     
-    	</div>    
-    </div>    
-    <!-- footer -->
+	<!-- 카드형식  -->
+	<div class="col-11 m-auto mt-4 d-flex flex-wrap" style="place-content: center;">
+		<c:forEach var="roommateList" items="${roommateList}">
+			<a class="col-3 boardBox" href="/roommate/brl?num=${roommateList.num}">
+				<div class="imgBox">
+					<img class="cardImg" alt="pic" src="/upload/${roommateList.thumbPic}">
+				</div>
+				
+				<div class="boardContent">
+					<div class="">
+						${roommateList.boardTitle}
+					</div>				
+				
+					<div class="">
+						${roommateList.address}
+					</div>				
+					<div class="">
+						${roommateList.expense}
+					</div>				
+				</div>
+				
+				<div class="">
+					${roommateList.postDate}
+				</div>				
+			</a>
+		</c:forEach>
+		
+	</div>
+	
+	<!-- footer -->
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
             <div class="col-md-4 d-flex align-items-center">
@@ -268,8 +219,10 @@
         </footer>
     </div>
 
+<!-- mapBox -->
+<!-- <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>    -->
     
-<script src="/js/seeAllBoard.js?<%=System.currentTimeMillis()%>>"></script>
+<script src="/js/roommate.js?<%=System.currentTimeMillis()%>>"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

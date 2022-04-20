@@ -143,17 +143,17 @@
 				</a>
 			</div>
 			<div class='col-2 text-center'>
-				<a href='/main/rommate'>
+				<a href='/roommate'>
 					<div class="text-center categoriText">룸메이트</div>
 				</a>
 			</div>
 			<div class='col-2 text-center'>
-				<a href='/main/univInfo'>
+				<a href='/univInfo'>
 					<div class="text-center categoriText">유학정보</div>
 				</a>	
 			</div>
 			<div class='col-2 text-center'>
-				<a href='/main/board'>
+				<a href='/board'>
 					<div class="text-center categoriText">자유게시판</div>
 				</a>
 			</div>

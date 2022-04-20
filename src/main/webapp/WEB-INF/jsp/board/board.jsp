@@ -143,17 +143,17 @@
 				</a>
 			</div>
 			<div class='col-2 text-center'>
-				<a href='/roommate'>
+				<a href='/main/rommate'>
 					<div class="text-center categoriText">룸메이트</div>
 				</a>
 			</div>
 			<div class='col-2 text-center'>
-				<a href='/univInfo'>
+				<a href='/main/univInfo'>
 					<div class="text-center categoriText">유학정보</div>
 				</a>	
 			</div>
 			<div class='col-2 text-center'>
-				<a href='/board'>
+				<a href='/main/board'>
 					<div class="text-center categoriText">자유게시판</div>
 				</a>
 			</div>
@@ -1028,7 +1028,7 @@
 <!-- mapBox -->
 <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>    -->
     
-<script src="/js/mentoring.js?<%=System.currentTimeMillis()%>>"></script>
+<script src="/js/roommate.js?<%=System.currentTimeMillis()%>>"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

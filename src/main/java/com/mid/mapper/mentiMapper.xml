@@ -57,7 +57,9 @@
 	</insert>
 	
 	<select id="replyList" resultType="com.mid.VO.mentiboardReplyVO" parameterType="String">
-		SELECT mb.num, boardNum, mentiNum, mentorNum, mentorreplyContent, replyDate, id, password, nickname, profile_image, email, gender, city, country, mb.selection FROM mentiboardreply mb LEFT OUTER JOIN mentoruser mu on mu.num = mb.mentorNum WHERE boardNum = #{num}; 
+		SELECT mb.num, boardNum, mentiNum, mentorNum, mentorreplyContent, replyDate, id, password, nickname, profile_image, email, gender, city, country, mb.selection FROM mentiboardreply mb
+			LEFT OUTER JOIN mentoruser mu on mu.num = mb.mentorNum
+				WHERE boardNum = #{num}; 
 	</select>
 	
 	<select id="recentrepPoint" resultType="String" parameterType="String">
