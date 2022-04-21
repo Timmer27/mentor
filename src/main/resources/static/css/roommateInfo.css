@@ -1,0 +1,183 @@
+@charset "UTF-8";
+
+.imgBox{
+    height: 42rem;
+}
+
+.detailBox{
+	min-height: 53rem;
+    height: auto;
+}
+	
+.contact{
+    height: 40%;
+}
+
+.mapBox{
+    height: 30rem;
+}
+* {
+  box-sizing: border-box;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+  display: block;
+  height: 32rem;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+imgContent{
+	width: 100%;
+    height: 100%;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 56%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 329px;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+	background-color: rgb(217 217 217 / 80%);
+}
+
+/* Container for image text */
+.caption-container {
+	text-align: center;
+    background-color: #011e2cd1;
+    padding: 2px 16px;
+    color: white;
+}
+
+/* .row:after {
+  content: "";
+  display: table;
+  clear: both;
+} */
+
+p{
+    margin: 0;
+    padding: 5px 0px;
+}
+/* Six columns side by side */
+.column {
+    padding: 0;
+    float: left;
+    width: 15.66%;
+    height: 100%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+.contentTitle{
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.contentInfo{
+    min-height: 95%;
+    height: auto;
+    padding-top: 20px;
+    align-items: center;
+}
+
+.contact{
+    border: 1px solid #cdcdcd;
+	padding: 10px 15px 10px 15px;
+    border-radius: 5px;
+    height: 29rem;
+}
+
+.seperator{
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.prices{
+	font-size: 24px;
+	margin: 20px 0px 20px 0px;
+}
+
+.subinfoBox{
+	margin-top: 20px;
+	color: #000000bd;
+}
+
+.likeButton{
+	margin-left: 14px;
+	border: 1px solid black;
+}
+.likeButton:hover{
+	border: 2px solid black;
+	background-color: white !important;
+}
+
+.likedButton{
+	margin-left: 14px;
+	border: 1px solid black;
+}
+
+.likedButton:hover{
+	border: 2px solid black;
+	background-color: white !important;
+}
+
+.values{
+	padding-left: 10px;
+}
+
+.boldText{
+	font-weight: bold;
+}
+
+.boardTitle{
+text-align: start;
+    font-size: 21px;
+    height: 2rem;
+}
+
+.bottom-right{
+	display: none;
+}
+
+#emailLink:hover{
+	text-decoration: underline;
+	color: #0076ff;	
+}

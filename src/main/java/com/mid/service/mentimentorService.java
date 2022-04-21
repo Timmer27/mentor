@@ -40,6 +40,9 @@ public class mentimentorService {
 		map.put("mentiboardnum", boardNum);
 		map.put("currentPoint", (Integer.valueOf(currentPoint) - Integer.valueOf(vo.getBoardPoint())) );
 		map.put("spendDate", today);
+		
+//		개행문자 처리 - 띄어쓰기
+		vo.setBoardContent(vo.getBoardContent().replaceAll(System.lineSeparator(), "<br>"));
 		map.put("spendAmount", vo.getBoardPoint());
 		mapper.spendPoint(map);
 		
@@ -76,8 +79,8 @@ public class mentimentorService {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String today = sdf.format(date);
 		
-		
-		if(mapper.saveReply(replyContent, boardNum, mentiNum, mentorNum, today)>0) {
+//		개행문자 처리 - 띄어쓰기
+		if(mapper.saveReply(replyContent.replaceAll(System.lineSeparator(), "<br>"), boardNum, mentiNum, mentorNum, today)>0) {
 			map.put("result", true);
 			return map;
 		}

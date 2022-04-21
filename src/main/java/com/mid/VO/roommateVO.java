@@ -15,8 +15,34 @@ public class roommateVO {
 	private String expense;
 	private String address;
 	private String phone;
+	private String email;
+	private String beds;
+	private String bath;
+	private String securityDeposit;
 	private String postDate;
 	private String found;
+	private String gender;
+	private String condition;
+	private String view;
+	
+	public String getBeds() {
+		return beds;
+	}
+	public void setBeds(String beds) {
+		this.beds = beds;
+	}
+	public String getBath() {
+		return bath;
+	}
+	public void setBath(String bath) {
+		this.bath = bath;
+	}
+	public String getSecurityDeposit() {
+		return securityDeposit;
+	}
+	public void setSecurityDeposit(String securityDeposit) {
+		this.securityDeposit = securityDeposit;
+	}
 	
 	public String getAddress() {
 		return address;
@@ -85,16 +111,40 @@ public class roommateVO {
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
+	public String getThumbPic() {
+		return thumbPic;
+	}
+	public void setThumbPic(String thumbPic) {
+		this.thumbPic = thumbPic;
+	}
 	public String getPostDate() {
 		return postDate;
 	}
 	public void setPostDate(String postDate) {
 		this.postDate = postDate;
 	}
-	public String getThumbPic() {
-		return thumbPic;
+	public String getView() {
+		return view;
 	}
-	public void setThumbPic(String thumbPic) {
-		this.thumbPic = thumbPic;
+	public void setView(String view) {
+		this.view = view;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getCondition() {
+		return condition;
+	}
+	public void setCondition(String condition) {
+		this.condition = condition;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

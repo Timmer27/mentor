@@ -1,5 +1,8 @@
 package com.mid.VO;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class roommateFilesVO extends roommateVO {
 	private String roommateNum;  
 	private String files;
@@ -16,5 +19,4 @@ public class roommateFilesVO extends roommateVO {
 	public void setFiles(String files) {
 		this.files = files;
 	}  
-	
 }

@@ -241,7 +241,7 @@
 			<p class="text-center mt-2 pb-2 rmTitle" style="">룸메이트 찾으러가기</p>
 			
 			<!-- search button -->
-				<form id="searchInfo" method="post" action="/roommate/search" class="col-10 mb-3 input-groups m-auto mt-2"> <!--  onsubmit="return searchInfo();" -->
+				<form class="col-10 mb-3 input-groups m-auto mt-2" method="get" action="/roommate/search">
 					<input type="hidden" name="selectedCountry" value="${selectedCountry}">
 					<input type="hidden" name="cityName" value="${cityName}">
 					<div class="input-group mb-3">
@@ -251,7 +251,7 @@
 				</form>
 				
 				<button type="button" class="btn" id="postButton">
-					<a href="javascript:newpost()" style="color: white">
+					<a href="/roommate/newpost" style="color: white">
 						등록하기
 					</a>
 				</button>
@@ -262,7 +262,7 @@
 						
 	<div class="d-flex pageNum col-11 m-auto text-center">
 		<c:forEach var="roommateListPageNum" items="${roommateListPageNum}">
-			<a class="nums" href="/roommate/${cityName}?selectedCountry=${selectedCountry}&num=${roommateListPageNum}">
+			<a class="nums" href="/roommate/${cityName}?selectedCountry=${selectedCountry}&num=${roommateListPageNum}&search=${search}">
 				${roommateListPageNum}
 			</a>
 		</c:forEach>

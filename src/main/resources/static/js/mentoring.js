@@ -101,26 +101,26 @@ function likePost(){
 
 //좋아요 취소 기능
 function likePostRevert(){
-		if(window.confirm('정말로 취소할까요?')){
-			
-			document.getElementById('likeBox').style.display = "block";
-			document.getElementById('likedBox').style.display = "none";
-			var formData = new FormData();
-			
-			formData.append("boardNum", $('#boardNum').val());
-			
-			$.ajax({
-				data: formData,
-				url: '/menti/likeRevert',
-				caches: false,
-				method: 'post',
-				processData: false,
-				contentType: false,
-				error:function(request){
-					console.log(request.responseText);
-				}
-			})	
-		}
+	if(window.confirm('정말로 취소할까요?')){
+		
+		document.getElementById('likeBox').style.display = "block";
+		document.getElementById('likedBox').style.display = "none";
+		var formData = new FormData();
+		
+		formData.append("boardNum", $('#boardNum').val());
+		
+		$.ajax({
+			data: formData,
+			url: '/menti/likeRevert',
+			caches: false,
+			method: 'post',
+			processData: false,
+			contentType: false,
+			error:function(request){
+				console.log(request.responseText);
+			}
+		})	
+	}
 }
 
 

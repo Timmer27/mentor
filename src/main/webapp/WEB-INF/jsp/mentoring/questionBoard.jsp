@@ -319,12 +319,10 @@
 					<div class="d-flex mentorTitle">
 				    	<div style="margin-left: 20px; margin-right: 20px;">
 				    	
-				    	<c:if test = "${not fn:contains(profile_image, 'http')}">
+<%-- 				    	<c:if test = "${not fn:contains(profile_image, 'http')}">
 				    		<img alt="" src="/upload/${profile_image}" class="rounded-circle" width="56px" height="56px">
-				    	</c:if>
-				    	<c:if test = "${fn:contains(profile_image, 'http')}">
+				    	</c:if> --%>
 				    		<img alt="" src="${profile_image}" class="rounded-circle" width="56px" height="56px">
-				    	</c:if>
 				    	</div>
 				    	<div class="d-flex flex-column" style="width: 50%;">
 					    	<div class="">
@@ -438,7 +436,7 @@
 						    		
 									<input class='replyNum' value='' type="text" style="visibility: hidden;">									
 									<div class="m-auto" style="height: auto; padding: 22px;">
-										${list.mentorreplyContent}
+										${fn:replace(list.mentorreplyContent, cn, br)}
 								    </div>
 								    
 						    		<div class="d-flex subContent" style="width: 26%;">

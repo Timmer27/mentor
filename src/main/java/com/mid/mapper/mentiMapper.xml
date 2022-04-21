@@ -158,8 +158,8 @@
 		UPDATE mentiboard SET views = views+1 WHERE num = #{boardNum}
 	</update>
 
-	<select id="view" resultType="Integer" parameterType="String">
-		SELECT IFNULL(views,0) FROM mentiboard WHERE num = #{boardNum}	
+	<select id="view" resultType="int" parameterType="String">
+		SELECT views FROM mentiboard WHERE num = #{boardNum}	
 	</select>
 
 	<select id="selectedBoardNumList" resultType="Integer" parameterType="String">
@@ -171,7 +171,7 @@
 	</select>
 
 	<select id="likedList" resultType="Integer" parameterType="String">
-		SELECT ${userType}LikesBoardnum userNum FROM ${userType}likespost WHERE ${userType}ID = #{id}
+		SELECT ${userType}LikesBoardnum userNum FROM ${userType}likespost WHERE ${userType}ID = #{id} ORDER BY num DESC
 	</select>
 	
 	<select id="seeAllLikesMyPage" resultType="com.mid.VO.userboardVO" parameterType="String">
@@ -179,7 +179,7 @@
 			FROM ${userType}likespost mp
 			LEFT OUTER JOIN mentiboard mb
 				ON mp.${userType}LikesBoardnum = mb.num
-					WHERE ${userType}ID = #{id}
+					WHERE ${userType}ID = #{id} ORDER BY mb.num DESC
 	</select>
 
 	<select id="getID" resultType="String" parameterType="String">

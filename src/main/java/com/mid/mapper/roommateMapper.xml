@@ -6,14 +6,52 @@
 	</select>
 
 	<select id="getRoommateList" resultType="com.mid.VO.roommateVO" parameterType="String">
-		SELECT * FROM roommateboard
+		SELECT * FROM roommateboard WHERE country = #{selectedCountry} AND city = #{cityName}
 	</select>
 	
-<!--  세부사항 출력할 떄 쓸것
-SELECT ri.num, mentiNum, country, city, boardTitle, boardContent, postDate, roommateNum, files FROM roommatementi ri LEFT OUTER JOIN mentiroommateattach ia ON ri.num = ia.roommateNum
-	UNION ALL SELECT ro.num, mentorNum, country, city, boardTitle, boardContent, postDate, roommateNum, files FROM roommatementor ro LEFT OUTER JOIN mentorroommateattach oa ON ro.num = oa.roommateNum;
-    -->
+	<select id="roommateInfo" resultType="com.mid.VO.roommateVO" parameterType="String">
+		SELECT * FROM roommateboard WHERE num = #{num}
+	</select>
+	
+	<select id="files" resultType="String" parameterType="String">
+		SELECT files FROM roommateattach WHERE roommateNum = #{num}
+	</select>
     
+	<select id="getCoordinates" resultType="com.mid.VO.cityCoordinatesVO" parameterType="String">
+		SELECT lng, lat FROM citiescoordiates WHERE city = #{cityName}
+	</select>
+	
+	<insert id="like" parameterType="String">
+		INSERT INTO roommatelikes VALUES(Null, #{num}, #{boardNum})
+	</insert>
+
+	<select id="likeCheck" resultType="int" parameterType="String">
+		SELECT count(*) FROM roommatelikes WHERE userNum = #{userNum}
+	</select>
+	
+	<delete id="likerevert" parameterType="String">
+		DELETE FROM roommatelikes WHERE userNum = #{num} AND roommatlikeseNum = #{boardNum}
+	</delete>
+	
+	<update id="viewIncrease">
+		UPDATE roommateboard SET view = view+1 WHERE num = #{num}
+	</update>
+
+	<select id="getRoommateListSearch" resultType="com.mid.VO.roommateVO" parameterType="String">
+		SELECT * FROM roommateboard
+			WHERE city = #{cityName} AND country = #{selectedCountry} AND
+				(boardTitle LIKE #{search} OR boardContent LIKE #{search})
+	</select>
+
+
+
+
+
+
+
+
+
+	
 </mapper>
 
 

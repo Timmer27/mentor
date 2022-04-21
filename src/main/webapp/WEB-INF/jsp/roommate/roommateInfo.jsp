@@ -10,14 +10,18 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/main.css?<%=System.currentTimeMillis()%>">
-<link rel="stylesheet" href="/css/roommateCity.css?<%=System.currentTimeMillis()%>">
+<link rel="stylesheet" href="/css/roommateInfo.css?<%=System.currentTimeMillis()%>">
 <link rel="stylesheet" href="/css/mentor.css?<%=System.currentTimeMillis()%>">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
 <!-- mapBox -->
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
 
 <title>멘톨 - 해외멘토링</title>
 </head>
@@ -134,7 +138,6 @@
         </div>
     </div>
     
-    <!-- 메인 시작 -->
     <div class='col-10 d-flex mb-2 mt-2 m-auto mainBanner'> 
 
 		<div class="d-flex col-10 mainSub">
@@ -164,110 +167,190 @@
 	
 	<hr>
 	
-    <!-- main 시작 -->	
-
-	<!-- 나라, 도시 표출 -->
-	<p class="text-center col-11 m-auto regionTitle">
-		<img alt="" src="/image/map.png" width="50px" style="margin-right: 10px;">
-		<span>${selectedCountry}, ${cityName}</span>
-	</p>
-	
-	<!-- 룸메 배너 -->
-	<div class="col-11 m-auto mt-4 d-flex" style="place-content: center;">
-		<div class="col-10 m-auto mt-4 d-flex flex-column">
-			<c:forEach var="roommateList" items="${roommateList}">
-				<a class="col-9 m-auto mt-4 mb-4 d-flex boardBox" href="/roommate/brl?num=${roommateList.num}">
-					<div class="imgBox col-3">
-						<img class="cardImg" alt="pic" src="/upload/${roommateList.thumbPic}">
+    <!-- main 시작 -->
+    <main class="col-8 m-auto">
+    
+	    <div class="boardTitle col-11 mt-4 m-auto">
+	    	
+	    	<a href="javascript:history.back()" style="margin-bottom: 5px; margin-right: 10px;">
+	    		<img alt="back" src="/image/back.png" style="width: 40px;">
+    		</a>
+	    		
+	    		<span class="boldText">[제목]</span>
+	    			${roommateInfo.boardTitle}
+	    		<span id="boardNum" style="visibility: hidden">${boardNum}</span>
+	    </div>
+    
+    <hr>
+    <!-- thumb pics 배너 -->
+		<div class="col-12 d-flex flex-column">
+			<!-- Container for the image gallery -->
+			<div class="col-11 m-auto imgBox">
+			
+				<!-- Full-width images with number text -->
+				<c:forEach var="files" items="${files}">
+					<div class="mySlides">
+						<img class="imgContent" src="/upload/${files}" style="width:100%; height: 100%">
 					</div>
-					
-					<div class="d-flex flex-column col-8" style="">
-						<div class="boardTitle">
-							<span class="title">
-								${roommateList.boardTitle}
-							</span>				
-							<div class="address">
-								<img alt="" src="/image/home-address.png" width="17px">
-								${roommateList.address}
-							</div>				
-						</div>
+				</c:forEach>
+
+				
+				<!-- Next and previous buttons -->
+				<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+				<a class="next" onclick="plusSlides(1)">&#10095;</a>
+				
+				<!-- Image text -->
+<!-- 				<div class="caption-container">
+					<p id="caption"></p>
+				</div> -->
+				
+				<!-- Thumbnail images -->
+				<div class="row col-12 m-auto d-flex mt-2" style="height: 6rem; justify-content: space-between;;">
+				<c:forEach var="files" items="${files}" varStatus="status">
+					<div class="column">
+						<img class="demo cursor imgContent" src="/upload/${files}"
+						style="width:100%; height: 100%" onclick="currentSlide(<c:out value="${status.count}"/>)" alt="pic">
+					</div>
+				</c:forEach>
+				</div>
+			</div>
+		    <!-- thumb pics 배너 끝 -->
+			<hr>
+			<!-- 디테일 시작 -->
+			<div class="col-11 m-auto mt-4 d-flex detailBox">
+				<div class="col-8 detail d-flex d-column flex-column">
+					<p class="col-11 contentTitle">
+						상세 정보
+					</p>
+					<div class="col-11 contentInfo">
+					${roommateInfo.boardContent}
+					</div>
+				</div>
+				
+				<div class="sticky-top contact" style="width:30%; height: fit-content;">
+					<div class="col-11 m-auto" style="font-size: 20px;">
+						<div class="col-12 seperator">
 						
-						<div class="infoBox">
-							<div class="expenses d-flex">
-								<div class="">
-									월세 <span class="security">${roommateList.expense}</span>
+							<p class="col-12 px-1" style="font-weight: bold;">
+								${roommateInfo.country}
+							</p>
+							<div class="mb-2" style="font-size: 16px">
+								<img alt="address" src="/image/home-address.png" width="18px">
+								<span id="cityName">${roommateInfo.city}</span>
+							</div>
+
+						</div>
+					</div>
+						
+					<div class="col-11 m-auto mt-4 mb-4 d-flex prices">
+						<div class="col-9 px-2">
+							<span style="font-weight: bold; color: #022f6c;">
+								${roommateInfo.expense}
+								<span>$</span>
+							</span>
+						<span style="font-size: 17px; align-self: end; color: #6e6e6ed1; font-style: oblique;">
+							per Month
+						</span>
+						</div>
+					</div>
+					<div class="col-11 m-auto seperator text-center" style="padding-bottom: 20px;">
+						<button class="col-5 btn btn-primary" id='contactPerson'>
+							연락하기
+						</button>
+						
+							<c:if test="${like==0}">
+								<button id="likeBox" type="button" onclick="return likePost();" class="col-3 btn btn-outline-danger likeButton">
+									<img alt="❤" src="/image/heart.png" width="40%">
+								</button>
+							
+								<button id="likedBox" type="button" onclick="return likePostRevert();" class="col-3 btn btn-outline-danger likeButton" style="display: none">
+									<img alt="❤" src="/image/heartcolored.png" width="40%">
+								</button>
+							</c:if>
+							
+							<c:if test="${like>0}">
+								<button id="likeBox" type="button" onclick="return likePost();" class="col-3 btn btn-outline-danger likeButton" style="display: none">
+									<img alt="❤" src="/image/heart.png" width="40%">
+								</button>
+							
+								<button id="likedBox" type="button" onclick="return likePostRevert();" class="col-3 btn btn-outline-danger likeButton">
+									<img alt="❤" src="/image/heartcolored.png" width="40%">
+								</button>
+							</c:if>
+
+						<div id="personaInfo" class="col-11 m-auto mt-4" style="display: none">
+							<div class="col-12 d-flex mb-2" style="place-content: center;">
+								<div class="col-1">
+									<img alt="phone" src="/image/phone.png" style="width:22px;">							
 								</div>
-								<div class="seperator">|</div>			
-								<div class="">
-									보증금 <span class="security">${roommateList.securityDeposit}</span>
-								</div>			
-							</div>			
-		
-							<div class="d-flex subInfo col-12">
-								<div class="" style="width: 10%;">
-									${roommateList.beds} beds
-								</div>				
-								<div class="" style="width: 10%;">
-									${roommateList.bath} bath
-								</div>				
-								
-								<div class="col-4" style="width: 28%;">
-									${roommateList.postDate}
-								</div>				
-								<div class="" style="width: 8%;">
-								<img alt="view" src="/image/view.png" width="17px">
-									<c:if test="${roommateList.view!=null}">
-										<span style="margin: 0px 5px 0px">${roommateList.view}</span>
-									</c:if>
-									<c:if test="${roommateList.view==null}">
-										<span style="margin: 0px 5px 0px">0</span>
-									</c:if>
-								</div>				
-								
-								<div style="width: 13%;">
-									<span style="margin: 0px 5px 0px">성별:</span> ${roommateList.gender}
+								<div class="col-11">
+									<span>${roommateInfo.phone}</span>
 								</div>
 							</div>
-						</div>				
+							<div class="col-12 d-flex mb-2" style="place-content: center;">
+								<div class="col-1">
+									<img class="col-1" alt="email" src="/image/email.png" style="width:22px;">							
+								</div>
+								<div class="col-11" style="font-size: 13px; align-self: center;">
+									<a id="emailLink" href="mailto:${roommateInfo.email}">${roommateInfo.email}</a>
+								</div>								
+							</div>
+						</div>
+					</div>
+					<div class="col-11 px-1 m-auto mt-4 mb-4 d-flex flex-column seperator subinfoBox">
+						<div class="col-12 d-flex" style="padding-bottom: 10px;">
+							<div class="col-6">
+								<span class="boldText">보증금</span>	
+								<span class="values">${roommateInfo.securityDeposit}</span>
+							</div>
+							<div class="col-6">
+								<span class="boldText">성별</span>	
+								<span class="values">${roommateInfo.gender}</span>
+							</div>
+						</div>
+						<div class="col-12 d-flex seperator" style="padding-bottom: 10px;">
+							<div class="col-6">
+								<span class="boldText">beds</span>
+								<span class="values">${roommateInfo.beds}</span>
+								<img alt="beds" src="/image/bed.png" width="20px" style="margin-bottom: 3px; margin-left: 6px">
+							</div>
+							<div class="col-6">
+								<span class="boldText">bath</span>
+								<span class="values">${roommateInfo.bath}</span>
+								<img alt="beds" src="/image/bath.png" width="20px" style="margin-bottom: 3px; margin-left: 6px">
+							</div>
+						</div>
 						
-					</div>				
-				</a>
-			</c:forEach>
-		</div>
-		
-		<!-- 검색창, 등록버튼 표출 -->
-		<div class="d-flex col-2 text-center" style="margin-top: 4rem;">
-			<div class="buttonBox sticky-top shadow">
-			<p class="text-center mt-2 pb-2 rmTitle" style="">룸메이트 찾으러가기</p>
-			
-			<!-- search button -->
-				<form id="searchInfo" method="post" action="/roommate/search" class="col-10 mb-3 input-groups m-auto mt-2"> <!--  onsubmit="return searchInfo();" -->
-					<input type="hidden" name="selectedCountry" value="${selectedCountry}">
-					<input type="hidden" name="cityName" value="${cityName}">
-					<div class="input-group mb-3">
-						<input id='search' name='search' type="search" class="form-control" min="2" placeholder="키워드 검색" aria-label="Recipient's nickname" aria-describedby="button-addon2">
-						<button id="searchButton" class="btn btn-outline-dark" type="submit">검색</button>
-					</div>				
-				</form>
-				
-				<button type="button" class="btn" id="postButton">
-					<a href="javascript:newpost()" style="color: white">
-						등록하기
-					</a>
-				</button>
+						<div class="col-12 boldText" style="margin: 20px 0px 7px 0px;">
+							기타
+						</div>
+						<c:if test="${roommateInfo.condition==null}">
+							<span>
+								조건 없음
+							</span>
+						</c:if>
+						<c:if test="${roommateInfo.condition!=null}">
+							<span>
+								${roommateInfo.condition}
+							</span>
+						</c:if>
+					</div>
+				</div>
 			</div>
+			
+			<hr>
+			
+			<p class="col-11 m-auto">
+				<span class="contentTitle">위치 검색</span>
+			</p>
+			<!-- mapBox -->
+			<div id="map" class="mt-4 col-11 m-auto mapBox">
+				<!-- map -->
+			</div>
+			
 		</div>
-		
-	</div>
-						
-	<div class="d-flex pageNum col-11 m-auto text-center">
-		<c:forEach var="roommateListPageNum" items="${roommateListPageNum}">
-			<a class="nums" href="/roommate/${cityName}?selectedCountry=${selectedCountry}&num=${roommateListPageNum}">
-				${roommateListPageNum}
-			</a>
-		</c:forEach>
-	</div>
-	
+
+    </main>
 	<!-- footer -->
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -285,10 +368,12 @@
             </ul>
         </footer>
     </div>
-
-<!-- mapBox -->
-<!-- <script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>    -->
     
+<!-- mapBox -->
+<!-- Load the `mapbox-gl-geocoder` plugin. -->
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+
 <script src="/js/roommate.js?<%=System.currentTimeMillis()%>>"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
