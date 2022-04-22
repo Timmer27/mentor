@@ -10,6 +10,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/newpost.css">
+<link rel="stylesheet" href="/css/roommatenewpost.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -122,7 +123,7 @@
 					<li><a class="dropdown-item" href="/loginRegister/logout">로그아웃</a></li>
 					<li><div id="pointshow" class="dropdown-item">
 						<img alt="point" src="/image/gem.png" height="20px" width="20px"/>
-					 : <span id='cPoint' style="color: red;">${currentPoint}</span> </div></li>
+						 : <span id='cPoint' style="color: red;">${currentPoint}</span> </div></li>
 					<li><div id="pointshow" class="dropdown-item">
 						<img alt="명예" src="/image/cube.png" height="20px" width="20px"/>
 					 : <span style="color: red;">${currentRepPoint}</span> </div></li>
@@ -133,7 +134,8 @@
     </div>
     
     <!-- 메인 시작 -->
-    <form id='newpostInfo' class ="col-6 mt-4 m-auto mainBanner" method="post" action="/menti/newpost"  enctype="multipart/form-data"> <!-- onsubmit="return newpostwrite();" -->
+    <form id='newpostInfo' class ="col-6 mt-4 m-auto mainBanner" style="min-height: 136rem; height: auto;"> <!-- onsubmit="return newpostwrite();" -->
+    	<!-- method="post" action="/roommate/savePost"  enctype="multipart/form-data"  -->
     	<div class="d-flex" style="align-items: center;">
 	    	<label for="country" id='chooseNation'>나라를 선택해주세요</label>
 	    	<div class="categoriBox mb-2">
@@ -388,13 +390,14 @@
     	</div>
 
 
-   		<div id="cityDiv" class="d-flex" style="align-items: center; margin-top: 20px; display: none !important;">
+   		<div id="cityDiv" class="d-flex">
 	   		<div id="chooseNation">
 	   			도시를 선택해주세요
 			</div>
 	    	<div>
 		    	<!-- 동적 도시 리스트 출력 -->
-				<select style="width: 13rem;" id="city" name="country" class="form-control" required="required">
+				<select style="width: 13rem;" id="city" name="city" class="form-control" required="required" disabled="disabled">
+				    <option class="default" value="none">나라를 먼저 선택해주세요</option>
 				</select>
 	    	</div>
     	</div>
@@ -404,22 +407,126 @@
     			<input type="text" id="title" name="boardTitle" maxlength="100" placeholder="제목을 입력하세요" required="required">
     		</div>
     		<div class="col-12 m-auto">
-    			<textarea id="contentInfo" name="boardContent" maxlength="1500" required="required" placeholder="내용을 입력해주세요" onkeydown="resize(this)"></textarea>
+    			<textarea id="contentInfo" name="boardContent" maxlength="1500" required="required" placeholder="내용을 입력해주세요"></textarea>
     		</div>
     	</div>
     	
     	<hr style="color: #a7a6a6;">
-    	
-    	<div class="savePost">
-		    <input type='file' id='btnAtt' name="files" multiple='multiple'>
-		    
-		    <div id='att_zone'
-		    	data-placeholder='방을 소개할 수 있는 사진을 첨부해주세요 :) [파일 선택버튼 클릭 or 드래그]'></div>
-			</div>
-			<div class="text-center">
-    			<button class="btn btn-dark" id="postSave" type="submit" style="width: 100px;">저장</button>
+	
+		<div class="requiredInfo">
+			<p class="title">
+				추가정보
+			</p>
+	
+	    	<div>
+		    	<div class="d-flex inputGroup">
+			    	<div class="inputText">
+			    		월세
+			    	</div>
+			    	<input class="col-3 inputs" type="number" id="expense" name="expense" required="required">
+			    	<span id="currencySpan"></span>
+			    	<span id="" style="font-size: 12px; color: #6e6e6eab; padding-left: 12px;">기본통화는 $입니다</span>
+		    	</div>
+		    	
+		    	<div class="d-flex inputGroup">
+			    	<div class="inputText">
+			    		보증금
+			    	</div>
+			    	<input class="col-3 inputs" type="number" id="securityDeposit" name="securityDeposit" required="required">
+		    	</div>
+		    	
+		    	<div class="d-flex inputGroup">
+			    	<div class="inputText">
+			    		썸네일
+			    	</div>
+			    	<input class="col-3 inputs" type="file" id="thumbPic" name="thumbPic" accept="image/jpeg, image/png, image/jpg" style="width: 27%; font-size: 13px; border: none">
+			    	<div style="width: 19%;">
+			    		<div style="font-size: 12px; text-align: center;">
+					    	미리보기
+			    		</div>
+			    		<img id='preView' style="width: 100%; height: 100%" src="/image/user.png">
+			    	</div>
+		    	</div>
+		    	
+		    	<div class="d-flex inputGroup">
+			    	<div class="inputText">
+			    		상세주소
+			    	</div>
+			    	<input class="col-3 inputs" type="text" name="address" id="address" required="required" style="width: 60%;">
+		    	</div>
+		    	
+		    	<div class="d-flex inputGroup">
+			    	<div class="inputText">
+			    		이메일
+			    	</div>
+			    	<input class="col-3 inputs" type="email" name="email" id="email" required="required" style="width: 40%;">
+		    	</div>
+		    	
+		    	<div class="d-flex inputGroup">
+			    	<div class="inputText">
+			    		전화번호
+			    	</div>
+			    	<input class="col-3 inputs" type="text" name="phone" id="phone"  required="required" style="width: 40%;">
+		    	</div>
+		    	
+		    	<div class="inputGroup">
+		    	
+			    	<div class="inputText" style="width: 31%; margin-bottom: 12px;">
+			    		침실 | 욕실 숫자
+			    	</div>
+			    	
+		    		<div class="d-flex col-12" style="">
+			    		<div class="d-flex col-2" style="">
+			    			<img alt="beds" src="/image/bed.png"  style="width: 38px; margin: 0px 8px;">
+					    	<input class="inputs" name="beds" id="beds"  type="number" style="width: 45px;" required="required">
+			    		</div>
+			    		<div class="d-flex col-2">
+			    			<img alt="bath" src="/image/bath.png" style="width: 31px; height: 33px; margin: 0px 8px;" >
+					    	<input class="inputs" name="bath" id="bath" type="number" style="height:36px; width: 45px;" required="required">
+			    		</div>
+		    		</div>
+		    	
+		    	</div>
+	
+		    	<div>
+			    	<div class="d-flex inputGroup" style="border: none;">
+				    	<div class="inputText" style="width: 30%;">
+				    		입주자 성별
+				    	</div>
+			    	</div>
+			    	<div class="col-5 pb-2 inputText" style="width: 100%; margin-bottom: 20px; border-bottom: 1px solid #95959582;">
+				    	<span>남</span> <input class="col-1" type="radio" name="gender" value="남" style="width: 4%">
+				    	<span>여</span> <input class="col-1" type="radio" name="gender" value="여" style="width: 4%">
+				    	<span>무관</span> <input class="col-1" type="radio" name="gender" value="여" style="width: 4%">
+			    	</div>
+		    	<div>
+		    	
+		    	<div class="inputGroup">
+			    	<div class="inputText" style="width: 100%;">
+			    		기타 [추가 입주 조건]
+			    	</div>
+			    	<textarea id="condition" name="condition" placeholder="[optional...]" style="resize: none; width: 98%;"></textarea>
+		    	</div>
+	
+		    	<p class="title">
+		    		추가 사진
+		    	</p>
 	    	</div>
-    	</div>
+	    	
+	    	<div class="savePost">
+			    <input type='file' id='btnAtt' name="files" multiple='multiple' accept="image/jpeg, image/png, image/jpg">
+			    
+			    <div id='att_zone'
+			    	data-placeholder='방을 소개할 수 있는 추가사진을 첨부해주세요 :) [파일 선택버튼 클릭 or 드래그]'></div>
+				</div>
+				<div class="text-center">
+	    			<button class="btn btn-dark" id="postSave" type="button" style="width: 100px;">저장</button>
+		    	</div>
+	    	</div>
+    	
+		</div>
+    	
+   	</div>
     
     </form>
     <!-- 메인 끝 -->

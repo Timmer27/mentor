@@ -168,6 +168,7 @@
 
 	<!-- 나라, 도시 표출 -->
 	<p class="text-center col-11 m-auto regionTitle">
+		<a href="/roommate"><img alt="" src="/image/back.png" width="50px" style="margin-right: 10px;"></a>
 		<img alt="" src="/image/map.png" width="50px" style="margin-right: 10px;">
 		<span>${selectedCountry}, ${cityName}</span>
 	</p>
@@ -196,10 +197,12 @@
 							<div class="expenses d-flex">
 								<div class="">
 									월세 <span class="security">${roommateList.expense}</span>
+									<span style="padding-left: 6px; color: black;">${currency}</span>
 								</div>
 								<div class="seperator">|</div>			
 								<div class="">
 									보증금 <span class="security">${roommateList.securityDeposit}</span>
+									<span style="padding-left: 6px; color: black;">${currency}</span>
 								</div>			
 							</div>			
 		

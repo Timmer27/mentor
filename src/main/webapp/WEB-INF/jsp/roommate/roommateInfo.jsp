@@ -182,9 +182,12 @@
 	    </div>
     
     <hr>
-    <!-- thumb pics 배너 -->
+  
 		<div class="col-12 d-flex flex-column">
+		
+		    <!-- thumb pics 배너 -->
 			<!-- Container for the image gallery -->
+	    	<c:if test="${filecheck!='none'}">
 			<div class="col-11 m-auto imgBox">
 			
 				<!-- Full-width images with number text -->
@@ -215,6 +218,13 @@
 				</div>
 			</div>
 		    <!-- thumb pics 배너 끝 -->
+			</c:if>
+			
+			<c:if test="${filecheck=='none'}">
+			<div class="col-11 m-auto">
+			</div>
+			</c:if>
+			
 			<hr>
 			<!-- 디테일 시작 -->
 			<div class="col-11 m-auto mt-4 d-flex detailBox">

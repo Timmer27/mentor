@@ -145,7 +145,7 @@ p{
 	border: 1px solid black;
 }
 .likeButton:hover{
-	border: 2px solid black;
+	border: 1px solid black;
 	background-color: white !important;
 }
 
@@ -155,7 +155,7 @@ p{
 }
 
 .likedButton:hover{
-	border: 2px solid black;
+	border: 1px solid black;
 	background-color: white !important;
 }
 

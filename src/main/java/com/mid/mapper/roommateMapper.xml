@@ -6,7 +6,7 @@
 	</select>
 
 	<select id="getRoommateList" resultType="com.mid.VO.roommateVO" parameterType="String">
-		SELECT * FROM roommateboard WHERE country = #{selectedCountry} AND city = #{cityName}
+		SELECT * FROM roommateboard WHERE country = #{selectedCountry} AND city = #{cityName} ORDER BY num DESC
 	</select>
 	
 	<select id="roommateInfo" resultType="com.mid.VO.roommateVO" parameterType="String">
@@ -22,15 +22,15 @@
 	</select>
 	
 	<insert id="like" parameterType="String">
-		INSERT INTO roommatelikes VALUES(Null, #{num}, #{boardNum})
+		INSERT INTO roommatelikes VALUES(Null, #{userType}, #{num}, #{boardNum})
 	</insert>
 
 	<select id="likeCheck" resultType="int" parameterType="String">
-		SELECT count(*) FROM roommatelikes WHERE userNum = #{userNum}
+		SELECT count(*) FROM roommatelikes WHERE roommatlikeseNum = #{num} AND userNum = #{userNum} AND userType = #{userType}
 	</select>
 	
 	<delete id="likerevert" parameterType="String">
-		DELETE FROM roommatelikes WHERE userNum = #{num} AND roommatlikeseNum = #{boardNum}
+		DELETE FROM roommatelikes WHERE userNum = #{num} AND roommatlikeseNum = #{boardNum} AND userType = #{userType}
 	</delete>
 	
 	<update id="viewIncrease">
@@ -42,8 +42,22 @@
 			WHERE city = #{cityName} AND country = #{selectedCountry} AND
 				(boardTitle LIKE #{search} OR boardContent LIKE #{search})
 	</select>
+	
+	<select id="getCurrency" resultType="String" parameterType="String">
+		SELECT Symbol FROM currency WHERE Country = #{selectedCountry}
+	</select>
 
-
+	<insert id="savePost" parameterType="com.mid.VO.roommateVO" useGeneratedKeys="true" keyProperty="num">
+		INSERT INTO roommateboard VALUES (Null, #{userNum}, #{userType}, #{country}, #{city}, #{boardTitle}, #{boardContent}, #{thumbPic}, #{expense}, #{address}, #{phone}, #{email}, #{beds}, #{bath}, #{securityDeposit}, #{postDate}, 0, #{gender}, #{condition}, 0)
+	</insert>
+	
+	<insert id="saveFiles" parameterType="String">
+		INSERT INTO roommateattach VALUES(Null, #{ainum}, #{savefilesName})
+	</insert>
+	
+	<select id="getsavePost" resultType="com.mid.VO.roommateVO" parameterType="String">
+		SELECT thumbPic, boardTitle, rd.num FROM roommateboard rd join roommatelikes rs on roommatlikeseNum = rd.num WHERE rs.userNum = #{userNum} AND rs.userType = #{userType};
+	</select>
 
 
 

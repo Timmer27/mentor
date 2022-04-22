@@ -3,7 +3,7 @@ package com.mid.VO;
 import org.springframework.stereotype.Component;
 
 @Component
-public class roommateVO {
+public class roommateVO{
 	private String num;
 	private String userNum;
 	private String userType;
@@ -25,56 +25,6 @@ public class roommateVO {
 	private String condition;
 	private String view;
 	
-	public String getBeds() {
-		return beds;
-	}
-	public void setBeds(String beds) {
-		this.beds = beds;
-	}
-	public String getBath() {
-		return bath;
-	}
-	public void setBath(String bath) {
-		this.bath = bath;
-	}
-	public String getSecurityDeposit() {
-		return securityDeposit;
-	}
-	public void setSecurityDeposit(String securityDeposit) {
-		this.securityDeposit = securityDeposit;
-	}
-	
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getUserType() {
-		return userType;
-	}
-	public void setUserType(String userType) {
-		this.userType = userType;
-	}
-	
-	public String getExpense() {
-		return expense;
-	}
-	public void setExpense(String expense) {
-		this.expense = expense;
-	}
-	public String getFound() {
-		return found;
-	}
-	public void setFound(String found) {
-		this.found = found;
-	}
 	public String getNum() {
 		return num;
 	}
@@ -111,6 +61,72 @@ public class roommateVO {
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getView() {
+		return view;
+	}
+	public void setView(String view) {
+		this.view = view;
+	}
+	public String getBeds() {
+		return beds;
+	}
+	public void setBeds(String beds) {
+		this.beds = beds;
+	}
+	public String getBath() {
+		return bath;
+	}
+	public void setBath(String bath) {
+		this.bath = bath;
+	}
+	public String getSecurityDeposit() {
+		return securityDeposit;
+	}
+	public void setSecurityDeposit(String securityDeposit) {
+		this.securityDeposit = securityDeposit;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+	public String getExpense() {
+		return expense;
+	}
+	public void setExpense(String expense) {
+		this.expense = expense;
+	}
+	public String getFound() {
+		return found;
+	}
+	public void setFound(String found) {
+		this.found = found;
+	}
 	public String getThumbPic() {
 		return thumbPic;
 	}
@@ -123,28 +139,10 @@ public class roommateVO {
 	public void setPostDate(String postDate) {
 		this.postDate = postDate;
 	}
-	public String getView() {
-		return view;
-	}
-	public void setView(String view) {
-		this.view = view;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
 	public String getCondition() {
 		return condition;
 	}
 	public void setCondition(String condition) {
 		this.condition = condition;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 }

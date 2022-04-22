@@ -13,22 +13,119 @@ $('#country').change(function(){
 			$(".cities").empty();
 			//시작 전 생성 태그를 전부 지움
 			$(".cities").remove();
+			$(".default").remove();
 			for(var i=0; i<cityList.length; i++){
 				//도시 숫자만큼 아래의 태그 생성
 				$("<option>").attr("value",cityList[i]).attr("class","cities").appendTo("#city");
 				//cities의 html값 안에 cityList의 값을 하나씩 채움
 				$(".cities")[i].append(cityList[i]);
 			}
+			
+			//나라에 맞는 currency 출력
+			$.ajax({
+				dataType:'json',
+				caches:false,
+				url:'/roommate/currency?selectedCountry=' + selectedCountry,
+				method:'post',
+				success:function(res){
+					
+					//없는 통화면 달러로 통일
+					$('#currencySpan').empty();
+					$('#currencySpan').text(res.currency);
+				},
+				error:function(request){
+					console.log(request.responseText);
+				}
+			})
 		}
 	})
+	return false;
 })
 
-//slide toggle 단 한번만 실행하기
-document.querySelector('#country').addEventListener('change',function(){
-	//나라 변경 시 도시 input slideToggle
-	$('#cityDiv').slideToggle();
-},{once : true});
+//글 포스팅 썸네일 미리보기
+$(document).ready(function() {
+    $("#thumbPic").on("change", handleImgFileSelect);
+});
+ 
+function handleImgFileSelect(e) {
+    var files = e.target.files;
+    var filesArr = Array.prototype.slice.call(files);
+ 
+ 
+    filesArr.forEach(function(f) {
+        sel_file = f;
+ 
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $("#preView").attr("src", e.target.result);
+        }
+        reader.readAsDataURL(f);
+    });
+}
 
+//룸메이트 글 포스팅
+$('#postSave').click(function(){
+	//radio 항목 미입력 시 return
+	if($("input[name=gender]:checked").val() == null){
+		alert('입주자 성별을 골라주세요')
+		return false;
+	};
+	
+	var formData = new FormData();
+
+	formData.append("id", $('#id').val());
+	formData.append("country", $('#country').val());
+	formData.append("city", $('#city').val());
+	formData.append("boardTitle", $('#title').val());
+	formData.append("boardContent", $('#contentInfo').val());
+	formData.append("expense", $('#expense').val());
+	formData.append("securityDeposit", $('#securityDeposit').val());
+	formData.append("address", $('#address').val());
+	formData.append("email", $('#email').val());
+	formData.append("phone", $('#phone').val());
+	formData.append("bath", $('#bath').val());
+	formData.append("beds", $('#beds').val());
+	formData.append("gender", $('input[type=radio]:checked').val());
+	formData.append("condition", $('#condition').val());
+	
+	var thumbPic = $('input[name=thumbPic]')[0].files[0];
+	formData.append("thumbPicSave", thumbPic);
+	console.log(thumbPic);
+	
+	var f = $('input[name=files]')[0].files;
+	for (var i = 0; i < f.length; i++) {
+		formData.append("files", f[i]);
+	}
+	console.log(f);
+	
+	
+	$.ajax({
+		data: formData,
+		dataType: 'json',
+		caches: false,
+		processData: false,
+		contentType: false, 		
+		method: 'post',
+		enctype: 'multipart/form-data',
+		url: '/roommate/savePost',
+		success:function(res){
+			if(res.result){
+				alert('등록완료')
+				location.href="roommate/"+ $('#city').val() +"?selectedCountry=" + $('#country').val()
+			}
+			else{
+			}
+		},
+		error:function(request){
+			console.log(request.responseText);
+		}
+	});	
+})
+
+
+document.querySelector('#country').addEventListener('change', function(){
+	$('#city').removeAttr("disabled");
+},{once : true})
 
 //textarea 자동 크기 조절
 $(document).ready(function(){

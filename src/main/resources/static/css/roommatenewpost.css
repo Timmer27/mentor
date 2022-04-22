@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+#cityDiv{
+	margin-bottom: 40px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.requiredInfo{
+    padding: 15px;
+    border: 1px solid #c3c3c3;
+}
+
+.inputText{
+	width: 12%;
+	padding-left: 6px;
+}
+
+.inputGroup{
+	border-bottom: 1px solid #95959582;
+    margin-bottom: 10px;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.title{
+	font-size: 20px;
+    font-weight: bold;
+}
+
+.inputs{
+    border: none;
+    width: 16%;
+    border-bottom: 1px solid #c3c3c3;
+    padding-left: 5px;
+}
+
+.inputs:focus-visible{
+	outline:none;
+    border-bottom: 2px solid;
+}
+
+#condition{
+    height: 105px;
+    margin-left: 6px;
+    margin-top: 15px;
+    width: 57%;
+    min-height: 13rem;
+   	border: 1px solid #c3c3c3;
+}

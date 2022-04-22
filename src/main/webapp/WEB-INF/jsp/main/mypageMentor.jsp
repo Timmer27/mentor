@@ -163,6 +163,9 @@
 				<div class="col-12">
 					<div class="col-12 d-flex flex-column">
 						<div class="infoBox modifyInfo">
+							<a href="/roommate/myRoommate" id="modifyB">마이 룸메이트</a>
+						</div>
+						<div class="infoBox modifyInfo">
 							<a href="javascript:slideinputs()" id="modifyA">개인정보 변경하기</a>
 						</div>
 						<form id='modifyInfo' style="display: none" class="infoBox inputBox" onsubmit="return modifyInfo()">

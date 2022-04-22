@@ -168,6 +168,7 @@
 
 	<!-- 나라, 도시 표출 -->
 	<p class="text-center col-11 m-auto regionTitle">
+		<a href="/roommate"><img alt="" src="/image/back.png" width="50px" style="margin-right: 10px;"></a>
 		<img alt="" src="/image/map.png" width="50px" style="margin-right: 10px;">
 		<span>${selectedCountry}, ${cityName}</span>
 	</p>

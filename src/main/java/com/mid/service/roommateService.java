@@ -1,9 +1,12 @@
 package com.mid.service;
 
+import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.python.icu.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +32,17 @@ public class roommateService {
 	// 기본 룸메 구직 정보 출력
 	public List<roommateVO> getRoommateList(String num, String cityName, String selectedCountry) {
 		PageHelper.startPage(Integer.valueOf(num), 10);
-		PageInfo<roommateVO> pageinfo = new PageInfo<roommateVO>(mapper.getRoommateList(cityName, selectedCountry));
+		
+//		숫자 formatting
+		List<roommateVO> list = mapper.getRoommateList(cityName, selectedCountry);
+		DecimalFormat df = new DecimalFormat("#,###.##");
+		
+		for(int i = 0; i<list.size(); i++) {
+			list.get(i).setExpense(df.format(Integer.valueOf(list.get(i).getExpense())));
+			list.get(i).setSecurityDeposit(df.format(Integer.valueOf(list.get(i).getSecurityDeposit())));
+		}
+		
+		PageInfo<roommateVO> pageinfo = new PageInfo<roommateVO>(list);
 		
 		return pageinfo.getList();
 	}
@@ -49,14 +62,14 @@ public class roommateService {
 	public cityCoordinatesVO getCoordinates(String cityName) {
 		return mapper.getCoordinates(cityName);
 	}
-	public void like(String num, String boardNum) {
-		mapper.like(num, boardNum);
+	public void like(String num, String boardNum, String userType) {
+		mapper.like(num, boardNum, userType);
 	}
-	public int likeCheck(String userNum) {
-		return mapper.likeCheck(userNum);
+	public int likeCheck(String num, String userNum, String userType) {
+		return mapper.likeCheck(num, userNum, userType);
 	}
-	public void likerevert(String num, String boardNum) {
-		mapper.likerevert(num, boardNum);
+	public void likerevert(String num, String boardNum, String userType) {
+		mapper.likerevert(num, boardNum, userType);
 		
 	}
 	public void viewIncrease(String num) {
@@ -66,8 +79,16 @@ public class roommateService {
 //	검색 룸메 구직 정보 
 	public List<roommateVO> getRoommateListSearch(String num, String cityName, String selectedCountry, String search) {
 		PageHelper.startPage(Integer.valueOf(num), 10);
-		PageInfo<roommateVO> pageinfo = new PageInfo<roommateVO>(mapper.getRoommateListSearch(cityName, selectedCountry, "%"+search+"%"));
+
+//		숫자 formatting
+		List<roommateVO> list = mapper.getRoommateListSearch(cityName, selectedCountry, "%"+search+"%");
+		DecimalFormat df = new DecimalFormat("#,###.##");
 		
+		for(int i = 0; i<list.size(); i++) {
+			list.get(i).setExpense(df.format(Integer.valueOf(list.get(i).getExpense())));
+			list.get(i).setSecurityDeposit(df.format(Integer.valueOf(list.get(i).getSecurityDeposit())));
+		}
+		PageInfo<roommateVO> pageinfo = new PageInfo<roommateVO>(list);
 		return pageinfo.getList();
 	}
 	
@@ -77,6 +98,27 @@ public class roommateService {
 		PageInfo<roommateVO> pageinfo = new PageInfo<roommateVO>(mapper.getRoommateListSearch(cityName, selectedCountry, "%"+search+"%"));
 		
 		return pageinfo.getNavigatepageNums();
+	}
+	
+	public String getCurrency(String selectedCountry) {
+		return mapper.getCurrency(selectedCountry);
+	}
+	
+//	글 저장
+	public boolean savePost(roommateVO vo) {
+//		오늘 날짜 추출
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String today = sdf.format(date);
+		
+		vo.setPostDate(today);
+		return mapper.savePost(vo)>0 ? true : false;
+	}
+	public boolean saveFiles(String ainum, String savefilesName) {
+		return mapper.saveFiles(ainum, savefilesName)>0 ? true : false;
+	}
+	public List<roommateVO> getsavePost(String userNum, String userType) {
+		return mapper.getsavePost(userNum, userType);
 	}
 	
 }

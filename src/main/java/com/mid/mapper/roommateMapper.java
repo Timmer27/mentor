@@ -20,14 +20,22 @@ public interface roommateMapper {
 
 	cityCoordinatesVO getCoordinates(String cityName);
 
-	void like(String num, String boardNum);
+	void like(String num, String boardNum, String userType);
 
-	int likeCheck(String userNum);
+	int likeCheck(String num, String userNum, String userType);
 
-	void likerevert(String num, String boardNum);
+	void likerevert(String num, String boardNum, String userType);
 
 	void viewIncrease(String num);
 
 	List<roommateVO> getRoommateListSearch(String cityName, String selectedCountry, String search);
+
+	String getCurrency(String selectedCountry);
+
+	int savePost(roommateVO vo);
+
+	int saveFiles(String ainum, String savefilesName);
+
+	List<roommateVO> getsavePost(String userNum, String userType);
 
 }
