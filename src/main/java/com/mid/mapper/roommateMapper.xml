@@ -58,6 +58,32 @@
 	<select id="getsavePost" resultType="com.mid.VO.roommateVO" parameterType="String">
 		SELECT thumbPic, boardTitle, rd.num FROM roommateboard rd join roommatelikes rs on roommatlikeseNum = rd.num WHERE rs.userNum = #{userNum} AND rs.userType = #{userType};
 	</select>
+	
+	<select id="getUserInfo" resultType="com.mid.VO.roommateVO" parameterType="String">
+		SELECT userNum, userType FROM roommateboard WHERE num = #{boardNum}
+	</select>
+
+	<insert id="chatSave" parameterType="map">
+		INSERT INTO roommatechat 
+			VALUES(Null, #{roommateBoardNum}, #{textContent}, #{sendUserType}, #{sendUserNum}, #{receiveUserType}, #{receiveUserNum}, #{textDate})
+	</insert>
+	
+	<select id="chathistory" resultType="com.mid.VO.roommateChatVO" parameterType="String">
+		SELECT * FROM roommatechat WHERE sendUserType = #{userType} AND sendUserNum = #{userNum} AND receiveUserType = #{receiveuserType} AND receiveuserNum = #{receiveuserNum}
+			UNION
+			SELECT * FROM roommatechat WHERE sendUserType = #{receiveuserType} AND sendUserNum = #{receiveuserNum} AND receiveUserType = #{userType} AND receiveuserNum = #{userNum}
+			ORDER BY textDate;
+	</select>
+
+	<select id="getprofilePic" resultType="String" parameterType="String">
+		SELECT profile_image FROM ${userType}user WHERE num = #{userNum} 
+	</select>
+
+	<select id="chatList" resultType="com.mid.VO.roommateChatVO" parameterType="String">
+		SELECT * FROM roommatechat WHERE receiveuserNum = #{num} AND receiveUserType = #{userType} GROUP BY sendUserNum ORDER BY textDate DESC
+	</select>
+
+
 
 
 

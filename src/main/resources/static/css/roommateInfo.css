@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 .imgBox{
-    height: 42rem;
+    min-height: 42rem;
+    height: auto;
 }
 
 .detailBox{
@@ -9,9 +10,17 @@
     height: auto;
 }
 	
-.contact{
-    height: 40%;
+#contact{
+	width: 30%;
+    height: fit-content;
+    transition-duration: 0.5s;
+    min-height: 29rem;
+    border: 1px solid #cdcdcd;
+	padding: 10px 15px 10px 15px;
+    border-radius: 5px;
 }
+
+
 
 .mapBox{
     height: 30rem;
@@ -91,10 +100,13 @@ p{
 }
 /* Six columns side by side */
 .column {
-    padding: 0;
+	padding: 0;
     float: left;
     width: 15.66%;
-    height: 100%;
+    height: 100px;
+    overflow: hidden;
+    object-fit: cover;
+    margin-bottom: 10px;
 }
 
 /* Add a transparency effect for thumnbail images */
@@ -119,12 +131,6 @@ p{
     align-items: center;
 }
 
-.contact{
-    border: 1px solid #cdcdcd;
-	padding: 10px 15px 10px 15px;
-    border-radius: 5px;
-    height: 29rem;
-}
 
 .seperator{
     border-bottom: 1px solid #d6d6d6;
@@ -136,9 +142,56 @@ p{
 }
 
 .subinfoBox{
-	margin-top: 20px;
+	/* margin-top: 20px; */
 	color: #000000bd;
+	overflow: hidden;
+/* 	max-height: 0;
+    visibility: hidden; */
 }
+
+.mainInfoBox{
+	overflow: hidden;
+/* 	max-height: 0; */
+/*     visibility: hidden; */
+}
+
+#chatBox{
+    max-height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    transition-duration: 0.5s;
+    border: 1px solid #7d7d7d5e;
+    
+}
+
+.chatTop{
+	height: 2rem;
+    border-bottom: 1px solid #a3a3a352;
+    background-color: #929597db;
+}
+
+#textContent{
+    border: none;
+    border-top: 1px solid #afafaf;
+    resize: none;
+    overflow: hidden;
+}
+#textContent:focus-visible{
+    outline: none;
+}
+
+.sendButton{
+    text-align: center;
+    font-size: 15px;
+    width: 100%;
+    padding: 0;
+    border: none;
+    border-top: 1px solid #afafaf;
+    background: #4c4b4bcf;
+    color: white;
+    cursor: grab;
+}
+
 
 .likeButton{
 	margin-left: 14px;
@@ -168,9 +221,10 @@ p{
 }
 
 .boardTitle{
-text-align: start;
+    height: auto;
+    text-align: start;
     font-size: 21px;
-    height: 2rem;
+    min-height: 2rem;
 }
 
 .bottom-right{
@@ -180,4 +234,98 @@ text-align: start;
 #emailLink:hover{
 	text-decoration: underline;
 	color: #0076ff;	
+}
+
+#message:hover{
+	text-decoration: underline;
+	color: #0076ff;	
+}
+
+.picboxs{
+	min-height: 6rem;
+    justify-content: space-evenly;
+    height: auto;
+}
+
+#textboard{
+    padding: 10px 10px 0px 10px;
+    height: 23rem;
+    background-color: #a7a7a71a;
+	overflow: hidden;
+    overflow-y: scroll;
+        flex-direction: column-reverse;
+}
+
+.chat{
+	margin: 10px 0px;
+    min-height: 60px;
+    font-size: 14px;
+    height: auto;
+    background-color: white;
+    border-radius: 3px;
+    align-items: center;
+}
+
+.chat_log{
+    padding-left: 5px;
+    width: 71%;
+}
+
+.chatContent{
+	font-size: 14px;
+	word-break: break-word;
+    width: 120%;
+    margin-left: 5px;
+}
+
+.picBox{
+	align-items: center;
+    border-radius: 50%;
+    background-color: white;
+    object-fit: cover;
+    overflow: hidden;
+    max-height: 50px;
+    min-height: 50px;
+}
+
+.pic{
+	margin: 10px 0px;
+	margin-right: 10px;
+	width: 20%;
+	align-self: center;
+}
+
+.picsend{
+	margin-right: 0px;
+	margin-left: 10px;
+	width: 20%;
+	align-self: center;
+}
+
+.chatprofile{
+	width: 100%;
+    height: 100%;
+}
+
+.chatDate{
+	font-size: 13px;
+    color: #acacac;
+    margin-bottom: 18px;
+}
+
+.chatDatesend{
+	font-size: 13px;
+    color: #acacac;
+    margin-bottom: 18px;
+    place-content: end;
+    text-align: end;
+    width: 70%;
+}
+
+.sendBox{
+	place-content: end;
+}
+
+#forPopup{
+	
 }

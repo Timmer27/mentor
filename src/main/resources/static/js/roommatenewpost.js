@@ -111,7 +111,7 @@ $('#postSave').click(function(){
 		success:function(res){
 			if(res.result){
 				alert('등록완료')
-				location.href="roommate/"+ $('#city').val() +"?selectedCountry=" + $('#country').val()
+				location.href="/roommate/"+ $('#city').val() +"?selectedCountry=" + $('#country').val()
 			}
 			else{
 			}

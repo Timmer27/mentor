@@ -1,10 +1,12 @@
 package com.mid.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.mid.VO.cityCoordinatesVO;
+import com.mid.VO.roommateChatVO;
 import com.mid.VO.roommateVO;
 
 @Mapper
@@ -37,5 +39,17 @@ public interface roommateMapper {
 	int saveFiles(String ainum, String savefilesName);
 
 	List<roommateVO> getsavePost(String userNum, String userType);
+
+	roommateVO getUserInfo(String boardNum);
+
+	void chatSave(Map<String, String> map);
+
+	List<roommateChatVO> chathistory(String userNum, String userType, String receiveuserNum, String receiveuserType);
+
+	String getprofilePic(String userNum, String userType);
+
+	List<roommateChatVO> chatList(String userType, String num);
+
+	roommateChatVO getreceiverInfo(String num);
 
 }

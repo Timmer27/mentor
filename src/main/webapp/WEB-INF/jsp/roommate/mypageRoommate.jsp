@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/mypage.css">
 <link rel="stylesheet" href="/css/roommateMypage.css">
+<link rel="stylesheet" href="/css/roommateInfo.css?<%=System.currentTimeMillis()%>">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -141,7 +142,7 @@
     </div>
     
     <!-- 메인 시작 -->
-    <div class="" style="height: 75rem; background-color: #dcdcdc57;">
+    <div class="" style="height: 80rem; background-color: #dcdcdc57;">
 		
 		<main class="d-flex col-8 m-auto" style="height: 100%">
 			<div class="col-3 d-flex flex-column m-auto" style="height: 63rem;">
@@ -168,6 +169,9 @@
 				
 				<div class="col-12">
 					<div class="col-12 d-flex flex-column">
+						<div class="infoBox modifyInfo">
+							<a href="/main/mypage${userType}" id="modifyB">멘토링</a>
+						</div>
 						<div class="infoBox modifyInfo">
 							<a href="/roommate/myRoommate" id="modifyB">마이 룸메이트</a>
 						</div>
@@ -236,78 +240,37 @@
 								</div>
 							</div>
 						
-						<span class="subTitle">my 작성 글</span>	
-							<div class="infoBox mypageSub">
-								
-								<div style="text-align: end; margin-right: 15px;">
-									<a href="/main/seeAllWriten?num=${mentorUser.num}" class="seeAlla">전체보기</a>
-								</div>
-								
-								<c:forEach var="writenList" items="${writenList}">
-									<a class="d-flex col-11 m-auto selectedList" href="/menti/mentiboard?num=${writenList.num}">
-										
-										<div class="col-2 regionalInfo">
-											${writenList.country} | ${writenList.city}
-										</div>
-										<div class="col-6 titleInfo">
-											${writenList.boardTitle}
-										</div>
-										<div class="col-2 dateInfo"> 
-											${writenList.boardDate}
-										</div>
-										
-										<c:if test="${writenList.boardPoint > 0}">
-											<div class="col-1 pointInfo">
-											<img alt="point" src="/image/gem.png" width="15px" height="15px" style="margin-top: 1px;">		
-												${writenList.boardPoint}
+						<span class="subTitle">받은 메세지</span>	
+							<div class="infoBox mypageSub d-flex " style="max-height: 40rem; place-content: center; overflow: auto">
+								<div class="d-flex col-11 msgdiv flex-column" id="msgdiv">
+									<c:forEach var="list" items="${chatList}">
+									<a class="d-flex mx-2 pt-3 pb-3 mt-4 mb-4 msg_link"
+										href="/roommate/myRoommateChat?roommateBoardNum=${list.roommateBoardNum}
+										&sendUserType=${list.sendUserType}&sendUserNum=${list.sendUserNum}&sendProfile=${list.sendProfile}
+										">
+										<div class="col-10 d-flex msg_box" >
+											<div class="msg_img_box col-12">
+												<img alt="썸네일" src="/upload/${list.sendProfile}" class="msg_img_list">
 											</div>
-										</c:if>
-										
-										<c:if test="${writenList.boardPoint == 0}">
-											<div class="col-1 pointInfo">
-											<img alt="point" src="/image/cube.png" width="15px" height="15px" style="margin-top: 1px;">		
+											<div class="col-10 d-flex flex-column" style="padding-left: 15px;">
+												<div class="title_msg">
+													${list.boardTitle}
+												</div>
+												<div class="content_msg">
+													${list.textContent}
+												</div>
 											</div>
-										</c:if>
+										</div>
 										
+										<div class="col-2 d-flex " style="width: 11%; margin-right: 20px">
+											<button type="button" class="btn answer_button">답변 완료</button>
+										</div>
 									</a>
-								</c:forEach>
-							</div>
-						<span class="subTitle">채택이 필요해요!</span>	
-							<div class="infoBox mypageSub">
-								
-								<div style="text-align: end; margin-right: 15px;">
-									<a href="/main/seeAllrequired?num=${mentorUser.num}" class="seeAlla">전체보기</a>
+									</c:forEach>
+									</div>
 								</div>
-								
-								<c:forEach var="requiredList" items="${requiredList}">
-									<a class="d-flex col-11 m-auto selectedList" href="/menti/mentiboard?num=${requiredList.num}">
-										
-										<div class="col-2 regionalInfo">
-											${requiredList.country} | ${requiredList.city}
-										</div>
-										<div class="col-6 titleInfo">
-											${requiredList.boardTitle}
-										</div>
-										<div class="col-2 dateInfo"> 
-											${requiredList.boardDate}
-										</div>
-										
-										<c:if test="${requiredList.boardPoint > 0}">
-											<div class="col-1 pointInfo">
-											<img alt="point" src="/image/gem.png" width="15px" height="15px" style="margin-top: 1px;">		
-												${requiredList.boardPoint}
-											</div>
-										</c:if>
-										
-										<c:if test="${requiredList.boardPoint == 0}">
-											<div class="col-1 pointInfo">
-											<img alt="point" src="/image/cube.png" width="15px" height="15px" style="margin-top: 1px;">		
-											</div>
-										</c:if>
-										
-									</a>
-								</c:forEach>
 							</div>
+						</div>
 						
 					</div>			
 				</div>			

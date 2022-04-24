@@ -135,7 +135,7 @@
     </div>
     
     <!-- 메인 시작 -->
-    <div class="" style="height: 75rem; background-color: #dcdcdc57;">
+    <div class="" style="height: 80rem; background-color: #dcdcdc57;">
 		
 		<main class="d-flex col-8 m-auto" style="height: 100%">
 			<div class="col-3 d-flex flex-column m-auto" style="height: 63rem;">
@@ -162,6 +162,9 @@
 				
 				<div class="col-12">
 					<div class="col-12 d-flex flex-column">
+						<div class="infoBox modifyInfo">
+							<a href="/main/mypage${userType}" id="modifyB">멘토링</a>
+						</div>
 						<div class="infoBox modifyInfo">
 							<a href="/roommate/myRoommate" id="modifyB">마이 룸메이트</a>
 						</div>

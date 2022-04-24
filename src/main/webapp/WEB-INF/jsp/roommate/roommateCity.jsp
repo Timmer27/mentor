@@ -177,7 +177,7 @@
 	<div class="col-11 m-auto mt-4 d-flex" style="place-content: center;">
 		<div class="col-10 m-auto mt-4 d-flex flex-column">
 			<c:forEach var="roommateList" items="${roommateList}">
-				<a class="col-9 m-auto mt-4 mb-4 d-flex boardBox" href="/roommate/brl?num=${roommateList.num}">
+				<a class="col-9 m-auto mt-4 mb-4 d-flex boardBox" href="/roommate/brl?selectedCountry=${selectedCountry}&num=${roommateList.num}">
 					<div class="imgBox col-3">
 						<img class="cardImg" alt="pic" src="/upload/${roommateList.thumbPic}">
 					</div>
@@ -214,10 +214,10 @@
 									${roommateList.bath} bath
 								</div>				
 								
-								<div class="col-4" style="width: 28%;">
+								<div class="col-4" style="width: 30%;">
 									${roommateList.postDate}
 								</div>				
-								<div class="" style="width: 8%;">
+								<div class="" style="width: 15%;">
 								<img alt="view" src="/image/view.png" width="17px">
 									<c:if test="${roommateList.view!=null}">
 										<span style="margin: 0px 5px 0px">${roommateList.view}</span>

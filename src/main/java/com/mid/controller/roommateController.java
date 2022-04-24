@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +22,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mid.VO.cityCoordinatesVO;
+import com.mid.VO.roommateChatVO;
 import com.mid.VO.roommateVO;
 import com.mid.mapper.mainMapper;
 import com.mid.mapper.mentiMapper;
+import com.mid.mapper.roommateMapper;
 import com.mid.service.roommateService;
 
 @Controller
@@ -32,6 +35,9 @@ public class roommateController {
 	
 	@Autowired
 	roommateService service;
+	
+	@Autowired
+	roommateMapper roommateMapper;
 	
 	@Autowired
 	mentiMapper mentiMapper;
@@ -64,6 +70,7 @@ public class roommateController {
 		
 //		기본 정보 출력
 		m.addAttribute("roommateList", service.getRoommateList(num, cityName, selectedCountry));
+
 //		기본정보 페이지 넘버 출력
 		m.addAttribute("roommateListPageNum", service.roommateListPageNum(num, cityName, selectedCountry));
 		
@@ -76,7 +83,7 @@ public class roommateController {
 //	룸메이트 구직 세부정보 출력
 	@GetMapping("/brl")
 	public String roommates(@RequestParam String num, @SessionAttribute(name = "num", required = false)String userNum,
-			@SessionAttribute String userType, Model m){
+			@SessionAttribute(required = false) String userType, @RequestParam(required = false) String selectedCountry, Model m){
 
 //		나중에 필요한 num 화면에 유지
 		m.addAttribute("boardNum", num);
@@ -88,6 +95,7 @@ public class roommateController {
 		if(service.files(num).size() == 0) {
 			m.addAttribute("filecheck", "none");
 		}
+//		저장된 방 사진들 출력
 		m.addAttribute("files", service.files(num));
 		
 //		좋아요 누른 글인지 확인
@@ -96,7 +104,36 @@ public class roommateController {
 //		조회수 증가 반영
 		service.viewIncrease(num);
 		
+//		나라에 맞는 통화 출력
+		m.addAttribute("currency", service.getCurrency(selectedCountry));
+
+//		현재까지 주고받은 메세지 출력
+		List<roommateChatVO> list = service.chathistory(num, userType, userNum);
+		m.addAttribute("chathistory", list);
+//		텍스트 받는 본인이 누구인지 구별하는 기준
+		m.addAttribute("userTest", userNum+userType);
+//		for clone
+		m.addAttribute("profilePic", roommateMapper.getprofilePic(userNum, userType));
+		
 		return "/roommate/roommateInfo";
+	}
+	
+//	룸메이트 채팅 기능
+	@PostMapping("/chatSend")
+	@Transactional
+	@ResponseBody
+	public Map<String, String> chatSend(@SessionAttribute(name = "num") String userNum,
+			@SessionAttribute String userType, @RequestParam String boardNum, @RequestParam String chat,
+			@RequestParam String sendUserType, @RequestParam String sendUserNum){
+//		받은 정보 DB 저장
+		if(chat.contains("jQuery3600")) {
+			chat = "?";
+		}
+		service.chatSave(userNum, userType, boardNum, chat, sendUserType, sendUserNum);
+		
+//		현재 보낸 채팅 ajax로 비동기 업데이트
+		Map<String, String> map = service.currentChat(chat, userNum, userType);
+		return map;
 	}
 	
 //	도시 coordinates 지도정보 반환
@@ -270,10 +307,48 @@ public class roommateController {
 		m.addAttribute("nickName", nickName);
 		m.addAttribute("profile_image", profile_image);
 		
+		if(userType.equals("menti")) {
+			m.addAttribute("userType", "Menti");
+		}
+		else {
+			m.addAttribute("userType", "Mentor");
+		}
+		
 //		저장한 글 정보 출력
 		m.addAttribute("savePost", service.getsavePost(num, userType));
 		
+//		받은 메세지 정보 출력 
+//		일단 글 쓴 보드 숫자 배열로 받고 for 돌려서 상응하는 댓글 가져오기
+		m.addAttribute("chatList", service.chatList(userType, num));
+		
+	
 		return "/roommate/mypageRoommate";
 	}
+//	마이페이지 룸메이트 채팅 이동
+	@GetMapping("myRoommateChat")
+	public String myRoommateChat(Model m, @SessionAttribute(required = false) String id,
+			@SessionAttribute(required = false) String num,
+			@SessionAttribute(required = false) String userType,
+			@RequestParam String roommateBoardNum, @RequestParam String sendUserType,
+			@RequestParam String sendUserNum) {
+		
+		if(id==null || num==null) {
+			return "redirect:/main";
+		}
+		
+//		현재까지 채팅기록 출력
+		List<roommateChatVO> list = service.chathistory(num, userType, roommateBoardNum, sendUserType, sendUserNum);
+		m.addAttribute("chathistory", list);
+		
+//		필요한 boardNum 화면 출력
+		m.addAttribute("boardNum", roommateBoardNum);
+		
+//		텍스트 받는 본인이 누구인지 구별하는 기준
+		m.addAttribute("userTest", num+userType);
+//		for clone
+		m.addAttribute("profilePic", roommateMapper.getprofilePic(num, userType));
 
+		return "/roommate/myRoommateChat";
+
+	}
 }

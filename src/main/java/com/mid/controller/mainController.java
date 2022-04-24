@@ -175,7 +175,15 @@ public class mainController {
 
 //		좋아요 누른 글 출력
  		m.addAttribute("likedList", mainService.likedList(id, userType));
-		
+ 		
+// 		페이지 이동을 위한 userType 출력
+		if(userType.equals("menti")) {
+			m.addAttribute("userType", "Menti");
+		}
+		else {
+			m.addAttribute("userType", "Mentor");
+		}
+
 		return "/main/mypageMenti";
 	}
 	
@@ -210,6 +218,14 @@ public class mainController {
 		
 //		좋아요 누른 글 출력
  		m.addAttribute("likedList", mainService.likedList(id, userType));
+ 		
+// 		페이지 이동을 위한 userType 출력
+		if(userType.equals("menti")) {
+			m.addAttribute("userType", "Menti");
+		}
+		else {
+			m.addAttribute("userType", "Mentor");
+		}
  		
 		return "/main/mypageMentor";
 	}	

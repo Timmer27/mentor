@@ -208,7 +208,7 @@
 				</div> -->
 				
 				<!-- Thumbnail images -->
-				<div class="row col-12 m-auto d-flex mt-2" style="height: 6rem; justify-content: space-between;;">
+				<div class="row col-12 m-auto d-flex mt-2 picboxs">
 				<c:forEach var="files" items="${files}" varStatus="status">
 					<div class="column">
 						<img class="demo cursor imgContent" src="/upload/${files}"
@@ -237,7 +237,7 @@
 					</div>
 				</div>
 				
-				<div class="sticky-top contact" style="width:30%; height: fit-content;">
+				<div class="sticky-top contact" id="contact">
 					<div class="col-11 m-auto" style="font-size: 20px;">
 						<div class="col-12 seperator">
 						
@@ -253,17 +253,112 @@
 					</div>
 						
 					<div class="col-11 m-auto mt-4 mb-4 d-flex prices">
-						<div class="col-9 px-2">
+						<div class="col-12 px-2">
 							<span style="font-weight: bold; color: #022f6c;">
 								${roommateInfo.expense}
-								<span>$</span>
+								<span>${currency}</span>
 							</span>
-						<span style="font-size: 17px; align-self: end; color: #6e6e6ed1; font-style: oblique;">
-							per Month
-						</span>
+							
+							<span class="px-2" style="font-size: 17px; align-self: end; color: #6e6e6ed1; font-style: oblique;">
+								per Month
+							</span>
 						</div>
 					</div>
-					<div class="col-11 m-auto seperator text-center" style="padding-bottom: 20px;">
+					
+										
+					
+					<div class="" id="chatBox">
+						<div class="chatTop">
+							<a href="javascript:swipeBoard()">
+								<img alt="<" src="/image/back.png" width="27px" style="margin-left: 10px; margin-top: 4px;">
+							</a>	
+						</div>
+						
+						<!-- 채팅창 박스 -->
+						<div id="textboard">
+							<c:if test="${fn:length(chathistory)==0}">
+							
+								<div id="toClone">						
+									<div class="d-flex col-12 sendBox" style="visibility: hidden">
+										<div class="d-flex chat col-7 pt-2 pb-2">
+											<div class="d-flex flex-column chat_log col-10">
+												<div class="chatContent">
+												</div>
+											</div>
+										</div>
+										<div class="d-flex col-2 picsend" style="">
+											<div class="picBox">
+												<img alt="/image/user.png" src="/upload/${profilePic}" class="col-2 chatprofile">
+											</div>
+										</div>
+									</div>
+									<div class="chatDatesend col-12">
+										<div class="date_box">
+										</div>
+									</div>
+								</div>
+								
+							</c:if>
+							<c:forEach var="chathistory" items="${chathistory}">
+							<c:set var="userChat" value="${chathistory.sendUserNum}${chathistory.sendUserType}" />
+								<c:if test="${userTest!=userChat}">
+									<div id="toClone">						
+										<div class="d-flex col-11">
+											<div class="d-flex col-2 pic">
+												<div class="picBox">
+													<img alt="/image/user.png" src="/upload/${chathistory.sendProfile}" class="col-2 chatprofile">
+												</div>
+											</div>
+											<div class="d-flex chat col-8 pt-2 pb-2">
+												<div class="d-flex flex-column chat_log col-10">
+													<div class="chatContent">
+														${chathistory.textContent}
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="chatDate date_box col-10 text-end" id="date_box">
+											${chathistory.textDate}
+										</div>
+									</div>
+								</c:if>
+								<c:if test="${userTest==userChat}">
+									<div id="toClone">						
+										<div class="d-flex col-12 sendBox" style="">
+											<div class="d-flex chat col-7 pt-2 pb-2">
+												<div class="d-flex flex-column chat_log col-10">
+													<div class="chatContent">
+														${chathistory.textContent}
+													</div>
+												</div>
+											</div>
+											<div class="d-flex col-2 picsend" style="">
+												<div class="picBox">
+													<img alt="/image/user.png" src="/upload/${chathistory.sendProfile}" class="col-2 chatprofile">
+												</div>
+											</div>
+										</div>
+										<div class="chatDatesend col-12">
+											<div class="date_box">
+												${chathistory.textDate}
+											</div>
+										</div>
+									</div>
+								</c:if>
+							</c:forEach>
+						<!-- 채팅창 박스 -->
+
+						</div>
+						<div style="height: 4rem;">
+							<div class="d-flex" style="height: 100%;">
+								<textarea class="col-10" type="text" id='textContent' name='textContent' onkeypress="enterkey()"></textarea>
+								<button class="sendButton" id="sendButton" onclick="return sendChat()" >전송</button>
+							</div>
+						</div>		
+					</div>		
+					
+					
+					<div class="col-11 m-auto seperator text-center mainInfoBox" style="padding-bottom: 20px;">
 						<button class="col-5 btn btn-primary" id='contactPerson'>
 							연락하기
 						</button>
@@ -305,15 +400,30 @@
 									<a id="emailLink" href="mailto:${roommateInfo.email}">${roommateInfo.email}</a>
 								</div>								
 							</div>
+							
+							<c:set var="userIdentify" value="${roommateInfo.userNum}${roommateInfo.userType}"/>
+							
+								<c:if test="${userTest!=userIdentify}">
+								<div class="col-12 d-flex mb-2" style="place-content: center;">
+									<div class="col-1">
+										<img class="col-1" alt="message" src="/image/message.png" style="width:22px;">							
+									</div>
+									<div class="col-11" style="font-size: 14px; align-self: center;">
+										<a id="message" href="javascript:swipeBoardtoChat()">메세지 보내기</a>
+									</div>								
+								</div>
+							</c:if>
 						</div>
+						
 					</div>
 					<div class="col-11 px-1 m-auto mt-4 mb-4 d-flex flex-column seperator subinfoBox">
-						<div class="col-12 d-flex" style="padding-bottom: 10px;">
-							<div class="col-6">
+						<div class="col-12 d-flex flex-column" style="padding-bottom: 10px;">
+							<div class="col-12">
 								<span class="boldText">보증금</span>	
 								<span class="values">${roommateInfo.securityDeposit}</span>
+								<span>${currency}</span>
 							</div>
-							<div class="col-6">
+							<div class="col-12" style="padding-bottom: 10px;">
 								<span class="boldText">성별</span>	
 								<span class="values">${roommateInfo.gender}</span>
 							</div>
@@ -346,6 +456,7 @@
 						</c:if>
 					</div>
 				</div>
+				
 			</div>
 			
 			<hr>

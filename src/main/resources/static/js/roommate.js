@@ -62,11 +62,16 @@ function showSlides(n) {
 		slides[i].style.display = "none";
 	}
 	for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
+    	dots[i].className = dots[i].className.replace(" active", "");
 	}
-	slides[slideIndex-1].style.display = "block";
-	dots[slideIndex-1].className += " active";
-  //captionText.innerHTML = dots[slideIndex-1].alt;
+	if(slides.length == 0){
+		return false;
+	}
+	else{
+		slides[slideIndex-1].style.display = "block";
+		dots[slideIndex-1].className += " active";
+	  //captionText.innerHTML = dots[slideIndex-1].alt;
+	}
 }
 
 
@@ -105,7 +110,7 @@ $(document).ready(function(){
 			);
 						
 			//	도시 이름은 검색창에 센스로 넣어놓자
-			$('input[type=text]').val(cityName)
+			$('.mapboxgl-ctrl-geocoder--input').val(cityName)
 		}
 	})
 })
@@ -197,4 +202,87 @@ function newpost(){
 			location.href="/loginRegister/login"
 		}
 	})
+}
+//채팅창 팝업
+function swipeBoardtoChat(){
+	$('.subinfoBox').css("max-height","0");
+	$('.mainInfoBox').css("max-height","0");
+	$('.mainInfoBox').css("visibility","hidden");
+	$('#chatBox').css("max-height","29rem");
+	$('#chatBox').css("visibility","visible");
+}
+
+// 원래 기본정보 팝업
+function swipeBoard(){
+	
+	$('.subinfoBox').css("max-height","30rem");
+	$('.mainInfoBox').css("max-height","30rem");
+	$('.mainInfoBox').css("visibility","visible");
+	$('#chatBox').css("max-height","0");
+	$('#chatBox').css("visibility","hidden");
+}
+
+
+//채팅보내기
+function sendChat(){
+	var chat = $('#textContent').val();
+	var boardNum = $('#boardNum').text();
+	$.ajax({
+		//일단 로그인이 되었는지를 확인함
+		url: '/loginRegister/idCheck',
+		caches: false,
+		method: 'post',
+		dataType:'json',
+		success:function(res){
+			if(res){
+		//		개행문자 처리
+				var boardSpace = chat.replace(/\n/g, "<br/>")
+				var boardSpace = chat.replace('?', '?')
+				$.ajax({
+					dataType:'json',
+					caches:false,
+					method:'post',
+					url:'/roommate/chatSend?boardNum=' + boardNum + '&chat=' + boardSpace,
+					success:function(res){
+					
+						$('#toClone').clone().appendTo('#textboard')
+						var c = document.getElementsByClassName('chatContent');
+						var classNum = c.length;
+						
+						//넣은 값을 마지막 클래스 인덱스에 넣어서 채팅창처럼 보이게 함
+						$('.sendBox').css("visibility", "visible")
+						
+						document.getElementsByClassName('chatContent')[classNum-1].innerHTML = res.textContent
+						document.getElementsByClassName('date_box')[classNum-1].innerHTML = res.textDate
+
+						//채팅창 하단에 고정						
+						$('#textboard').scrollTop($('#textboard')[0].scrollHeight)
+						
+						//챗 보내고 박스 초기화
+						var button = document.getElementById("textContent");
+						button.value="";
+					
+					},
+					error:function(request){
+						console.log(request.responseText);
+					}
+				})
+				return false;
+			}
+		},
+		error:function(request){
+			location.href="/loginRegister/login"
+		}
+	})
+	return false;
+}
+
+
+function enterkey() {
+    // 엔터키 누를 경우 서버로 메시지 전송
+    var keyCode = event.keyCode || event.which;
+    // 크로스 브라우저 이벤트 호환목적 ||
+    if (keyCode == 13) {
+		sendChat()
+    }
 }

@@ -497,7 +497,7 @@
 			    	<div class="col-5 pb-2 inputText" style="width: 100%; margin-bottom: 20px; border-bottom: 1px solid #95959582;">
 				    	<span>남</span> <input class="col-1" type="radio" name="gender" value="남" style="width: 4%">
 				    	<span>여</span> <input class="col-1" type="radio" name="gender" value="여" style="width: 4%">
-				    	<span>무관</span> <input class="col-1" type="radio" name="gender" value="여" style="width: 4%">
+				    	<span>무관</span> <input class="col-1" type="radio" name="gender" value="무관" style="width: 4%">
 			    	</div>
 		    	<div>
 		    	
