@@ -8,11 +8,12 @@
 <h4>데이터베이스 : mySQL</h4>
 <h4>프레임워크 : Spring</h4>
 <h4>도구 및 언어 : Eclipse | Java, Python, JQuery, JavaScript, CSS, HTML, BootStrap, KAKAO API, Google API, mapBox API, OWl Carousel API</h4>
+<h4>동영상 : https://www.youtube.com/watch?v=RP5Mrua0H0U&feature=youtu.be </h4>
 
 <br>
 
 ----
-
+Cancel changes
 <h3>주요 기능</h3>
 
 - SNS API 연동을 한 간편 로그인/회원가입 기능
